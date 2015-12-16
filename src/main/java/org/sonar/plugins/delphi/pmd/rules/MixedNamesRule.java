@@ -29,6 +29,8 @@ import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
+import net.sourceforge.pmd.RuleContext;
+
 /**
  * Rule that checks if you are using function/variables names correctly, that is
  * you don't mispell them, example: <code>var
@@ -56,7 +58,7 @@ public class MixedNamesRule extends DelphiRule {
   }
 
   @Override
-  public Object visit(DelphiPMDNode node, Object data) {
+  public void visit(DelphiPMDNode node, RuleContext ctx) {
     int type = node.getType();
     switch (type) {
       case DelphiLexer.IMPLEMENTATION:
@@ -70,7 +72,7 @@ public class MixedNamesRule extends DelphiRule {
         if (onInterface) {
           functionNames.addAll(buildNames(node, false));
         } else {
-          checkFunctionNames(node, data);
+          checkFunctionNames(node, ctx);
         }
         break;
       case DelphiLexer.VAR:
@@ -80,17 +82,16 @@ public class MixedNamesRule extends DelphiRule {
         break;
       case DelphiLexer.BEGIN:
         if (!onInterface) {
-          checkVariableNames(node, data, true);
+          checkVariableNames(node, ctx, true);
         }
         break;
     }
-    return data;
   }
 
   /**
    * Check variable names between begin...end statements
    */
-  protected void checkVariableNames(DelphiPMDNode node, Object data, boolean clear) {
+  protected void checkVariableNames(DelphiPMDNode node, RuleContext ctx, boolean clear) {
     for (int i = 0; i < node.getChildCount(); ++i) {
 
       // Cast exception was thrown, so we use c-tor instead of casting to DelphiPMDNode
@@ -99,12 +100,12 @@ public class MixedNamesRule extends DelphiRule {
         lastLineParsed = child.getLine();
       }
       if (child.getType() == DelphiLexer.BEGIN) {
-        checkVariableNames(child, data, false);
+        checkVariableNames(child, ctx, false);
       } else {
         for (String globalName : variableNames) {
           if (child.getText().equalsIgnoreCase(globalName.toLowerCase())
             && !child.getText().equals(globalName)) {
-            addViolation(data, child, "Avoid mixing variable names (found: '" + child.getText()
+            addViolation(ctx, child, "Avoid mixing variable names (found: '" + child.getText()
               + "' expected: '" + globalName + "').");
           }
         }
@@ -119,12 +120,12 @@ public class MixedNamesRule extends DelphiRule {
   /**
    * Check function names
    */
-  protected void checkFunctionNames(DelphiPMDNode node, Object data) {
+  protected void checkFunctionNames(DelphiPMDNode node, RuleContext ctx) {
     List<String> currentNames = buildNames(node, false);
     for (String name : currentNames) {
       for (String globalName : functionNames) {
         if (name.equalsIgnoreCase(globalName.toLowerCase()) && !name.equals(globalName)) {
-          addViolation(data, node, "Avoid mixing function names (found: '" + name + "' expected: '"
+          addViolation(ctx, node, "Avoid mixing function names (found: '" + name + "' expected: '"
             + globalName + "').");
         }
       }

@@ -26,6 +26,8 @@ import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.analyzer.LexerMetrics;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
+import net.sourceforge.pmd.RuleContext;
+
 /**
  * Cast And Free rule - don't cast, just to free something, example:
  * TMyObject(sth).free; (sth as TMyObject).free;
@@ -48,13 +50,12 @@ public class CastAndFreeRule extends DelphiRule {
   }
 
   @Override
-  public Object visit(DelphiPMDNode node, Object data) {
-    sequenceHardCastIndex = processSequence(hardCastSequence, sequenceHardCastIndex, node, data);
-    sequenceSoftCastIndex = processSequence(softCastSequence, sequenceSoftCastIndex, node, data);
-    return data;
+  public void visit(DelphiPMDNode node, RuleContext ctx) {
+    sequenceHardCastIndex = processSequence(hardCastSequence, sequenceHardCastIndex, node, ctx);
+    sequenceSoftCastIndex = processSequence(softCastSequence, sequenceSoftCastIndex, node, ctx);
   }
 
-  private int processSequence(LexerMetrics sequence[], int sequenceIndex, DelphiPMDNode node, Object data) {
+  private int processSequence(LexerMetrics sequence[], int sequenceIndex, DelphiPMDNode node, RuleContext ctx) {
     int resultIndex = sequenceIndex;
     if (resultIndex >= sequence.length) {
       resultIndex = 0;
@@ -63,7 +64,7 @@ public class CastAndFreeRule extends DelphiRule {
       ++resultIndex;
       if (isCorrectSequence(sequence, resultIndex, node)) {
         resultIndex = 0;
-        addViolation(data, node);
+        addViolation(ctx, node);
       }
     }
     else {
