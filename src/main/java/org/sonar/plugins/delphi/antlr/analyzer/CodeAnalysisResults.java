@@ -33,48 +33,48 @@ import java.util.List;
  */
 public class CodeAnalysisResults extends CodeAnalysisState {
 
-  protected List<FunctionInterface> functions = new ArrayList<FunctionInterface>();
-  protected List<ClassInterface> classes = new ArrayList<ClassInterface>();
+    protected List<FunctionInterface> functions = new ArrayList<FunctionInterface>();
+    protected List<ClassInterface> classes = new ArrayList<ClassInterface>();
 
-  /**
-   * @return class list in current file
-   */
-  public List<ClassInterface> getClasses() {
-    return classes;
-  }
+    /**
+     * @return class list in current file
+     */
+    public List<ClassInterface> getClasses() {
+        return classes;
+    }
 
-  /**
-   * @return function list in current file
-   */
-  public List<FunctionInterface> getFunctions() {
-    return functions;
-  }
+    /**
+     * @return function list in current file
+     */
+    public List<FunctionInterface> getFunctions() {
+        return functions;
+    }
 
-  /**
-   * add function to current file
-   * 
-   * @param activeFunction function to add
-   */
-  public void addFunction(FunctionInterface activeFunction) {
-    functions.add(activeFunction);
-  }
+    /**
+     * add function to current file
+     *
+     * @param activeFunction function to add
+     */
+    public void addFunction(FunctionInterface activeFunction) {
+        functions.add(activeFunction);
+    }
 
-  /**
-   * add class to current file
-   * 
-   * @param clazz class to add
-   */
-  public void addClass(ClassInterface clazz) {
-    classes.add(clazz);
-  }
+    /**
+     * add class to current file
+     *
+     * @param clazz class to add
+     */
+    public void addClass(ClassInterface clazz) {
+        classes.add(clazz);
+    }
 
-  /**
-   * check, if there is a certain function in current file
-   * 
-   * @param activeFunction function to find
-   * @return true if function is present, false otherwise
-   */
-  public boolean hasFunction(FunctionInterface activeFunction) {
-    return functions.contains(activeFunction);
-  }
+    /**
+     * check, if there is a certain function in current file
+     *
+     * @param activeFunction function to find
+     * @return true if function is present, false otherwise
+     */
+    public boolean hasFunction(FunctionInterface activeFunction) {
+        return functions.contains(activeFunction);
+    }
 }

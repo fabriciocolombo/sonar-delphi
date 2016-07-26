@@ -27,63 +27,63 @@ package org.sonar.plugins.delphi.antlr.sanitizer.subranges;
  */
 public class SubRangeMergingAggregator extends SubRangeAggregator {
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  public void add(SubRange newRange) {
-    if (newRange == null) {
-      return;
+    @Override
+    public void add(SubRange newRange) {
+        if (newRange == null) {
+            return;
+        }
+
+        for (SubRange range : data) {
+            if (range.inRange(newRange)) {
+                return;
+            }
+
+            if (shouldMerge(range, newRange)) {
+                range = mergeRanges(range, newRange);
+                removeDuplications(range);
+                return;
+            }
+        }
+        data.add(newRange);
     }
 
-    for (SubRange range : data) {
-      if (range.inRange(newRange)) {
-        return;
-      }
-
-      if (shouldMerge(range, newRange)) {
-        range = mergeRanges(range, newRange);
-        removeDuplications(range);
-        return;
-      }
+    protected boolean shouldMerge(SubRange range1, SubRange range2) {
+        if (range1.inRange(range2)) {
+            return true;
+        }
+        if (range2.inRange(range1)) {
+            return true;
+        }
+        if (range1.inRange(range2.getBegin())) {
+            return true;
+        }
+        return range2.inRange(range1.getBegin());
     }
-    data.add(newRange);
-  }
 
-  protected boolean shouldMerge(SubRange range1, SubRange range2) {
-    if (range1.inRange(range2)) {
-      return true;
+    protected SubRange mergeRanges(SubRange rangeInList, SubRange newRange) {
+        int begin = Math.min(rangeInList.getBegin(), newRange.getBegin());
+        int end = Math.max(rangeInList.getEnd(), newRange.getEnd());
+
+        rangeInList.setBegin(begin);
+        rangeInList.setEnd(end);
+
+        return rangeInList;
     }
-    if (range2.inRange(range1)) {
-      return true;
+
+    protected void removeDuplications(SubRange rangeToCheck) {
+        for (int i = 0; i < data.size(); ++i) {
+            SubRange atRange = data.get(i);
+            if (atRange.equals(rangeToCheck)) {
+                continue;
+            }
+            if (rangeToCheck.inRange(atRange)) {
+                data.remove(i);
+            }
+        }
     }
-    if (range1.inRange(range2.getBegin())) {
-      return true;
-    }
-      return range2.inRange(range1.getBegin());
-  }
-
-  protected SubRange mergeRanges(SubRange rangeInList, SubRange newRange) {
-    int begin = Math.min(rangeInList.getBegin(), newRange.getBegin());
-    int end = Math.max(rangeInList.getEnd(), newRange.getEnd());
-
-    rangeInList.setBegin(begin);
-    rangeInList.setEnd(end);
-
-    return rangeInList;
-  }
-
-  protected void removeDuplications(SubRange rangeToCheck) {
-    for (int i = 0; i < data.size(); ++i) {
-      SubRange atRange = data.get(i);
-      if (atRange.equals(rangeToCheck)) {
-        continue;
-      }
-      if (rangeToCheck.inRange(atRange)) {
-        data.remove(i);
-      }
-    }
-  }
 
 }

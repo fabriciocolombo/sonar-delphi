@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class DelphiIssue implements Issue{
+public class DelphiIssue implements Issue {
 
     private final int line;
     private final RuleKey ruleKey;
@@ -38,10 +38,10 @@ public class DelphiIssue implements Issue{
     public DelphiIssue(int line, RuleKey ruleKey, String message) {
         this.line = line;
         this.ruleKey = ruleKey;
-        this.message=message;
+        this.message = message;
     }
 
-    public Issue getIssue(){
+    public Issue getIssue() {
         return this;
     }
 
@@ -51,7 +51,7 @@ public class DelphiIssue implements Issue{
 
     @Override
     public String toString() {
-        return "("+ line + ", " + ruleKey()+")";
+        return "(" + line + ", " + ruleKey() + ")";
     }
 
     int getLine() {

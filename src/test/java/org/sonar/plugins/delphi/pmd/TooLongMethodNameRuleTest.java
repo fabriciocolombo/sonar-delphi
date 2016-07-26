@@ -26,31 +26,31 @@ import static org.hamcrest.Matchers.*;
 
 public class TooLongMethodNameRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testValidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("function Foo: Integer;");
-    builder.appendImpl("begin");
-    builder.appendImpl(" Result := 1;");
-    builder.appendImpl("end;");
+    @Test
+    public void testValidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("function Foo: Integer;");
+        builder.appendImpl("begin");
+        builder.appendImpl(" Result := 1;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
-
-  @Test
-  public void testTooLongMethod() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("function Foo: Integer;");
-    builder.appendImpl("begin");
-    for (int i = 1; i <= 101; i++) {
-      builder.appendImpl(" Result := Result + 1;");
+        assertThat(issues, is(empty()));
     }
-    builder.appendImpl("end;");
 
-    analyse(builder);
+    @Test
+    public void testTooLongMethod() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("function Foo: Integer;");
+        builder.appendImpl("begin");
+        for (int i = 1; i <= 101; i++) {
+            builder.appendImpl(" Result := Result + 1;");
+        }
+        builder.appendImpl("end;");
 
-    assertThat(issues, hasItem(IssueMatchers.hasRuleKeyAtLine("TooLongMethodRule", builder.getOffSet() + 1)));
-  }
+        analyse(builder);
+
+        assertThat(issues, hasItem(IssueMatchers.hasRuleKeyAtLine("TooLongMethodRule", builder.getOffSet() + 1)));
+    }
 }

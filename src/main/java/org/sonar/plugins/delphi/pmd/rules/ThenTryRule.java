@@ -31,23 +31,22 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
 /**
  * "Try" should always be preceeded with "Begin" after "Then"
- * 
  */
 public class ThenTryRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (node.getType() != DelphiLexer.THEN) {
-      return;
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (node.getType() != DelphiLexer.THEN) {
+            return;
+        }
+
+        DelphiNode parent = (DelphiNode) node.getParent();
+
+        // get next node ident
+        int nextNode = parent.getChildType(node.getChildIndex() + 1);
+
+        if (nextNode == DelphiLexer.TRY) {
+            addViolation(ctx, node);
+        }
     }
-
-    DelphiNode parent = (DelphiNode) node.getParent();
-
-    // get next node ident
-    int nextNode = parent.getChildType(node.getChildIndex() + 1);
-
-    if (nextNode == DelphiLexer.TRY) {
-      addViolation(ctx, node);
-    }
-  }
 }

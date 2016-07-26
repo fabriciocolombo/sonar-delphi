@@ -57,116 +57,116 @@ import static org.mockito.Mockito.when;
 
 public abstract class BasePmdRuleTest {
 
-  protected static final String ROOT_DIR_NAME = "/org/sonar/plugins/delphi/PMDTest";
-  protected static final File ROOT_DIR = DelphiUtils.getResource(ROOT_DIR_NAME);
+    protected static final String ROOT_DIR_NAME = "/org/sonar/plugins/delphi/PMDTest";
+    protected static final File ROOT_DIR = DelphiUtils.getResource(ROOT_DIR_NAME);
 
-  private ResourcePerspectives perspectives;
-  private DelphiProjectHelper delphiProjectHelper;
-  private Issuable issuable;
+    private ResourcePerspectives perspectives;
+    private DelphiProjectHelper delphiProjectHelper;
+    private Issuable issuable;
 
-  protected DelphiPmdSensor sensor;
-  protected Project project;
-  protected List<Issue> issues = new LinkedList<Issue>();
-  private File testFile;
-  private DelphiPmdProfileExporter profileExporter;
-  private RulesProfile rulesProfile;
+    protected DelphiPmdSensor sensor;
+    protected Project project;
+    protected List<Issue> issues = new LinkedList<Issue>();
+    private File testFile;
+    private DelphiPmdProfileExporter profileExporter;
+    private RulesProfile rulesProfile;
 
-  public void analyse(DelphiUnitBuilderTest builder) {
-    configureTest(builder);
+    public void analyse(DelphiUnitBuilderTest builder) {
+        configureTest(builder);
 
-    DebugSensorContext sensorContext = new DebugSensorContext();
-    sensor.analyse(project, sensorContext);
+        DebugSensorContext sensorContext = new DebugSensorContext();
+        sensor.analyse(project, sensorContext);
 
-    assertThat("Errors: " + sensor.getErrors(), sensor.getErrors(), is(empty()));
+        assertThat("Errors: " + sensor.getErrors(), sensor.getErrors(), is(empty()));
 
-  }
-
-  private void configureTest(DelphiUnitBuilderTest builder) {
-    testFile = builder.buildFile(ROOT_DIR);
-
-    String relativePathTestFile = DelphiUtils.getRelativePath(testFile, Arrays.asList(ROOT_DIR));
-
-    configureTest(ROOT_DIR_NAME + "/" + relativePathTestFile);
-  }
-
-  protected void configureTest(String testFileName) {
-    project = mock(Project.class);
-    perspectives = mock(ResourcePerspectives.class);
-    delphiProjectHelper = DelphiTestUtils.mockProjectHelper();
-
-    // Don't pollute current working directory
-    when(delphiProjectHelper.workDir()).thenReturn(new File("target"));
-
-    File srcFile = DelphiUtils.getResource(testFileName);
-
-    InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5",srcFile.getPath()).setModuleBaseDir(Paths.get(ROOT_DIR_NAME));
-
-    DelphiProject delphiProject = new DelphiProject("Default Project");
-    delphiProject.setSourceFiles(Arrays.asList(inputFile));
-
-    issuable = mock(Issuable.class);
-
-    when(delphiProjectHelper.getWorkgroupProjects()).thenReturn(Arrays.asList(delphiProject));
-    when(delphiProjectHelper.getFile(anyString())).thenAnswer(new Answer<InputFile>() {
-      @Override
-      public InputFile answer(InvocationOnMock invocation) throws Throwable {
-        InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5",(new File((String) invocation
-                .getArguments()[0])).getPath()).setModuleBaseDir(Paths.get(ROOT_DIR_NAME));
-
-        when(perspectives.as(Issuable.class, inputFile)).thenReturn(issuable);
-
-        when(issuable.newIssueBuilder()).thenReturn(new StubIssueBuilder());
-
-        return inputFile;
-      }
-    });
-
-    when(issuable.addIssue(Matchers.any(Issue.class))).then(new Answer<Boolean>() {
-      @Override
-      public Boolean answer(InvocationOnMock invocation) throws Throwable {
-          System.out.println("HIER:"+ invocation.getArguments()[0]);
-          System.out.println("HIER2:"+invocation.getArguments()[0]);
-          Issue issue = (Issue) invocation.getArguments()[0];
-        issues.add(issue);
-        return Boolean.TRUE;
-      }
-    });
-    rulesProfile = mock(RulesProfile.class);
-    profileExporter = mock(DelphiPmdProfileExporter.class);
-
-    String fileName = getClass().getResource("/org/sonar/plugins/delphi/pmd/rules.xml").getPath();
-    File rulesFile = new File(fileName);
-    String rulesXmlContent;
-    try {
-      rulesXmlContent = FileUtils.readFileToString(rulesFile);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
     }
 
-    when(profileExporter.exportProfileToString(rulesProfile)).thenReturn(rulesXmlContent);
+    private void configureTest(DelphiUnitBuilderTest builder) {
+        testFile = builder.buildFile(ROOT_DIR);
 
-    sensor = new DelphiPmdSensor(delphiProjectHelper, perspectives, rulesProfile, profileExporter);
-  }
+        String relativePathTestFile = DelphiUtils.getRelativePath(testFile, Arrays.asList(ROOT_DIR));
 
-  @After
-  public void teardown() {
-    if (testFile != null) {
-      testFile.delete();
+        configureTest(ROOT_DIR_NAME + "/" + relativePathTestFile);
     }
-  }
 
-  public String toString(List<Issue> issues) {
-    StringBuilder builder = new StringBuilder();
-    builder.append("[");
-    for (Issue issue : issues) {
-      builder.append(toString(issue)).append(',');
+    protected void configureTest(String testFileName) {
+        project = mock(Project.class);
+        perspectives = mock(ResourcePerspectives.class);
+        delphiProjectHelper = DelphiTestUtils.mockProjectHelper();
+
+        // Don't pollute current working directory
+        when(delphiProjectHelper.workDir()).thenReturn(new File("target"));
+
+        File srcFile = DelphiUtils.getResource(testFileName);
+
+        InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", srcFile.getPath()).setModuleBaseDir(Paths.get(ROOT_DIR_NAME));
+
+        DelphiProject delphiProject = new DelphiProject("Default Project");
+        delphiProject.setSourceFiles(Arrays.asList(inputFile));
+
+        issuable = mock(Issuable.class);
+
+        when(delphiProjectHelper.getWorkgroupProjects()).thenReturn(Arrays.asList(delphiProject));
+        when(delphiProjectHelper.getFile(anyString())).thenAnswer(new Answer<InputFile>() {
+            @Override
+            public InputFile answer(InvocationOnMock invocation) throws Throwable {
+                InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", (new File((String) invocation
+                        .getArguments()[0])).getPath()).setModuleBaseDir(Paths.get(ROOT_DIR_NAME));
+
+                when(perspectives.as(Issuable.class, inputFile)).thenReturn(issuable);
+
+                when(issuable.newIssueBuilder()).thenReturn(new StubIssueBuilder());
+
+                return inputFile;
+            }
+        });
+
+        when(issuable.addIssue(Matchers.any(Issue.class))).then(new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocation) throws Throwable {
+                System.out.println("HIER:" + invocation.getArguments()[0]);
+                System.out.println("HIER2:" + invocation.getArguments()[0]);
+                Issue issue = (Issue) invocation.getArguments()[0];
+                issues.add(issue);
+                return Boolean.TRUE;
+            }
+        });
+        rulesProfile = mock(RulesProfile.class);
+        profileExporter = mock(DelphiPmdProfileExporter.class);
+
+        String fileName = getClass().getResource("/org/sonar/plugins/delphi/pmd/rules.xml").getPath();
+        File rulesFile = new File(fileName);
+        String rulesXmlContent;
+        try {
+            rulesXmlContent = FileUtils.readFileToString(rulesFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        when(profileExporter.exportProfileToString(rulesProfile)).thenReturn(rulesXmlContent);
+
+        sensor = new DelphiPmdSensor(delphiProjectHelper, perspectives, rulesProfile, profileExporter);
     }
-    builder.append("]");
-    return builder.toString();
-  }
 
-  public String toString(Issue issue) {
-    return "Issue [ruleKey=" + issue.ruleKey() + ", message=" + issue.message() + ", line=" + issue.line() + "]";
-  }
+    @After
+    public void teardown() {
+        if (testFile != null) {
+            testFile.delete();
+        }
+    }
+
+    public String toString(List<Issue> issues) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        for (Issue issue : issues) {
+            builder.append(toString(issue)).append(',');
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
+    public String toString(Issue issue) {
+        return "Issue [ruleKey=" + issue.ruleKey() + ", message=" + issue.message() + ", line=" + issue.line() + "]";
+    }
 
 }

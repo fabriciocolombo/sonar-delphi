@@ -25,30 +25,30 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
 public class FieldNameRule extends DelphiRule {
 
-  @Override
-  protected void init() {
-    super.init();
-  }
-
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (node.getType() == DelphiLexer.TkClassField) {
-
-      if (!isPublished()) {
-        Tree variableIdentsNode = node.getChild(0);
-        String name = variableIdentsNode.getChild(0).getText();
-        if (name.length() > 1) {
-	        char firstCharAfterPrefix = name.charAt(1);
-
-	        if (!name.startsWith("F") || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
-	          addViolation(ctx, node);
-	        }
-        } else {
-        	// a single letter name has no prefix 
-          addViolation(ctx, node);
-        }
-      }
+    @Override
+    protected void init() {
+        super.init();
     }
-  }
+
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (node.getType() == DelphiLexer.TkClassField) {
+
+            if (!isPublished()) {
+                Tree variableIdentsNode = node.getChild(0);
+                String name = variableIdentsNode.getChild(0).getText();
+                if (name.length() > 1) {
+                    char firstCharAfterPrefix = name.charAt(1);
+
+                    if (!name.startsWith("F") || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
+                        addViolation(ctx, node);
+                    }
+                } else {
+                    // a single letter name has no prefix
+                    addViolation(ctx, node);
+                }
+            }
+        }
+    }
 
 }

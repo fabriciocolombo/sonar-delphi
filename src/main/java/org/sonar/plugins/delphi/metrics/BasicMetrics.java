@@ -32,8 +32,8 @@ import org.sonar.plugins.delphi.core.language.ClassInterface;
 import org.sonar.plugins.delphi.core.language.FunctionInterface;
 import org.sonar.plugins.delphi.core.language.UnitInterface;
 import org.sonar.plugins.delphi.utils.DelphiUtils;
-import org.sonar.squidbridge.measures.Metric;
 import org.sonar.squid.text.delphi.DelphiSource;
+import org.sonar.squidbridge.measures.Metric;
 
 import java.io.File;
 import java.io.Reader;
@@ -47,55 +47,55 @@ import java.util.Set;
  */
 public class BasicMetrics extends DefaultMetrics implements MetricsInterface {
 
-  @Override
-  public void analyse(InputFile resource, SensorContext sensorContext, List<ClassInterface> classes,
-    List<FunctionInterface> functions,
-    Set<UnitInterface> units) {
-    clearMetrics();
-    Reader reader = null;
-    try {
-      reader = new StringReader(FileUtils.readFileToString(new File(resource.absolutePath())));
-      DelphiSource source = new DelphiSource(reader, new DelphiRecognizer());
-      setMetric("LINES", source.getMeasure(Metric.LINES));
-      setMetric("NCLOC", source.getMeasure(Metric.LINES_OF_CODE));
-      setMetric("COMMENT_LINES", source.getMeasure(Metric.COMMENT_LINES));
-      setMetric("COMMENT_BLANK_LINES", source.getMeasure(Metric.COMMENT_BLANK_LINES));
-      setMetric("PUBLIC_DOC_API", source.getMeasure(Metric.PUBLIC_DOC_API));
-      setMetric("FILES", 1.0);
-    } catch (Exception e) {
-      DelphiUtils.LOG.error("BasicMetrics::analyse() -- Can not analyse the file " + resource.absolutePath(), e);
-    } finally {
-      IOUtils.closeQuietly(reader);
+    @Override
+    public void analyse(InputFile resource, SensorContext sensorContext, List<ClassInterface> classes,
+                        List<FunctionInterface> functions,
+                        Set<UnitInterface> units) {
+        clearMetrics();
+        Reader reader = null;
+        try {
+            reader = new StringReader(FileUtils.readFileToString(new File(resource.absolutePath())));
+            DelphiSource source = new DelphiSource(reader, new DelphiRecognizer());
+            setMetric("LINES", source.getMeasure(Metric.LINES));
+            setMetric("NCLOC", source.getMeasure(Metric.LINES_OF_CODE));
+            setMetric("COMMENT_LINES", source.getMeasure(Metric.COMMENT_LINES));
+            setMetric("COMMENT_BLANK_LINES", source.getMeasure(Metric.COMMENT_BLANK_LINES));
+            setMetric("PUBLIC_DOC_API", source.getMeasure(Metric.PUBLIC_DOC_API));
+            setMetric("FILES", 1.0);
+        } catch (Exception e) {
+            DelphiUtils.LOG.error("BasicMetrics::analyse() -- Can not analyse the file " + resource.absolutePath(), e);
+        } finally {
+            IOUtils.closeQuietly(reader);
+        }
     }
-  }
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  public void save(InputFile resource, SensorContext sensorContext) {
-    sensorContext.saveMeasure(resource, CoreMetrics.LINES, getMetric("LINES"));
-    // Number of physical lines of code -
-    // number of blank lines -
-    // number of comment lines -
-    // number of header file comments -
-    // commented-out lines of code
-    sensorContext.saveMeasure(resource, CoreMetrics.NCLOC, getMetric("NCLOC"));
-    // Number of javadoc, multi-comment and single-comment lines.
-    // Empty comment lines like, header file comments (mainly used to define the license)
-    // and commented-out lines of code are not included.
-    sensorContext.saveMeasure(resource, CoreMetrics.COMMENT_LINES, getMetric("COMMENT_LINES"));
-    sensorContext.saveMeasure(resource, CoreMetrics.FILES, getMetric("FILES"));
-  }
+    @Override
+    public void save(InputFile resource, SensorContext sensorContext) {
+        sensorContext.saveMeasure(resource, CoreMetrics.LINES, getMetric("LINES"));
+        // Number of physical lines of code -
+        // number of blank lines -
+        // number of comment lines -
+        // number of header file comments -
+        // commented-out lines of code
+        sensorContext.saveMeasure(resource, CoreMetrics.NCLOC, getMetric("NCLOC"));
+        // Number of javadoc, multi-comment and single-comment lines.
+        // Empty comment lines like, header file comments (mainly used to define the license)
+        // and commented-out lines of code are not included.
+        sensorContext.saveMeasure(resource, CoreMetrics.COMMENT_LINES, getMetric("COMMENT_LINES"));
+        sensorContext.saveMeasure(resource, CoreMetrics.FILES, getMetric("FILES"));
+    }
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  public boolean executeOnResource(InputFile resource) {
-    return DelphiUtils.acceptFile(resource.absolutePath());
-  }
+    @Override
+    public boolean executeOnResource(InputFile resource) {
+        return DelphiUtils.acceptFile(resource.absolutePath());
+    }
 
 }

@@ -58,6 +58,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/sonar/plugins/delphi/antlr/DelphiLexer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/sonar/plugins/delphi/antlr/DelphiParser.java">
           <value>
             <set />

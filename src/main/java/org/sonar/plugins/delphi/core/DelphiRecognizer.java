@@ -30,10 +30,10 @@ import org.sonar.squidbridge.recognizer.CodeRecognizer;
  */
 public class DelphiRecognizer extends CodeRecognizer {
 
-  /**
-   * ctor
-   */
-  public DelphiRecognizer() {
-    super(1.0, new DelphiFootPrint());
-  }
+    /**
+     * ctor
+     */
+    public DelphiRecognizer() {
+        super(1.0, new DelphiFootPrint());
+    }
 }

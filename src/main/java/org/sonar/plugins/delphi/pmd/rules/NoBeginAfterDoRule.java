@@ -32,25 +32,25 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
  */
 public class NoBeginAfterDoRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (shouldCheck(node)) {
-      Tree nextNode = node.getParent().getChild(node.getChildIndex() + 1);
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (shouldCheck(node)) {
+            Tree nextNode = node.getParent().getChild(node.getChildIndex() + 1);
 
-      if (isWrongNode(nextNode)) {
-        addViolation(ctx, node);
-      }
+            if (isWrongNode(nextNode)) {
+                addViolation(ctx, node);
+            }
 
+        }
     }
-  }
 
-  protected boolean isWrongNode(Tree node) {
-    return node == null
-      || (node.getType() != LexerMetrics.BEGIN.toMetrics() && node.getType() != LexerMetrics.WITH.toMetrics());
-  }
+    protected boolean isWrongNode(Tree node) {
+        return node == null
+                || (node.getType() != LexerMetrics.BEGIN.toMetrics() && node.getType() != LexerMetrics.WITH.toMetrics());
+    }
 
-  protected boolean shouldCheck(Tree node) {
-    return node != null && node.getType() == LexerMetrics.DO.toMetrics();
-  }
+    protected boolean shouldCheck(Tree node) {
+        return node != null && node.getType() == LexerMetrics.DO.toMetrics();
+    }
 
 }

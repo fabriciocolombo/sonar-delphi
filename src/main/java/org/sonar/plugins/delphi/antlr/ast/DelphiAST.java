@@ -49,197 +49,196 @@ import java.io.IOException;
  */
 public class DelphiAST extends CommonTree implements ASTTree {
 
-  private String fileName = null;
-  private boolean isError = false;
-  private DelphiSourceSanitizer fileStream = null;
-  private String[] codeLines = null;
+    private String fileName = null;
+    private boolean isError = false;
+    private DelphiSourceSanitizer fileStream = null;
+    private String[] codeLines = null;
 
-  /**
-   * Constructor.
-   * 
-   * @param file Input file from which to read data for AST tree
-   */
-  public DelphiAST(File file) {
-    this(file, null);
-  }
-
-  /**
-   * Constructor.
-   * 
-   * @param file Input file from which to read data for AST tree
-   * @param encoding  Encoding to use
-   */
-  public DelphiAST(File file, String encoding) {
-    try {
-      fileStream = new DelphiSourceSanitizer(file.getAbsolutePath(), encoding);
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to read file " + file.getAbsolutePath(), e);
-    }
-    DelphiParser parser = new DelphiParser(new TokenRewriteStream(new DelphiLexer(fileStream)));
-    parser.setTreeAdaptor(new DelphiTreeAdaptor(this));
-    try {
-      children = (java.util.List)((CommonTree) parser.file().getTree()).getChildren();
-
-    } catch (RecognitionException e) {
-      throw new RuntimeException("Failed to parse the file " + file.getAbsolutePath(), e);
-    }
-    fileName = file.getAbsolutePath();
-    isError = parser.getNumberOfSyntaxErrors() != 0;
-    codeLines = fileStream.toString().split("\n");
-  }
-
-  /**
-   * Empty, default c-tor.
-   */
-  public DelphiAST() {
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public String getFileName() {
-    return fileName;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public boolean isError() {
-    return isError;
-  }
-
-  /**
-   *  {@inheritDoc}
-   */
-
-  @Override
-  public File generateXML(String fileName) {
-    Source source = new DOMSource(generateDocument());
-
-    File file = new File(fileName);
-    Result result = new StreamResult(file);
-
-    try
-    {
-      // Write the DOM document to the file
-      Transformer xformer = TransformerFactory.newInstance().newTransformer();
-      xformer.transform(source, result);
-    } catch (TransformerException e) {
-      return null;
+    /**
+     * Constructor.
+     *
+     * @param file Input file from which to read data for AST tree
+     */
+    public DelphiAST(File file) {
+        this(file, null);
     }
 
-    return file;
-  }
+    /**
+     * Constructor.
+     *
+     * @param file     Input file from which to read data for AST tree
+     * @param encoding Encoding to use
+     */
+    public DelphiAST(File file, String encoding) {
+        try {
+            fileStream = new DelphiSourceSanitizer(file.getAbsolutePath(), encoding);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read file " + file.getAbsolutePath(), e);
+        }
+        DelphiParser parser = new DelphiParser(new TokenRewriteStream(new DelphiLexer(fileStream)));
+        parser.setTreeAdaptor(new DelphiTreeAdaptor(this));
+        try {
+            children = (java.util.List) ((CommonTree) parser.file().getTree()).getChildren();
 
-  /**
-   * Generates an XML document from current node
-   * 
-   * @return XML document
-   */
-
-  @Override
-  public Document generateDocument() {
-    try {
-      return generateDocument(createNewDocument(), "file");
-    } catch (Exception e) {
-      DelphiUtils.LOG.error(toString() + "Could not generate xml document: " + e.getMessage());
-      return null;
-    }
-  }
-
-  private Document generateDocument(Document doc, String rootName) {
-    Element root = doc.createElement(rootName);
-    doc.appendChild(root);
-
-    // create root children, and their children, and so on
-    generateDocumentChildren(root, doc, this);
-    doc.getDocumentElement().normalize();
-    return doc;
-  }
-
-  private Document createNewDocument() throws ParserConfigurationException {
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-    return docBuilder.newDocument();
-  }
-
-  /**
-   * Generate children for specified root element from delphi node
-   * 
-   * @param root Element
-   * @param doc Document
-   * @param delphiNode DelphiNode
-   */
-  protected void generateDocumentChildren(Element root, Document doc, Tree delphiNode) {
-    if (root == null || doc == null) {
-      return;
+        } catch (RecognitionException e) {
+            throw new RuntimeException("Failed to parse the file " + file.getAbsolutePath(), e);
+        }
+        fileName = file.getAbsolutePath();
+        isError = parser.getNumberOfSyntaxErrors() != 0;
+        codeLines = fileStream.toString().split("\n");
     }
 
-    for (int i = 0; i < delphiNode.getChildCount(); ++i) {
-      Tree childNode = delphiNode.getChild(i);
-      String processedName = processNodeName(childNode);
-      Element child = null;
-      try {
-        child = doc.createElement(processedName);
-      } catch (DOMException e) {
-        child = doc.createElement("Wrapper");
-      }
-
-      child.setTextContent(childNode.getText());
-      child.setAttribute("line", String.valueOf(childNode.getLine()));
-      child.setAttribute("column", String.valueOf(childNode.getCharPositionInLine()));
-      child.setAttribute("class", "");
-      child.setAttribute("method", "");
-      child.setAttribute("package", "");
-      child.setAttribute("type", String.valueOf(childNode.getType()));
-      root.appendChild(child);
-      generateDocumentChildren(child, doc, childNode);
+    /**
+     * Empty, default c-tor.
+     */
+    public DelphiAST() {
     }
-  }
 
-  /**
-   * Some characters are forbidden as XML node, so process them
-   * 
-   * @param str String to process
-   * @return Fixed string
-   */
-  private String processNodeName(Tree node) {
-    String code = node.getText();
-    try {
-      NodeName nodeName = NodeName.findByCode(code);
-      return nodeName.getName();
-    } catch (NodeNameForCodeDoesNotExistException e) {
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public String getFileName() {
+        return fileName;
     }
-    return code;
-  }
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  public String getFileSource() {
-    return fileStream.toString();
-  }
-
-  @Override
-  public String getFileSourceLine(int lineNr) {
-    if (lineNr < 1) {
-      throw new IllegalArgumentException(toString() + " Source code line cannot be less than 1");
+    @Override
+    public boolean isError() {
+        return isError;
     }
-    if (lineNr > codeLines.length) {
-      throw new IllegalArgumentException(toString() + "Source code line number to high: " + lineNr + " of max "
-        + codeLines.length);
-    }
-    return codeLines[lineNr - 1];
-  }
 
-  @Override
-  public String toString() {
-    return "DelphiAST{" + "fileName='" + fileName + '\'' + '}';
-  }
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public File generateXML(String fileName) {
+        Source source = new DOMSource(generateDocument());
+
+        File file = new File(fileName);
+        Result result = new StreamResult(file);
+
+        try {
+            // Write the DOM document to the file
+            Transformer xformer = TransformerFactory.newInstance().newTransformer();
+            xformer.transform(source, result);
+        } catch (TransformerException e) {
+            return null;
+        }
+
+        return file;
+    }
+
+    /**
+     * Generates an XML document from current node
+     *
+     * @return XML document
+     */
+
+    @Override
+    public Document generateDocument() {
+        try {
+            return generateDocument(createNewDocument(), "file");
+        } catch (Exception e) {
+            DelphiUtils.LOG.error(toString() + "Could not generate xml document: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Document generateDocument(Document doc, String rootName) {
+        Element root = doc.createElement(rootName);
+        doc.appendChild(root);
+
+        // create root children, and their children, and so on
+        generateDocumentChildren(root, doc, this);
+        doc.getDocumentElement().normalize();
+        return doc;
+    }
+
+    private Document createNewDocument() throws ParserConfigurationException {
+        DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+        return docBuilder.newDocument();
+    }
+
+    /**
+     * Generate children for specified root element from delphi node
+     *
+     * @param root       Element
+     * @param doc        Document
+     * @param delphiNode DelphiNode
+     */
+    protected void generateDocumentChildren(Element root, Document doc, Tree delphiNode) {
+        if (root == null || doc == null) {
+            return;
+        }
+
+        for (int i = 0; i < delphiNode.getChildCount(); ++i) {
+            Tree childNode = delphiNode.getChild(i);
+            String processedName = processNodeName(childNode);
+            Element child = null;
+            try {
+                child = doc.createElement(processedName);
+            } catch (DOMException e) {
+                child = doc.createElement("Wrapper");
+            }
+
+            child.setTextContent(childNode.getText());
+            child.setAttribute("line", String.valueOf(childNode.getLine()));
+            child.setAttribute("column", String.valueOf(childNode.getCharPositionInLine()));
+            child.setAttribute("class", "");
+            child.setAttribute("method", "");
+            child.setAttribute("package", "");
+            child.setAttribute("type", String.valueOf(childNode.getType()));
+            root.appendChild(child);
+            generateDocumentChildren(child, doc, childNode);
+        }
+    }
+
+    /**
+     * Some characters are forbidden as XML node, so process them
+     *
+     * @param str String to process
+     * @return Fixed string
+     */
+    private String processNodeName(Tree node) {
+        String code = node.getText();
+        try {
+            NodeName nodeName = NodeName.findByCode(code);
+            return nodeName.getName();
+        } catch (NodeNameForCodeDoesNotExistException e) {
+        }
+        return code;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public String getFileSource() {
+        return fileStream.toString();
+    }
+
+    @Override
+    public String getFileSourceLine(int lineNr) {
+        if (lineNr < 1) {
+            throw new IllegalArgumentException(toString() + " Source code line cannot be less than 1");
+        }
+        if (lineNr > codeLines.length) {
+            throw new IllegalArgumentException(toString() + "Source code line number to high: " + lineNr + " of max "
+                    + codeLines.length);
+        }
+        return codeLines[lineNr - 1];
+    }
+
+    @Override
+    public String toString() {
+        return "DelphiAST{" + "fileName='" + fileName + '\'' + '}';
+    }
 }

@@ -38,30 +38,30 @@ import static org.junit.Assert.fail;
 
 public class DelphiASTTest {
 
-  private static final String TEST_FILE = "/org/sonar/plugins/delphi/grammar/GrammarTest.pas";
-  private ASTTree ast;
+    private static final String TEST_FILE = "/org/sonar/plugins/delphi/grammar/GrammarTest.pas";
+    private ASTTree ast;
 
-  @Before
-  public void setup() throws IOException, RecognitionException {
-    ast = new DelphiAST(DelphiUtils.getResource(TEST_FILE));
-  }
-
-  @Test
-  public void generateXMLTest() throws IOException {
-    File xml = File.createTempFile("DelphiAST", ".xml");
-    xml.deleteOnExit();
-
-    ast.generateXML(xml.getAbsolutePath());
-
-    try {
-      DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      parser.parse(xml);
-    } catch (ParserConfigurationException e) {
-      fail("Could not parse generated XML document");
-    } catch (SAXException e) {
-      fail("Could not parse generated XML document");
+    @Before
+    public void setup() throws IOException, RecognitionException {
+        ast = new DelphiAST(DelphiUtils.getResource(TEST_FILE));
     }
 
-  }
+    @Test
+    public void generateXMLTest() throws IOException {
+        File xml = File.createTempFile("DelphiAST", ".xml");
+        xml.deleteOnExit();
+
+        ast.generateXML(xml.getAbsolutePath());
+
+        try {
+            DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            parser.parse(xml);
+        } catch (ParserConfigurationException e) {
+            fail("Could not parse generated XML document");
+        } catch (SAXException e) {
+            fail("Could not parse generated XML document");
+        }
+
+    }
 
 }

@@ -26,57 +26,57 @@ import static org.hamcrest.Matchers.*;
 
 public class PointerNameRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testValidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  PMyPointer = ^Integer;");
+    @Test
+    public void testValidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  PMyPointer = ^Integer;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void testInvalidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  pMyPointer = ^Integer;");
+    @Test
+    public void testInvalidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  pMyPointer = ^Integer;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("PointerNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("PointerNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void testAvoidFalsePositive() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  Pointer = ^Integer;");
+    @Test
+    public void testAvoidFalsePositive() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  Pointer = ^Integer;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("PointerNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("PointerNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void shouldIgnorePointerAssignment() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("procedure Foo;");
-    builder.appendImpl("var");
-    builder.appendImpl("  MyInteger: Integer;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  MyInteger := PInteger(1)^;");
-    builder.appendImpl("end;");
+    @Test
+    public void shouldIgnorePointerAssignment() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("procedure Foo;");
+        builder.appendImpl("var");
+        builder.appendImpl("  MyInteger: Integer;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  MyInteger := PInteger(1)^;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 }

@@ -28,10 +28,10 @@ import static org.junit.Assert.assertTrue;
 
 public class DelphiColorizerFormatTest {
 
-  @Test
-  public void getTokenizersTest() {
-    DelphiColorizerFormat format = new DelphiColorizerFormat();
-    assertTrue(format.getTokenizers().size() >= 5);
-  }
+    @Test
+    public void getTokenizersTest() {
+        DelphiColorizerFormat format = new DelphiColorizerFormat();
+        assertTrue(format.getTokenizers().size() >= 5);
+    }
 
 }

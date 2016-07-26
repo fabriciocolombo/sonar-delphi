@@ -36,36 +36,36 @@ import static org.mockito.Mockito.when;
 
 public class DelphiTestUtils {
 
-  public static DelphiProjectHelper mockProjectHelper() {
-    DelphiProjectHelper mock = mock(DelphiProjectHelper.class);
-    when(mock.shouldExecuteOnProject()).thenReturn(true);
+    public static DelphiProjectHelper mockProjectHelper() {
+        DelphiProjectHelper mock = mock(DelphiProjectHelper.class);
+        when(mock.shouldExecuteOnProject()).thenReturn(true);
 
-    when(mock.getFile(any(File.class))).thenAnswer(new Answer<InputFile>() {
+        when(mock.getFile(any(File.class))).thenAnswer(new Answer<InputFile>() {
 
-      @Override
-      public InputFile answer(InvocationOnMock invocation) throws Throwable {
-        File file = (File) invocation.getArguments()[0];
-        InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5",file.getAbsolutePath());
+            @Override
+            public InputFile answer(InvocationOnMock invocation) throws Throwable {
+                File file = (File) invocation.getArguments()[0];
+                InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", file.getAbsolutePath());
 
-        return inputFile;
-      }
-    });
+                return inputFile;
+            }
+        });
 
-    return mock;
-  }
+        return mock;
+    }
 
-  public static void mockGetFileFromString(DelphiProjectHelper mock) {
-    when(mock.getFile(any(String.class))).thenAnswer(new Answer<InputFile>() {
-      @Override
-      public InputFile answer(InvocationOnMock invocation) throws Throwable {
-        String fileName = (String) invocation.getArguments()[0];
+    public static void mockGetFileFromString(DelphiProjectHelper mock) {
+        when(mock.getFile(any(String.class))).thenAnswer(new Answer<InputFile>() {
+            @Override
+            public InputFile answer(InvocationOnMock invocation) throws Throwable {
+                String fileName = (String) invocation.getArguments()[0];
 
-        File file = new File(fileName);
-        InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5",file.getPath());
+                File file = new File(fileName);
+                InputFile inputFile = new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", file.getPath());
 
-        return inputFile;
-      }
-    });
-  }
+                return inputFile;
+            }
+        });
+    }
 
 }

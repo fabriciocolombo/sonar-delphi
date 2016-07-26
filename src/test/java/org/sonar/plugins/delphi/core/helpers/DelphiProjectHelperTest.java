@@ -38,48 +38,48 @@ import static org.mockito.Mockito.mock;
 
 public class DelphiProjectHelperTest {
 
-  private DelphiProjectHelper delphiProjectHelper;
-  private Project project;
-  private File currentDir;
-  private File baseDir;
+    private DelphiProjectHelper delphiProjectHelper;
+    private Project project;
+    private File currentDir;
+    private File baseDir;
 
-  @Before
-  public void setup() {
-    currentDir = new File(getClass().getResource("/").getPath());
-    baseDir = currentDir.getParentFile();
+    @Before
+    public void setup() {
+        currentDir = new File(getClass().getResource("/").getPath());
+        baseDir = currentDir.getParentFile();
 
-    FileSystem fs = mock(FileSystem.class);
-    Settings settings = mock(Settings.class);
-    project = mock(Project.class);
+        FileSystem fs = mock(FileSystem.class);
+        Settings settings = mock(Settings.class);
+        project = mock(Project.class);
 
 
-    delphiProjectHelper = new DelphiProjectHelper(settings, fs);
-  }
+        delphiProjectHelper = new DelphiProjectHelper(settings, fs);
+    }
 
-  @Test
-  public void getDirectory() {
-    System.out.println(("THIS IS PROJ:" + project.toString()));
-    System.out.println(("THIS IS CURDIR:" + currentDir.toString()));
-    System.out.println(("THIS IS BASEDIR:" + baseDir.toString()));
+    @Test
+    public void getDirectory() {
+        System.out.println(("THIS IS PROJ:" + project.toString()));
+        System.out.println(("THIS IS CURDIR:" + currentDir.toString()));
+        System.out.println(("THIS IS BASEDIR:" + baseDir.toString()));
 
-    Directory directory = delphiProjectHelper.getDirectory(currentDir, project);
-    assertThat(directory, notNullValue());
-    assertThat(directory.getKey(), is("[default]"));
-  }
+        Directory directory = delphiProjectHelper.getDirectory(currentDir, project);
+        assertThat(directory, notNullValue());
+        assertThat(directory.getKey(), is("[default]"));
+    }
 
-  @Test
-  public void getDirectoryEqualsToBaseDir() {
-    Directory directory = delphiProjectHelper.getDirectory(baseDir, project);
-    assertThat(directory, notNullValue());
-    //changed this to macht sonar api 5.0
-    assertThat(directory.getKey(), is("[default]"));
-  }
+    @Test
+    public void getDirectoryEqualsToBaseDir() {
+        Directory directory = delphiProjectHelper.getDirectory(baseDir, project);
+        assertThat(directory, notNullValue());
+        //changed this to macht sonar api 5.0
+        assertThat(directory.getKey(), is("[default]"));
+    }
 
-  @Test
-  public void getInvalidRelativeDirectoryReturnsDefaultPackageName() {
-    File rootDirectory = new File("/");
-    Directory directory = delphiProjectHelper.getDirectory(rootDirectory, project);
-    assertThat(directory, notNullValue());
-    assertThat(directory.getKey(), is(DelphiProjectHelper.DEFAULT_PACKAGE_NAME));
-  }
+    @Test
+    public void getInvalidRelativeDirectoryReturnsDefaultPackageName() {
+        File rootDirectory = new File("/");
+        Directory directory = delphiProjectHelper.getDirectory(rootDirectory, project);
+        assertThat(directory, notNullValue());
+        assertThat(directory.getKey(), is(DelphiProjectHelper.DEFAULT_PACKAGE_NAME));
+    }
 }

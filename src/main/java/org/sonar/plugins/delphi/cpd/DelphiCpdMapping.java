@@ -38,34 +38,34 @@ import java.util.List;
  */
 public class DelphiCpdMapping implements CpdMapping {
 
-  private final DelphiProjectHelper delphiProjectHelper;
+    private final DelphiProjectHelper delphiProjectHelper;
 
-  public DelphiCpdMapping(DelphiProjectHelper delphiProjectHelper) {
-    this.delphiProjectHelper = delphiProjectHelper;
-  }
+    public DelphiCpdMapping(DelphiProjectHelper delphiProjectHelper) {
+        this.delphiProjectHelper = delphiProjectHelper;
+    }
 
-  /**
-   * @return The language tokenizer
-   */
-  @Override
-  public Tokenizer getTokenizer() {
-    return new DelphiCpdTokenizer(delphiProjectHelper);
-  }
+    /**
+     * @return The language tokenizer
+     */
+    @Override
+    public Tokenizer getTokenizer() {
+        return new DelphiCpdTokenizer(delphiProjectHelper);
+    }
 
-  /**
-   * {@link Inherited}
-   */
-  @Override
-  public Resource createResource(File file, List<File> sourceDirs) {
-    throw new UnsupportedOperationException();
-  }
+    /**
+     * {@link Inherited}
+     */
+    @Override
+    public Resource createResource(File file, List<File> sourceDirs) {
+        throw new UnsupportedOperationException();
+    }
 
-  /**
-   * @return Delphi language instance
-   */
-  @Override
-  public Language getLanguage() {
-    return DelphiLanguage.instance;
-  }
+    /**
+     * @return Delphi language instance
+     */
+    @Override
+    public Language getLanguage() {
+        return DelphiLanguage.instance;
+    }
 
 }

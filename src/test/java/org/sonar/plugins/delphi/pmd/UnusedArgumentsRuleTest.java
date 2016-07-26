@@ -33,151 +33,151 @@ import static org.hamcrest.Matchers.*;
 
 public class UnusedArgumentsRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testRule() {
-    configureTest(ROOT_DIR_NAME + "/UnusedArgumentRule.pas");
+    @Test
+    public void testRule() {
+        configureTest(ROOT_DIR_NAME + "/UnusedArgumentRule.pas");
 
-    DebugSensorContext debugContext = new DebugSensorContext();
-    sensor.analyse(project, debugContext);
+        DebugSensorContext debugContext = new DebugSensorContext();
+        sensor.analyse(project, debugContext);
 
-    // all expected rule violations and their lines
-    RuleData ruleData[] = {
-      new RuleData("UnusedArgumentsRule", 31)
-    };
+        // all expected rule violations and their lines
+        RuleData ruleData[] = {
+                new RuleData("UnusedArgumentsRule", 31)
+        };
 
-    // Sort the violations by line number, so we don't have to add
-    // violations order
-    Arrays.sort(ruleData, RuleData.getComparator());
+        // Sort the violations by line number, so we don't have to add
+        // violations order
+        Arrays.sort(ruleData, RuleData.getComparator());
 
-    assertThat(toString(issues), issues, hasSize(1));
+        assertThat(toString(issues), issues, hasSize(1));
 
-    for (int i = 0; i < issues.size(); ++i) {
-      Issue issue = issues.get(i);
+        for (int i = 0; i < issues.size(); ++i) {
+            Issue issue = issues.get(i);
 
-      assertThat("rule " + ruleData[i].toString(), ruleData[i].getName(), is(issue.ruleKey().rule()));
-      assertThat("rule " + ruleData[i].toString() + "line ", ruleData[i].getLine(), is(issue.line()));
+            assertThat("rule " + ruleData[i].toString(), ruleData[i].getName(), is(issue.ruleKey().rule()));
+            assertThat("rule " + ruleData[i].toString() + "line ", ruleData[i].getLine(), is(issue.line()));
+        }
     }
-  }
 
-  @Test
-  public void validRuleNestedFunction() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void validRuleNestedFunction() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("procedure TestNestedParams(const aValue : string);");
+        builder.appendDecl("procedure TestNestedParams(const aValue : string);");
 
-    builder.appendImpl("procedure TestNestedParams(const aValue : string);");
-    builder.appendImpl("const");
-    builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
-    builder.appendImpl("var");
-    builder.appendImpl("  lData : string;");
-    builder.appendImpl("  function Update(const aParam : string) : string;");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    Result := aParam + ' dummy';");
-    builder.appendImpl("  end;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  lData := Update(aValue);");
-    builder.appendImpl("end;");
+        builder.appendImpl("procedure TestNestedParams(const aValue : string);");
+        builder.appendImpl("const");
+        builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
+        builder.appendImpl("var");
+        builder.appendImpl("  lData : string;");
+        builder.appendImpl("  function Update(const aParam : string) : string;");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    Result := aParam + ' dummy';");
+        builder.appendImpl("  end;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  lData := Update(aValue);");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, is(empty()));
-  }
+        assertThat(toString(issues), issues, is(empty()));
+    }
 
-  @Test
-  public void validRuleManyNestedFunction() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void validRuleManyNestedFunction() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("procedure TestNestedParams(const aValue : string);");
+        builder.appendDecl("procedure TestNestedParams(const aValue : string);");
 
-    builder.appendImpl("procedure TestNestedParams(const aValue : string);");
-    builder.appendImpl("const");
-    builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
-    builder.appendImpl("var");
-    builder.appendImpl("  lData : string;");
-    builder.appendImpl("  function Update(const aParam : string) : string;");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    Result := aParam + ' dummy';");
-    builder.appendImpl("  end;");
-    builder.appendImpl("  function Insert(const aParam : string) : string;");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    Result := aParam + ' dummy';");
-    builder.appendImpl("  end;");
-    builder.appendImpl("  function Retrieve(const aParam : string) : string;");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    Result := aParam + ' dummy';");
-    builder.appendImpl("  end;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  lData := Update(aValue);");
-    builder.appendImpl("  lData := Insert(aValue);");
-    builder.appendImpl("  lData := Retrieve(aValue);");
-    builder.appendImpl("end;");
+        builder.appendImpl("procedure TestNestedParams(const aValue : string);");
+        builder.appendImpl("const");
+        builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
+        builder.appendImpl("var");
+        builder.appendImpl("  lData : string;");
+        builder.appendImpl("  function Update(const aParam : string) : string;");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    Result := aParam + ' dummy';");
+        builder.appendImpl("  end;");
+        builder.appendImpl("  function Insert(const aParam : string) : string;");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    Result := aParam + ' dummy';");
+        builder.appendImpl("  end;");
+        builder.appendImpl("  function Retrieve(const aParam : string) : string;");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    Result := aParam + ' dummy';");
+        builder.appendImpl("  end;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  lData := Update(aValue);");
+        builder.appendImpl("  lData := Insert(aValue);");
+        builder.appendImpl("  lData := Retrieve(aValue);");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void validRuleMultipleNestedFunction() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void validRuleMultipleNestedFunction() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("procedure TestNestedParams(const aValue : string);");
+        builder.appendDecl("procedure TestNestedParams(const aValue : string);");
 
-    builder.appendImpl("procedure TestNestedParams(const aValue : string);");
-    builder.appendImpl("const");
-    builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
-    builder.appendImpl("var");
-    builder.appendImpl("  lData : string;");
-    builder.appendImpl("  function Update1(const aParam : string) : string;");
-    builder.appendImpl("    function Update2(const aParam : string) : string;");
-    builder.appendImpl("      function Update3(const aParam : string) : string;");
-    builder.appendImpl("      begin");
-    builder.appendImpl("        Result := aParam + ' dummy';");
-    builder.appendImpl("      end;");
-    builder.appendImpl("    begin");
-    builder.appendImpl("      Result := Update3(aParam + '3');");
-    builder.appendImpl("    end;");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    Result := Update2(aParam + '2');");
-    builder.appendImpl("  end;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  lData := Update1(aValue);");
-    builder.appendImpl("end;");
+        builder.appendImpl("procedure TestNestedParams(const aValue : string);");
+        builder.appendImpl("const");
+        builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
+        builder.appendImpl("var");
+        builder.appendImpl("  lData : string;");
+        builder.appendImpl("  function Update1(const aParam : string) : string;");
+        builder.appendImpl("    function Update2(const aParam : string) : string;");
+        builder.appendImpl("      function Update3(const aParam : string) : string;");
+        builder.appendImpl("      begin");
+        builder.appendImpl("        Result := aParam + ' dummy';");
+        builder.appendImpl("      end;");
+        builder.appendImpl("    begin");
+        builder.appendImpl("      Result := Update3(aParam + '3');");
+        builder.appendImpl("    end;");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    Result := Update2(aParam + '2');");
+        builder.appendImpl("  end;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  lData := Update1(aValue);");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void issuesMultipleNestedFunction() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void issuesMultipleNestedFunction() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("procedure TestNestedParams(const aValue : string);");
+        builder.appendDecl("procedure TestNestedParams(const aValue : string);");
 
-    builder.appendImpl("procedure TestNestedParams(const aValue : string);");
-    builder.appendImpl("const");
-    builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
-    builder.appendImpl("var");
-    builder.appendImpl("  lData : string;");
-    builder.appendImpl("  function Update1(const aParam : string) : string;");
-    builder.appendImpl("    function Update2(const aParam : string) : string;");
-    builder.appendImpl("      function Update3(const aParam : string) : string;");
-    builder.appendImpl("      begin");
-    builder.appendImpl("        Result := 'dummy';");
-    builder.appendImpl("      end;");
-    builder.appendImpl("    begin");
-    builder.appendImpl("      Result := Update3('3');");
-    builder.appendImpl("    end;");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    Result := Update2('2');");
-    builder.appendImpl("  end;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  lData := Update1('1');");
-    builder.appendImpl("end;");
+        builder.appendImpl("procedure TestNestedParams(const aValue : string);");
+        builder.appendImpl("const");
+        builder.appendImpl("  DEFAULT_VALUE = 'VALUE';");
+        builder.appendImpl("var");
+        builder.appendImpl("  lData : string;");
+        builder.appendImpl("  function Update1(const aParam : string) : string;");
+        builder.appendImpl("    function Update2(const aParam : string) : string;");
+        builder.appendImpl("      function Update3(const aParam : string) : string;");
+        builder.appendImpl("      begin");
+        builder.appendImpl("        Result := 'dummy';");
+        builder.appendImpl("      end;");
+        builder.appendImpl("    begin");
+        builder.appendImpl("      Result := Update3('3');");
+        builder.appendImpl("    end;");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    Result := Update2('2');");
+        builder.appendImpl("  end;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  lData := Update1('1');");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, hasSize(4));
-  }
+        assertThat(toString(issues), issues, hasSize(4));
+    }
 }

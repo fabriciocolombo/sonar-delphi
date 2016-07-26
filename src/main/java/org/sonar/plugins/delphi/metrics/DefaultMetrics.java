@@ -30,42 +30,42 @@ import java.util.Map;
  */
 public abstract class DefaultMetrics implements MetricsInterface {
 
-  protected Map<String, Double> metrics = new HashMap<String, Double>();
+    protected Map<String, Double> metrics = new HashMap<String, Double>();
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  public String[] getMetricKeys() {
-    return metrics.keySet().toArray(new String[metrics.keySet().size()]);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public double getMetric(String metric) {
-    if (!metrics.containsKey(metric)) {
-      throw new IllegalStateException("No metric (" + metric + ") for " + this);
+    @Override
+    public String[] getMetricKeys() {
+        return metrics.keySet().toArray(new String[metrics.keySet().size()]);
     }
-    return metrics.get(metric);
-  }
 
-  /**
-   * {@inheritDoc}
-   */
-  public void setMetric(String metric, double value) {
-    metrics.put(metric, value);
-  }
+    /**
+     * {@inheritDoc}
+     */
 
-  protected void clearMetrics() {
-    metrics.clear();
-  }
+    @Override
+    public double getMetric(String metric) {
+        if (!metrics.containsKey(metric)) {
+            throw new IllegalStateException("No metric (" + metric + ") for " + this);
+        }
+        return metrics.get(metric);
+    }
 
-  @Override
-  public boolean hasMetric(String metric) {
-    return metrics.containsKey(metric);
-  }
+    /**
+     * {@inheritDoc}
+     */
+    public void setMetric(String metric, double value) {
+        metrics.put(metric, value);
+    }
+
+    protected void clearMetrics() {
+        metrics.clear();
+    }
+
+    @Override
+    public boolean hasMetric(String metric) {
+        return metrics.containsKey(metric);
+    }
 }

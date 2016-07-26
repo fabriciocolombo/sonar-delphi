@@ -29,9 +29,9 @@ import static org.junit.Assert.assertEquals;
 
 public class StringSubRangeTest {
 
-  @Test
-  public void toStringTest() {
-    StringSubRange subRange = new StringSubRange(3, 6, "my sub range");
-    assertEquals("[3, 6] sub", subRange.toString());
-  }
+    @Test
+    public void toStringTest() {
+        StringSubRange subRange = new StringSubRange(3, 6, "my sub range");
+        assertEquals("[3, 6] sub", subRange.toString());
+    }
 }

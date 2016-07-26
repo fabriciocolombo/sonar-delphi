@@ -39,77 +39,77 @@ import java.util.List;
  */
 public class DelphiPMD {
 
-  private Report report = new Report();
+    private Report report = new Report();
 
-  /**
-   * Processes the file read by the reader against the rule set.
-   * 
-   * @param pmdFile input source file
-   * @param ruleSets set of rules to process against the file
-   * @param ctx context in which PMD is operating. This contains the Renderer and whatnot
-   * @param encoding Encoding to use
-   */
-  public void processFile(File pmdFile, RuleSets ruleSets, RuleContext ctx, String encoding) {
-    ctx.setSourceCodeFile(pmdFile);
-    ctx.setReport(report);
+    /**
+     * Processes the file read by the reader against the rule set.
+     *
+     * @param pmdFile  input source file
+     * @param ruleSets set of rules to process against the file
+     * @param ctx      context in which PMD is operating. This contains the Renderer and whatnot
+     * @param encoding Encoding to use
+     */
+    public void processFile(File pmdFile, RuleSets ruleSets, RuleContext ctx, String encoding) {
+        ctx.setSourceCodeFile(pmdFile);
+        ctx.setReport(report);
 
-    if (ruleSets.applies(ctx.getSourceCodeFile())) {
-      Language language = Language.JAVA;
-      ctx.setSourceType(SourceType.JAVA_17);
+        if (ruleSets.applies(ctx.getSourceCodeFile())) {
+            Language language = Language.JAVA;
+            ctx.setSourceType(SourceType.JAVA_17);
 
-      DelphiAST ast = new DelphiAST(pmdFile, encoding);
-      if (ast.isError()) {
-        throw new ParseException("grammar error");
-      }
+            DelphiAST ast = new DelphiAST(pmdFile, encoding);
+            if (ast.isError()) {
+                throw new ParseException("grammar error");
+            }
 
-      List<CompilationUnit> nodes = getNodesFromAST(ast);
-      ruleSets.apply(nodes, ctx, language);
+            List<CompilationUnit> nodes = getNodesFromAST(ast);
+            ruleSets.apply(nodes, ctx, language);
+        }
+
     }
 
-  }
+    /**
+     * @param ast AST tree
+     * @return AST tree nodes ready for parsing by PMD
+     */
+    public List<CompilationUnit> getNodesFromAST(ASTTree ast) {
+        List<CompilationUnit> nodes = new ArrayList<CompilationUnit>();
 
-  /**
-   * @param ast AST tree
-   * @return AST tree nodes ready for parsing by PMD
-   */
-  public List<CompilationUnit> getNodesFromAST(ASTTree ast) {
-    List<CompilationUnit> nodes = new ArrayList<CompilationUnit>();
+        for (int i = 0; i < ast.getChildCount(); ++i) {
+            indexNode((CommonTree) ast.getChild(i), nodes);
+        }
 
-    for (int i = 0; i < ast.getChildCount(); ++i) {
-      indexNode((CommonTree) ast.getChild(i), nodes);
+        return nodes;
     }
 
-    return nodes;
-  }
+    /**
+     * Adds children nodes to list
+     *
+     * @param node Parent node
+     * @param list List
+     */
+    public void indexNode(CommonTree node, List<CompilationUnit> list) {
+        if (node == null) {
+            return;
+        }
 
-  /**
-   * Adds children nodes to list
-   * 
-   * @param node Parent node
-   * @param list List
-   */
-  public void indexNode(CommonTree node, List<CompilationUnit> list) {
-    if (node == null) {
-      return;
+        if (node instanceof DelphiPMDNode) {
+            list.add((DelphiPMDNode) node);
+        } else {
+            list.add(new DelphiPMDNode(node));
+        }
+
+        for (int i = 0; i < node.getChildCount(); ++i) {
+            indexNode((CommonTree) node.getChild(i), list);
+        }
     }
 
-    if (node instanceof DelphiPMDNode) {
-      list.add((DelphiPMDNode) node);
-    } else {
-      list.add(new DelphiPMDNode(node));
+    /**
+     * Gets generated report
+     *
+     * @return Report
+     */
+    public Report getReport() {
+        return report;
     }
-
-    for (int i = 0; i < node.getChildCount(); ++i) {
-      indexNode((CommonTree) node.getChild(i), list);
-    }
-  }
-
-  /**
-   * Gets generated report
-   * 
-   * @return Report
-   */
-  public Report getReport() {
-    return report;
-  }
 }

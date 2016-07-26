@@ -28,9 +28,9 @@ import static org.junit.Assert.assertEquals;
 
 public class DelphiKeywordsTest {
 
-  @Test
-  public void delphiKeywordsTest() {
-    assertEquals(183, DelphiKeywords.get().size());
-  }
+    @Test
+    public void delphiKeywordsTest() {
+        assertEquals(183, DelphiKeywords.get().size());
+    }
 
 }

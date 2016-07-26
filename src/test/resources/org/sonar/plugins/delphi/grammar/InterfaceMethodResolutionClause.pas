@@ -3,21 +3,21 @@ unit InterfaceMethodResolutionClause;
 interface
 
 type
-  IInterfaceA = interface
+    IInterfaceA = interface
     ['{D9434374-0D61-44A6-A84B-06F574F140BE}']
-    procedure DoSomething;
-  end;
+        procedure DoSomething;
+    end;
 
-  IInterfaceB = interface
+    IInterfaceB = interface
     ['{D9434374-0D61-44A6-A84B-06F574F140BE}']
-    procedure DoSomethingToo;
-  end;
+        procedure DoSomethingToo;
+    end;
 
-  TMyClass = class(TInterfacedObject, IInterfaceA, IInterfaceB)
-  public
-    procedure DoSomething;
-    procedure IInterfaceB.DoSomethingToo = DoSomething;
-  end;
+    TMyClass = class(TInterfacedObject, IInterfaceA, IInterfaceB)
+    public
+        procedure DoSomething;
+        procedure IInterfaceB.DoSomethingToo = DoSomething;
+    end;
 
 implementation
 
@@ -25,7 +25,7 @@ implementation
 
 procedure TMyClass.DoSomething;
 begin
-  Writeln('Do Something');
+    Writeln('Do Something');
 end;
 
 end.

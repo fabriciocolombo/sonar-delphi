@@ -44,42 +44,42 @@ import static org.junit.Assert.*;
 
 public class UnitAnalyzerTest {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/MetricsTest.pas";
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/MetricsTest.pas";
 
-  private UnitAnalyzer analyzer;
-  private CodeAnalysisResults results;
-  private CodeTree code;
-  private CodeNode<ASTTree> astNode;
+    private UnitAnalyzer analyzer;
+    private CodeAnalysisResults results;
+    private CodeTree code;
+    private CodeNode<ASTTree> astNode;
 
-  @Before
-  public void init() throws IllegalStateException, IOException, RecognitionException {
-    analyzer = new UnitAnalyzer();
-    results = new CodeAnalysisResults();
-    astNode = new CodeNode<ASTTree>(new DelphiAST(DelphiUtils.getResource(FILE_NAME)));
-    code = new CodeTree(astNode, new CodeNode<Tree>(astNode.getNode().getChild(0)));
-  }
+    @Before
+    public void init() throws IllegalStateException, IOException, RecognitionException {
+        analyzer = new UnitAnalyzer();
+        results = new CodeAnalysisResults();
+        astNode = new CodeNode<ASTTree>(new DelphiAST(DelphiUtils.getResource(FILE_NAME)));
+        code = new CodeTree(astNode, new CodeNode<Tree>(astNode.getNode().getChild(0)));
+    }
 
-  @Test
-  public void analyzeTest() {
-    analyzer.analyze(code, results);
+    @Test
+    public void analyzeTest() {
+        analyzer.analyze(code, results);
 
-    UnitInterface unit = new DelphiUnit("DemoForm");
-    unit.setPath(DelphiUtils.getResource(FILE_NAME).getAbsolutePath());
-    assertEquals(unit, results.getActiveUnit());
+        UnitInterface unit = new DelphiUnit("DemoForm");
+        unit.setPath(DelphiUtils.getResource(FILE_NAME).getAbsolutePath());
+        assertEquals(unit, results.getActiveUnit());
 
-    assertEquals(LexerMetrics.PUBLIC, results.getParseVisibility());
-  }
+        assertEquals(LexerMetrics.PUBLIC, results.getParseVisibility());
+    }
 
-  @Test
-  public void canAnalyzeTest() {
-    code.setCurrentNode(new CodeNode<Tree>(new CommonTree(new CommonToken(LexerMetrics.UNIT.toMetrics(), "token"))));
-    assertTrue(analyzer.canAnalyze(code));
-    code.setCurrentNode(new CodeNode<Tree>(new CommonTree(
-      new CommonToken(LexerMetrics.LIBRARY.toMetrics(), "token"))));
-    assertTrue(analyzer.canAnalyze(code));
-    code.setCurrentNode(new CodeNode<Tree>(new CommonTree(new CommonToken(LexerMetrics.IMPLEMENTATION.toMetrics(),
-      "token"))));
-    assertFalse(analyzer.canAnalyze(code));
-  }
+    @Test
+    public void canAnalyzeTest() {
+        code.setCurrentNode(new CodeNode<Tree>(new CommonTree(new CommonToken(LexerMetrics.UNIT.toMetrics(), "token"))));
+        assertTrue(analyzer.canAnalyze(code));
+        code.setCurrentNode(new CodeNode<Tree>(new CommonTree(
+                new CommonToken(LexerMetrics.LIBRARY.toMetrics(), "token"))));
+        assertTrue(analyzer.canAnalyze(code));
+        code.setCurrentNode(new CodeNode<Tree>(new CommonTree(new CommonToken(LexerMetrics.IMPLEMENTATION.toMetrics(),
+                "token"))));
+        assertFalse(analyzer.canAnalyze(code));
+    }
 
 }

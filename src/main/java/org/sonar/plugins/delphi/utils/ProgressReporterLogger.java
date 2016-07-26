@@ -27,34 +27,33 @@ import org.slf4j.Logger;
 /**
  * Logger used to report progress from ProgressReporter
  */
-public class ProgressReporterLogger
-{
-  private Logger log = null;
+public class ProgressReporterLogger {
+    private Logger log = null;
 
-  /**
-   * Default ctor, no logging
-   */
-  public ProgressReporterLogger() {
-  }
-
-  /**
-   * Ctor, specify your own logger to write to
-   * 
-   * @param log logger to write to
-   */
-  public ProgressReporterLogger(Logger log) {
-    this.log = log;
-  }
-
-  /**
-   * log a message
-   * 
-   * @param msg message
-   */
-  public void log(String msg) {
-    if (log != null) {
-      log.info(msg);
+    /**
+     * Default ctor, no logging
+     */
+    public ProgressReporterLogger() {
     }
-  }
+
+    /**
+     * Ctor, specify your own logger to write to
+     *
+     * @param log logger to write to
+     */
+    public ProgressReporterLogger(Logger log) {
+        this.log = log;
+    }
+
+    /**
+     * log a message
+     *
+     * @param msg message
+     */
+    public void log(String msg) {
+        if (log != null) {
+            log.info(msg);
+        }
+    }
 
 }

@@ -52,156 +52,156 @@ import java.util.List;
  */
 public class DelphiPmdSensor implements Sensor {
 
-  private final ResourcePerspectives perspectives;
-  private final DelphiProjectHelper delphiProjectHelper;
-  private final List<String> errors = new ArrayList<String>();
-  private final DelphiPmdProfileExporter profileExporter;
-  private final RulesProfile rulesProfile;
+    private final ResourcePerspectives perspectives;
+    private final DelphiProjectHelper delphiProjectHelper;
+    private final List<String> errors = new ArrayList<String>();
+    private final DelphiPmdProfileExporter profileExporter;
+    private final RulesProfile rulesProfile;
 
-  /**
-   * C-tor
-   * @param delphiProjectHelper delphiProjectHelper
-   * @param perspectives resourcePerspectives used by DelphiPmdXmlReportParser
-   * @param rulesProfile rulesProfile used to export active rules
-   * @param profileExporter used to export active rules
-   * 
-   */
-  public DelphiPmdSensor(DelphiProjectHelper delphiProjectHelper, ResourcePerspectives perspectives, RulesProfile rulesProfile, DelphiPmdProfileExporter profileExporter) {
-    this.delphiProjectHelper = delphiProjectHelper;
-    this.perspectives = perspectives;
-    this.rulesProfile = rulesProfile;
-    this.profileExporter = profileExporter;
-  }
-
-  /**
-   * Analyses a project
-   */
-
-  @Override
-  public void analyse(Project project, SensorContext context) {
-    File reportFile;
-    // creating report
-    ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
-    try {
-      Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-      reportFile = createPmdReport(project);
-    } finally {
-      Thread.currentThread().setContextClassLoader(initialClassLoader);
+    /**
+     * C-tor
+     *
+     * @param delphiProjectHelper delphiProjectHelper
+     * @param perspectives        resourcePerspectives used by DelphiPmdXmlReportParser
+     * @param rulesProfile        rulesProfile used to export active rules
+     * @param profileExporter     used to export active rules
+     */
+    public DelphiPmdSensor(DelphiProjectHelper delphiProjectHelper, ResourcePerspectives perspectives, RulesProfile rulesProfile, DelphiPmdProfileExporter profileExporter) {
+        this.delphiProjectHelper = delphiProjectHelper;
+        this.perspectives = perspectives;
+        this.rulesProfile = rulesProfile;
+        this.profileExporter = profileExporter;
     }
 
-    // analysing report
-    DelphiPmdXmlReportParser parser = new DelphiPmdXmlReportParser(delphiProjectHelper, perspectives);
+    /**
+     * Analyses a project
+     */
 
-    parser.parse(reportFile);
-  }
-
-  private RuleSets createRuleSets() {
-    RuleSets rulesets = new DelphiRuleSets();
-    String rulesXml = profileExporter.exportProfileToString(rulesProfile);
-    File ruleSetFile = dumpXmlRuleSet(DelphiPmdConstants.REPOSITORY_KEY, rulesXml);
-    RuleSetFactory ruleSetFactory = new RuleSetFactory();
-    try {
-      RuleSet ruleSet = ruleSetFactory.createRuleSet(new FileInputStream(ruleSetFile));
-
-      rulesets.addRuleSet(ruleSet);
-      return rulesets;
-    } catch (FileNotFoundException e) {
-      throw new IllegalStateException(e);
-    }
-  }
-
-  private File dumpXmlRuleSet(String repositoryKey, String rulesXml) {
-    try {
-      File configurationFile = new File(delphiProjectHelper.workDir(), repositoryKey + ".xml");
-      Files.write(rulesXml, configurationFile, Charsets.UTF_8);
-
-      DelphiUtils.LOG.info("PMD configuration: " + configurationFile.getAbsolutePath());
-
-      return configurationFile;
-    } catch (IOException e) {
-      throw new IllegalStateException("Fail to save the PMD configuration", e);
-    }
-  }
-
-  private File createPmdReport(Project project) {
-    try {
-      DelphiPMD pmd = new DelphiPMD();
-      RuleContext ruleContext = new RuleContext();
-      RuleSets ruleSets = createRuleSets();
-
-      List<File> excluded = delphiProjectHelper.getExcludedSources();
-
-      List<DelphiProject> projects = delphiProjectHelper.getWorkgroupProjects();
-      for (DelphiProject delphiProject : projects) {
-        DelphiUtils.LOG.info("PMD Parsing project "
-          + delphiProject.getName());
-        ProgressReporter progressReporter = new ProgressReporter(
-          delphiProject.getSourceFiles().size(), 10,
-          new ProgressReporterLogger(DelphiUtils.LOG));
-        for (File pmdFile : delphiProject.getSourceFiles()) {
-          progressReporter.progress();
-          if (delphiProjectHelper.isExcluded(pmdFile, excluded)) {
-            continue;
-          }
-
-          try {
-            pmd.processFile(pmdFile, ruleSets, ruleContext, delphiProjectHelper.encoding());
-          } catch (ParseException e) {
-            String errorMsg = "PMD error while parsing " + pmdFile.getAbsolutePath() + ": "
-              + e.getMessage();
-            DelphiUtils.LOG.warn(errorMsg);
-            errors.add(errorMsg);
-          }
+    @Override
+    public void analyse(Project project, SensorContext context) {
+        File reportFile;
+        // creating report
+        ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+            reportFile = createPmdReport(project);
+        } finally {
+            Thread.currentThread().setContextClassLoader(initialClassLoader);
         }
-      }
 
-      return writeXmlReport(project, pmd.getReport());
-    } catch (IOException e) {
-      DelphiUtils.LOG.error("Could not generate PMD report file.");
-      return null;
+        // analysing report
+        DelphiPmdXmlReportParser parser = new DelphiPmdXmlReportParser(delphiProjectHelper, perspectives);
+
+        parser.parse(reportFile);
     }
-  }
 
-  /**
-   * Generates an XML file from report
-   * 
-   * @param project Project
-   * @param report Report
-   * @return XML based on report
-   * @throws IOException When report could not be generated
-   */
-  private File writeXmlReport(Project project, Report report)
-    throws IOException {
-    Renderer xmlRenderer = new XMLRenderer();
-    Writer stringwriter = new StringWriter();
-    xmlRenderer.setWriter(stringwriter);
-    xmlRenderer.start();
-    xmlRenderer.renderFileReport(report);
-    xmlRenderer.end();
+    private RuleSets createRuleSets() {
+        RuleSets rulesets = new DelphiRuleSets();
+        String rulesXml = profileExporter.exportProfileToString(rulesProfile);
+        File ruleSetFile = dumpXmlRuleSet(DelphiPmdConstants.REPOSITORY_KEY, rulesXml);
+        RuleSetFactory ruleSetFactory = new RuleSetFactory();
+        try {
+            RuleSet ruleSet = ruleSetFactory.createRuleSet(new FileInputStream(ruleSetFile));
 
-    File xmlReport = new File(delphiProjectHelper.workDir().getAbsolutePath(), "pmd-report.xml");
-    DelphiUtils.LOG.info("PMD output report: "
-      + xmlReport.getAbsolutePath());
-    FileUtils.writeStringToFile(xmlReport, stringwriter.toString());
-    return xmlReport;
-  }
+            rulesets.addRuleSet(ruleSet);
+            return rulesets;
+        } catch (FileNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
-  /**
-   * {@inheritDoc}
-   */
+    private File dumpXmlRuleSet(String repositoryKey, String rulesXml) {
+        try {
+            File configurationFile = new File(delphiProjectHelper.workDir(), repositoryKey + ".xml");
+            Files.write(rulesXml, configurationFile, Charsets.UTF_8);
 
-  @Override
-  public boolean shouldExecuteOnProject(Project project) {
-    return delphiProjectHelper.shouldExecuteOnProject();
-  }
+            DelphiUtils.LOG.info("PMD configuration: " + configurationFile.getAbsolutePath());
 
-  @Override
-  public String toString() {
-    return getClass().getSimpleName();
-  }
+            return configurationFile;
+        } catch (IOException e) {
+            throw new IllegalStateException("Fail to save the PMD configuration", e);
+        }
+    }
 
-  public List<String> getErrors() {
-    return errors;
-  }
+    private File createPmdReport(Project project) {
+        try {
+            DelphiPMD pmd = new DelphiPMD();
+            RuleContext ruleContext = new RuleContext();
+            RuleSets ruleSets = createRuleSets();
+
+            List<File> excluded = delphiProjectHelper.getExcludedSources();
+
+            List<DelphiProject> projects = delphiProjectHelper.getWorkgroupProjects();
+            for (DelphiProject delphiProject : projects) {
+                DelphiUtils.LOG.info("PMD Parsing project "
+                        + delphiProject.getName());
+                ProgressReporter progressReporter = new ProgressReporter(
+                        delphiProject.getSourceFiles().size(), 10,
+                        new ProgressReporterLogger(DelphiUtils.LOG));
+                for (File pmdFile : delphiProject.getSourceFiles()) {
+                    progressReporter.progress();
+                    if (delphiProjectHelper.isExcluded(pmdFile, excluded)) {
+                        continue;
+                    }
+
+                    try {
+                        pmd.processFile(pmdFile, ruleSets, ruleContext, delphiProjectHelper.encoding());
+                    } catch (ParseException e) {
+                        String errorMsg = "PMD error while parsing " + pmdFile.getAbsolutePath() + ": "
+                                + e.getMessage();
+                        DelphiUtils.LOG.warn(errorMsg);
+                        errors.add(errorMsg);
+                    }
+                }
+            }
+
+            return writeXmlReport(project, pmd.getReport());
+        } catch (IOException e) {
+            DelphiUtils.LOG.error("Could not generate PMD report file.");
+            return null;
+        }
+    }
+
+    /**
+     * Generates an XML file from report
+     *
+     * @param project Project
+     * @param report  Report
+     * @return XML based on report
+     * @throws IOException When report could not be generated
+     */
+    private File writeXmlReport(Project project, Report report)
+            throws IOException {
+        Renderer xmlRenderer = new XMLRenderer();
+        Writer stringwriter = new StringWriter();
+        xmlRenderer.setWriter(stringwriter);
+        xmlRenderer.start();
+        xmlRenderer.renderFileReport(report);
+        xmlRenderer.end();
+
+        File xmlReport = new File(delphiProjectHelper.workDir().getAbsolutePath(), "pmd-report.xml");
+        DelphiUtils.LOG.info("PMD output report: "
+                + xmlReport.getAbsolutePath());
+        FileUtils.writeStringToFile(xmlReport, stringwriter.toString());
+        return xmlReport;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public boolean shouldExecuteOnProject(Project project) {
+        return delphiProjectHelper.shouldExecuteOnProject();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
 
 }

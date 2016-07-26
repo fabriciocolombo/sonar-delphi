@@ -49,71 +49,71 @@ import static org.junit.Assert.assertEquals;
 
 public class CalledFunctionVerifierTest {
 
-  private static final String TEST_FILE = "/org/sonar/plugins/delphi/verifier/CalledFunctionsTest.pas";
-  private static final int BEGIN_STMTS_IN_TEST_FILE = 2;
-  CalledFunctionVerifier verifier;
-  CodeAnalysisResults results;
-  CodeTree code;
+    private static final String TEST_FILE = "/org/sonar/plugins/delphi/verifier/CalledFunctionsTest.pas";
+    private static final int BEGIN_STMTS_IN_TEST_FILE = 2;
+    CalledFunctionVerifier verifier;
+    CodeAnalysisResults results;
+    CodeTree code;
 
-  @Before
-  public void setup() throws IOException, RecognitionException {
-    results = new CodeAnalysisResults();
-    verifier = new CalledFunctionVerifier(results);
+    @Before
+    public void setup() throws IOException, RecognitionException {
+        results = new CodeAnalysisResults();
+        verifier = new CalledFunctionVerifier(results);
 
-    UnitInterface testUnit = new DelphiUnit("testUnit");
-    testUnit.setPath("testUnit.pas");
-    testUnit.addFunction(new DelphiFunction("myprocedure"));
-    testUnit.addFunction(new DelphiFunction("mysecondprocedure"));
-    testUnit.addIncludes("unitA");
-    testUnit.addIncludes("unitB");
+        UnitInterface testUnit = new DelphiUnit("testUnit");
+        testUnit.setPath("testUnit.pas");
+        testUnit.addFunction(new DelphiFunction("myprocedure"));
+        testUnit.addFunction(new DelphiFunction("mysecondprocedure"));
+        testUnit.addIncludes("unitA");
+        testUnit.addIncludes("unitB");
 
-    UnitInterface unitA = new DelphiUnit("unitA");
-    unitA.setPath("unitA.pas");
-    unitA.addFunction(new DelphiFunction("unita_procedure"));
+        UnitInterface unitA = new DelphiUnit("unitA");
+        unitA.setPath("unitA.pas");
+        unitA.addFunction(new DelphiFunction("unita_procedure"));
 
-    UnitInterface unitB = new DelphiUnit("unitB");
-    unitB.setPath("unitB.pas");
-    unitB.addFunction(new DelphiFunction("unitb_procedure"));
+        UnitInterface unitB = new DelphiUnit("unitB");
+        unitB.setPath("unitB.pas");
+        unitB.addFunction(new DelphiFunction("unitb_procedure"));
 
-    results.cacheUnit(unitA);
-    results.cacheUnit(unitB);
-    results.cacheUnit(testUnit);
-    results.setActiveUnit(testUnit);
+        results.cacheUnit(unitA);
+        results.cacheUnit(unitB);
+        results.cacheUnit(testUnit);
+        results.setActiveUnit(testUnit);
 
-    File file = DelphiUtils.getResource(TEST_FILE);
-    ASTTree ast = new DelphiAST(file);
-    code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
-  }
-
-  @Test
-  public void verifyTest() {
-    final boolean unresolved[] = {false, false, false, true};
-    final String names[] = {"mySecondProcedure", "unitB_Procedure", "unitA_Procedure", "unitC_Procedure"};
-
-    NodeOperation advanceToOperation = new AdvanceToNodeOperation(LexerMetrics.FUNCTION_BODY);
-    NodeOperation advanceOperation = new AdvanceNodeOperation();
-    CodeNode<Tree> currentNode = code.getCurrentCodeNode();
-
-    int index = 0;
-    for (int i = 0; i < BEGIN_STMTS_IN_TEST_FILE; ++i) {
-      currentNode = advanceToOperation.execute(currentNode.getNode());
-      code.setCurrentNode(currentNode);
-
-      CodeNode<Tree> atNode = currentNode;
-      boolean endNode = false;
-      while (atNode.isValid() && !endNode) {
-        if (verifier.verify(atNode.getNode())) {
-          FunctionInterface calledFunction = verifier.fetchCalledFunction();
-          assertEquals(unresolved[index], verifier.isUnresolvedFunctionCall());
-          assertEquals(names[index].toLowerCase(), calledFunction.getName());
-          ++index;
-        }
-
-        atNode = advanceOperation.execute(atNode.getNode());
-        endNode = (atNode.getNode().getType() == LexerMetrics.END.toMetrics());
-      }
+        File file = DelphiUtils.getResource(TEST_FILE);
+        ASTTree ast = new DelphiAST(file);
+        code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
     }
 
-  }
+    @Test
+    public void verifyTest() {
+        final boolean unresolved[] = {false, false, false, true};
+        final String names[] = {"mySecondProcedure", "unitB_Procedure", "unitA_Procedure", "unitC_Procedure"};
+
+        NodeOperation advanceToOperation = new AdvanceToNodeOperation(LexerMetrics.FUNCTION_BODY);
+        NodeOperation advanceOperation = new AdvanceNodeOperation();
+        CodeNode<Tree> currentNode = code.getCurrentCodeNode();
+
+        int index = 0;
+        for (int i = 0; i < BEGIN_STMTS_IN_TEST_FILE; ++i) {
+            currentNode = advanceToOperation.execute(currentNode.getNode());
+            code.setCurrentNode(currentNode);
+
+            CodeNode<Tree> atNode = currentNode;
+            boolean endNode = false;
+            while (atNode.isValid() && !endNode) {
+                if (verifier.verify(atNode.getNode())) {
+                    FunctionInterface calledFunction = verifier.fetchCalledFunction();
+                    assertEquals(unresolved[index], verifier.isUnresolvedFunctionCall());
+                    assertEquals(names[index].toLowerCase(), calledFunction.getName());
+                    ++index;
+                }
+
+                atNode = advanceOperation.execute(atNode.getNode());
+                endNode = (atNode.getNode().getType() == LexerMetrics.END.toMetrics());
+            }
+        }
+
+    }
 
 }

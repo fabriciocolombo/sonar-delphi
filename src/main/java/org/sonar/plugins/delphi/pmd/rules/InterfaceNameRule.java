@@ -24,17 +24,17 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
 public class InterfaceNameRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
 
-    if (node.getType() == DelphiLexer.TkInterface) {
-      String name = node.getParent().getText();
+        if (node.getType() == DelphiLexer.TkInterface) {
+            String name = node.getParent().getText();
 
-      char firstCharAfterPrefix = name.charAt(1);
+            char firstCharAfterPrefix = name.charAt(1);
 
-      if (!name.startsWith("I") || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
-        addViolation(ctx, (DelphiPMDNode) node.getChild(0));
-      }
+            if (!name.startsWith("I") || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
+                addViolation(ctx, (DelphiPMDNode) node.getChild(0));
+            }
+        }
     }
-  }
 }

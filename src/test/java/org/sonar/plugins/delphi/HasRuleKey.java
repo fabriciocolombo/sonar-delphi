@@ -25,29 +25,29 @@ import org.sonar.api.issue.Issue;
 
 public class HasRuleKey<T extends Issue> extends TypeSafeMatcher<T> {
 
-  private final String key;
+    private final String key;
 
-  public HasRuleKey(String key) {
-    this.key = key;
-  }
+    public HasRuleKey(String key) {
+        this.key = key;
+    }
 
-  @Override
-  protected boolean matchesSafely(T item) {
-    return key.equals(item.ruleKey().rule());
-  }
+    @Override
+    protected boolean matchesSafely(T item) {
+        return key.equals(item.ruleKey().rule());
+    }
 
-  @Override
-  public void describeTo(Description description) {
-    description.appendText("ruleKey ").appendValue(key);
-  }
+    @Override
+    public void describeTo(Description description) {
+        description.appendText("ruleKey ").appendValue(key);
+    }
 
-  @Override
-  protected void describeMismatchSafely(T item, Description mismatchDescription) {
-    mismatchDescription.appendText("was ").appendValue(item.ruleKey().rule());
-  }
+    @Override
+    protected void describeMismatchSafely(T item, Description mismatchDescription) {
+        mismatchDescription.appendText("was ").appendValue(item.ruleKey().rule());
+    }
 
-  public static <T extends Issue> Matcher<T> hasRuleKey(String key) {
-    return new HasRuleKey<T>(key);
-  }
+    public static <T extends Issue> Matcher<T> hasRuleKey(String key) {
+        return new HasRuleKey<T>(key);
+    }
 
 }

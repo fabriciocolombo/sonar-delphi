@@ -20,10 +20,10 @@ package org.sonar.plugins.delphi.pmd.rules;
 
 public class EmptyFinallyBlockRule extends NodeSequenceRule {
 
-  @Override
-  protected void init() {
-    super.init();
-    setSequence(new String[] {"finally", "end"});
-  }
+    @Override
+    protected void init() {
+        super.init();
+        setSequence(new String[]{"finally", "end"});
+    }
 
 }

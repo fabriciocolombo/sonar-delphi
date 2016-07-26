@@ -35,27 +35,27 @@ import static org.junit.Assert.assertEquals;
 
 public class IncludeResolverTest extends FileTestsCommon {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/grammar/GrammarTest.pas";
-  private IncludeResolver resolver;
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/grammar/GrammarTest.pas";
+    private IncludeResolver resolver;
 
-  @BeforeClass
-  public static void init() throws IOException {
-    loadFile(FILE_NAME);
-  }
+    @BeforeClass
+    public static void init() throws IOException {
+        loadFile(FILE_NAME);
+    }
 
-  @Before
-  public void setup() {
-    resolver = new IncludeResolver(true, new ArrayList<File>());
-  }
+    @Before
+    public void setup() {
+        resolver = new IncludeResolver(true, new ArrayList<File>());
+    }
 
-  @Test
-  public void resolveIncludesTest() {
-    SourceResolverResults results = new SourceResolverResults(testFile.getAbsolutePath(), testFileString);
-    ExcludeResolver excludeResolver = new ExcludeResolver();
-    excludeResolver.resolve(results);
+    @Test
+    public void resolveIncludesTest() {
+        SourceResolverResults results = new SourceResolverResults(testFile.getAbsolutePath(), testFileString);
+        ExcludeResolver excludeResolver = new ExcludeResolver();
+        excludeResolver.resolve(results);
 
-    resolver.resolve(results);
-    assertEquals(4, resolver.getIncludedFilesPath().size());
-  }
+        resolver.resolve(results);
+        assertEquals(4, resolver.getIncludedFilesPath().size());
+    }
 
 }

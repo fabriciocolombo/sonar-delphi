@@ -31,72 +31,72 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
  */
 public class CountRule extends DelphiRule {
 
-  private String stringToSearch;
-  private int typeToSearch;
-  protected int limit;
-  protected int count;
-  /**
-   * Number to increase the count.
-   */
-  protected int strength = 1;
-  /**
-   * Should we reset the counter after exceeding the limit.
-   */
-  protected boolean reset = true;
+    private String stringToSearch;
+    private int typeToSearch;
+    protected int limit;
+    protected int count;
+    /**
+     * Number to increase the count.
+     */
+    protected int strength = 1;
+    /**
+     * Should we reset the counter after exceeding the limit.
+     */
+    protected boolean reset = true;
 
-  public String getStringToSearch() {
-    return stringToSearch;
-  }
-
-  public void setStringToSearch(String stringToSearch) {
-    this.stringToSearch = stringToSearch;
-  }
-
-  public void setTypeToSearch(int typeToSearch) {
-    this.typeToSearch = typeToSearch;
-  }
-
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (!shouldCount(node)) {
-      return;
+    public String getStringToSearch() {
+        return stringToSearch;
     }
 
-    increaseCounter(strength);
+    public void setStringToSearch(String stringToSearch) {
+        this.stringToSearch = stringToSearch;
+    }
 
-    if (exceedsLimit()) {
-      addViolation(ctx, node, getMessage());
-      if (reset) {
+    public void setTypeToSearch(int typeToSearch) {
+        this.typeToSearch = typeToSearch;
+    }
+
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (!shouldCount(node)) {
+            return;
+        }
+
+        increaseCounter(strength);
+
+        if (exceedsLimit()) {
+            addViolation(ctx, node, getMessage());
+            if (reset) {
+                count = 0;
+            }
+        }
+    }
+
+    protected boolean shouldCount(DelphiPMDNode node) {
+        return matchesText(node) || matchesType(node);
+    }
+
+    protected boolean matchesText(DelphiPMDNode node) {
+        return node.getText().equals(stringToSearch);
+    }
+
+    protected boolean matchesType(DelphiPMDNode node) {
+        return node.getType() == typeToSearch;
+    }
+
+    protected void increaseCounter(int howMuch) {
+        count += howMuch;
+    }
+
+    protected boolean exceedsLimit() {
+        return count > limit;
+    }
+
+    @Override
+    protected void init() {
         count = 0;
-      }
+        strength = 1;
+        limit = getIntProperty(LIMIT);
     }
-  }
-
-  protected boolean shouldCount(DelphiPMDNode node) {
-    return matchesText(node) || matchesType(node);
-  }
-
-  protected boolean matchesText(DelphiPMDNode node) {
-    return node.getText().equals(stringToSearch);
-  }
-
-  protected boolean matchesType(DelphiPMDNode node) {
-    return node.getType() == typeToSearch;
-  }
-
-  protected void increaseCounter(int howMuch) {
-    count += howMuch;
-  }
-
-  protected boolean exceedsLimit() {
-    return count > limit;
-  }
-
-  @Override
-  protected void init() {
-    count = 0;
-    strength = 1;
-    limit = getIntProperty(LIMIT);
-  }
 
 }

@@ -39,27 +39,27 @@ import java.util.List;
  */
 public class DelphiRuleSets extends RuleSets {
 
-  private DelphiRuleChain delphiRuleChain = new DelphiRuleChain();
-  private Collection<RuleSet> ruleSets = new ArrayList<RuleSet>();
+    private DelphiRuleChain delphiRuleChain = new DelphiRuleChain();
+    private Collection<RuleSet> ruleSets = new ArrayList<RuleSet>();
 
-  @Override
-  public void apply(List<CompilationUnit> acuList, RuleContext ctx, Language language) {
-    for (RuleSet ruleSet : ruleSets) {
-      if (applies(language, ruleSet.getLanguage()) && ruleSet.applies(ctx.getSourceCodeFile())) {
-        ruleSet.apply(acuList, ctx);
-      }
+    @Override
+    public void apply(List<CompilationUnit> acuList, RuleContext ctx, Language language) {
+        for (RuleSet ruleSet : ruleSets) {
+            if (applies(language, ruleSet.getLanguage()) && ruleSet.applies(ctx.getSourceCodeFile())) {
+                ruleSet.apply(acuList, ctx);
+            }
+        }
     }
-  }
 
-  @Override
-  public void addRuleSet(RuleSet ruleSet) {
-    ruleSets.add(ruleSet);
-    delphiRuleChain.add(ruleSet);
-  }
+    @Override
+    public void addRuleSet(RuleSet ruleSet) {
+        ruleSets.add(ruleSet);
+        delphiRuleChain.add(ruleSet);
+    }
 
-  @Override
-  public boolean applies(File file) {
-    return true;
-  }
+    @Override
+    public boolean applies(File file) {
+        return true;
+    }
 
 }

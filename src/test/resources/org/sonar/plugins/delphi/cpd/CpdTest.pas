@@ -7,59 +7,59 @@ interface
 (* test *)
 
 type
-  TfDemo = class(TForm)
-    bShowTracker: TButton;
-    procedure bShowTrackerClick(Sender: TObject);
-  private
-	//test
-  public
-	{test}
-  end;
-  
+    TfDemo = class(TForm)
+        bShowTracker: TButton;
+        procedure bShowTrackerClick(Sender: TObject);
+    private
+        //test
+    public
+        {test}
+    end;
+
 type
-  TfDemoSecond = class (TForm)
-    bShowTracker: TButton;
-    procedure bShowTrackerClick(Sender: TObject);
-  private
+    TfDemoSecond = class (TForm)
+        bShowTracker: TButton;
+        procedure bShowTrackerClick(Sender: TObject);
+    private
 
-  public
+    public
 
-  end;
-  
+    end;
+
 var
-  fDemo: TfDemo;
+    fDemo: TfDemo;
 
 implementation
 
 procedure TfDemo.bShowTrackerClick(Sender: TObject);
 begin
-  (* long
-  multiline
-  comment
-  *)
-  
-  string = "sample string";
-  
-  for i:=0 to 100 do
-  begin
-  	a := b;
-  	b := c;
-  	c := d;
-  	a := b;
-  	if a < b then
-  		c := b;
-  end;
+    (* long
+    multiline
+    comment
+    *)
 
-  for i:=0 to 100 do
-  begin
-  	a := b;
-  	b := c;
-  	c := d;
-  	a := b;
-  	if a < b then
-  		c := b;
-  end;
-  
+    string = "sample string";
+
+    for i:=0 to 100 do
+    begin
+        a := b;
+        b := c;
+        c := d;
+        a := b;
+        if a < b then
+            c := b;
+    end;
+
+    for i:=0 to 100 do
+    begin
+        a := b;
+        b := c;
+        c := d;
+        a := b;
+        if a < b then
+            c := b;
+    end;
+
 end;
 
 end.

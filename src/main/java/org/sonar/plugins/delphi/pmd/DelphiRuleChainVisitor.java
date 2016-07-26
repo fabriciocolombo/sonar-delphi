@@ -36,14 +36,14 @@ import java.util.List;
  */
 public class DelphiRuleChainVisitor extends AbstractRuleChainVisitor {
 
-  @Override
-  protected void visit(Rule rule, SimpleNode node, RuleContext ctx) {
-    ((JavaNode) node).jjtAccept((DelphiParserVisitor) rule, ctx);
-  }
+    @Override
+    protected void visit(Rule rule, SimpleNode node, RuleContext ctx) {
+        ((JavaNode) node).jjtAccept((DelphiParserVisitor) rule, ctx);
+    }
 
-  @Override
-  protected void indexNodes(List<CompilationUnit> astCompilationUnits, RuleContext ctx) {
+    @Override
+    protected void indexNodes(List<CompilationUnit> astCompilationUnits, RuleContext ctx) {
 
-  }
+    }
 
 }

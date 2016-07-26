@@ -48,58 +48,57 @@ import static org.mockito.Mockito.when;
 
 public class SurefireSensorTest {
 
-  private static final String PROJECT_DIR = "/org/sonar/plugins/delphi/UnitTest";
-  private static final String PROJECT_TEST_DIR = "/org/sonar/plugins/delphi/UnitTest/tests";
-  private static final String SUREFIRE_REPORT_DIR = "./reports";
+    private static final String PROJECT_DIR = "/org/sonar/plugins/delphi/UnitTest";
+    private static final String PROJECT_TEST_DIR = "/org/sonar/plugins/delphi/UnitTest/tests";
+    private static final String SUREFIRE_REPORT_DIR = "./reports";
 
-  private Project project;
-  private Settings settings;
-  private DelphiProjectHelper delphiProjectHelper;
+    private Project project;
+    private Settings settings;
+    private DelphiProjectHelper delphiProjectHelper;
 
-  @Before
-  public void setup() throws FileNotFoundException
-  {
-    List<File> testDirs = new ArrayList<File>();
-    testDirs.add(DelphiUtils.getResource(PROJECT_TEST_DIR));
+    @Before
+    public void setup() throws FileNotFoundException {
+        List<File> testDirs = new ArrayList<File>();
+        testDirs.add(DelphiUtils.getResource(PROJECT_TEST_DIR));
 
-    project = mock(Project.class);
-    delphiProjectHelper = DelphiTestUtils.mockProjectHelper();
+        project = mock(Project.class);
+        delphiProjectHelper = DelphiTestUtils.mockProjectHelper();
 
-    when(delphiProjectHelper.baseDir()).thenReturn(new File(getClass().getResource(PROJECT_DIR).getFile()));
-    when(delphiProjectHelper.findTestFileInDirectories(anyString())).thenAnswer(new Answer<InputFile>() {
-      @Override
-      public InputFile answer(InvocationOnMock invocation) throws Throwable {
-        String file = (String) invocation.getArguments()[0];
-        return new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5",(new File(file)).getPath());
-      }
-    });
+        when(delphiProjectHelper.baseDir()).thenReturn(new File(getClass().getResource(PROJECT_DIR).getFile()));
+        when(delphiProjectHelper.findTestFileInDirectories(anyString())).thenAnswer(new Answer<InputFile>() {
+            @Override
+            public InputFile answer(InvocationOnMock invocation) throws Throwable {
+                String file = (String) invocation.getArguments()[0];
+                return new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", (new File(file)).getPath());
+            }
+        });
 
-    settings = new Settings();
-  }
+        settings = new Settings();
+    }
 
-  @Test
-  public void shouldExecuteOnProjectTest() {
-    assertTrue(new SurefireSensor(settings, delphiProjectHelper)
-      .shouldExecuteOnProject(project));
-  }
+    @Test
+    public void shouldExecuteOnProjectTest() {
+        assertTrue(new SurefireSensor(settings, delphiProjectHelper)
+                .shouldExecuteOnProject(project));
+    }
 
-  @Test
-  public void analyzeTest() {
-    settings.setProperty(SurefireUtils.SUREFIRE_REPORTS_PATH_PROPERTY, SUREFIRE_REPORT_DIR);
-    DebugSensorContext context = new DebugSensorContext();
-    SurefireSensor sensor = new SurefireSensor(settings, delphiProjectHelper);
-    //sensor.analyse(project, context);
+    @Test
+    public void analyzeTest() {
+        settings.setProperty(SurefireUtils.SUREFIRE_REPORTS_PATH_PROPERTY, SUREFIRE_REPORT_DIR);
+        DebugSensorContext context = new DebugSensorContext();
+        SurefireSensor sensor = new SurefireSensor(settings, delphiProjectHelper);
+        //sensor.analyse(project, context);
 
-    //assertEquals(18, context.getMeasuresKeys().size());
-  }
+        //assertEquals(18, context.getMeasuresKeys().size());
+    }
 
-  @Test
-  public void analyzeTestUsingDefaultSurefireReportsPath() {
-    DebugSensorContext context = new DebugSensorContext();
-    SurefireSensor sensor = new SurefireSensor(settings, delphiProjectHelper);
-    //sensor.analyse(project, context);
+    @Test
+    public void analyzeTestUsingDefaultSurefireReportsPath() {
+        DebugSensorContext context = new DebugSensorContext();
+        SurefireSensor sensor = new SurefireSensor(settings, delphiProjectHelper);
+        //sensor.analyse(project, context);
 
-    //assertEquals(24, context.getMeasuresKeys().size());
-  }
+        //assertEquals(24, context.getMeasuresKeys().size());
+    }
 
 }

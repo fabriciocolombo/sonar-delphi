@@ -50,132 +50,132 @@ import static org.mockito.Mockito.mock;
 
 public class FunctionBodyAnalyzerTest extends FileTestsCommon {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
-  private static final String FILE_NAME_OPERATOR_TEST = "/org/sonar/plugins/delphi/metrics/FunctionOperatorTest.pas";
-  private static final String FILE_NAME_LIST_UTILS = "/org/sonar/plugins/delphi/metrics/ListUtils.pas";
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
+    private static final String FILE_NAME_OPERATOR_TEST = "/org/sonar/plugins/delphi/metrics/FunctionOperatorTest.pas";
+    private static final String FILE_NAME_LIST_UTILS = "/org/sonar/plugins/delphi/metrics/ListUtils.pas";
 
-  private static final Tree EMPTY_NODE = new CommonTree(new CommonToken(0, "nil"));
-  private static final Tree BEGIN_NODE = new CommonTree(new CommonToken(LexerMetrics.BEGIN.toMetrics(), "begin"));
+    private static final Tree EMPTY_NODE = new CommonTree(new CommonToken(0, "nil"));
+    private static final Tree BEGIN_NODE = new CommonTree(new CommonToken(LexerMetrics.BEGIN.toMetrics(), "begin"));
 
-  private FunctionBodyAnalyzer analyzer;
-  private CodeAnalysisResults results;
-  private CodeTree codeTree;
+    private FunctionBodyAnalyzer analyzer;
+    private CodeAnalysisResults results;
+    private CodeTree codeTree;
 
-  private ASTTree ast;
+    private ASTTree ast;
 
-  @Before
-  public void setup() {
-    ast = mock(ASTTree.class);
+    @Before
+    public void setup() {
+        ast = mock(ASTTree.class);
 
-    results = new CodeAnalysisResults();
-    analyzer = new FunctionBodyAnalyzer(results, DelphiTestUtils.mockProjectHelper());
-    codeTree = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(EMPTY_NODE));
-  }
-
-  public void setupFile(String fileName) throws IOException, RecognitionException {
-    loadFile(fileName);
-
-    results.setActiveUnit(new DelphiUnit("test"));
-    ast = new DelphiAST(testFile);
-    codeTree = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
-
-    CodeAnalysisCacheResults.resetCache();
-  }
-
-  @Test
-  public void constructorTest() {
-    try {
-      new FunctionBodyAnalyzer(null, DelphiTestUtils.mockProjectHelper());
-      fail("No exception was caught");
-    } catch (IllegalArgumentException e) {
-      assertEquals(IllegalArgumentException.class, e.getClass());
+        results = new CodeAnalysisResults();
+        analyzer = new FunctionBodyAnalyzer(results, DelphiTestUtils.mockProjectHelper());
+        codeTree = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(EMPTY_NODE));
     }
-  }
 
-  @Test
-  public void canAnalyzeTest() {
-    assertEquals(false, analyzer.canAnalyze(codeTree));
+    public void setupFile(String fileName) throws IOException, RecognitionException {
+        loadFile(fileName);
 
-    results.setActiveFunction(new DelphiFunction("testFunction"));
-    assertEquals(false, analyzer.canAnalyze(codeTree));
+        results.setActiveUnit(new DelphiUnit("test"));
+        ast = new DelphiAST(testFile);
+        codeTree = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
 
-    codeTree.setCurrentNode(new CodeNode<Tree>(BEGIN_NODE));
-    assertEquals(true, analyzer.canAnalyze(codeTree));
-  }
+        CodeAnalysisCacheResults.resetCache();
+    }
 
-  @Test
-  public void captureFunctionBodyLine() throws IOException, RecognitionException {
-    setupFile(FILE_NAME);
-
-    results.setActiveClass(new DelphiClass("TDemo"));
-
-    FunctionInterface function = findFunction("getFunction");
-    assertThat(function, notNullValue());
-    assertThat(function.hasBody(), is(true));
-    assertThat(function.getBodyLine(), is(42));
-  }
-
-  private FunctionInterface findFunction(String functionName) {
-    DelphiFunction activeFunction = new DelphiFunction(functionName);
-    final AdvanceToNodeOperation advanceToImplementationSection = new AdvanceToNodeOperation(Arrays.asList(LexerMetrics.IMPLEMENTATION));
-    final AdvanceToNodeOperation advanceToFunctionName = new AdvanceToNodeOperation(Arrays.asList(LexerMetrics.FUNCTION_NAME));
-    final AdvanceToNodeOperation advanceToFunctionBody = new AdvanceToNodeOperation(Arrays.asList(LexerMetrics.FUNCTION_BODY));
-
-    CodeNode<Tree> initialNode = codeTree.getCurrentCodeNode();
-    try {
-      codeTree.setCurrentNode(advanceToImplementationSection.execute(codeTree.getCurrentCodeNode().getNode()));
-
-      CodeNode<Tree> currentNode = codeTree.getCurrentCodeNode();
-      while (currentNode != null) {
+    @Test
+    public void constructorTest() {
         try {
-          CodeNode<Tree> functionNode = advanceToFunctionName.execute(codeTree.getCurrentCodeNode().getNode());
-          codeTree.setCurrentNode(functionNode);
-          final String currentFunctionName = functionNode.getNode().getChild(functionNode.getNode().getChildCount() - 1).getText();
-          if (currentFunctionName.equalsIgnoreCase(functionName)) {
-            results.setActiveFunction(activeFunction);
-            codeTree.setCurrentNode(advanceToFunctionBody.execute(codeTree.getCurrentCodeNode().getNode()));
-            analyzer.analyze(codeTree, results);
-            return activeFunction;
-          }
-        } catch (IllegalStateException e) {
-          currentNode = null;
+            new FunctionBodyAnalyzer(null, DelphiTestUtils.mockProjectHelper());
+            fail("No exception was caught");
+        } catch (IllegalArgumentException e) {
+            assertEquals(IllegalArgumentException.class, e.getClass());
         }
-      }
-    } finally {
-      codeTree.setCurrentNode(initialNode);
     }
-    return null;
-  }
 
-  @Test
-  public void captureFunctionBodyLineRecordOperator() throws IOException, RecognitionException {
-    setupFile(FILE_NAME_OPERATOR_TEST);
+    @Test
+    public void canAnalyzeTest() {
+        assertEquals(false, analyzer.canAnalyze(codeTree));
 
-    results.setActiveClass(new DelphiClass("GenericA"));
+        results.setActiveFunction(new DelphiFunction("testFunction"));
+        assertEquals(false, analyzer.canAnalyze(codeTree));
 
-    FunctionInterface function = findFunction("Implicit");
-    assertThat(function, notNullValue());
-    assertThat(function.hasBody(), is(true));
-    assertThat(function.getBodyLine(), is(18));
-  }
+        codeTree.setCurrentNode(new CodeNode<Tree>(BEGIN_NODE));
+        assertEquals(true, analyzer.canAnalyze(codeTree));
+    }
 
-  @Test
-  public void listUtils() throws IOException, RecognitionException {
-    setupFile(FILE_NAME_LIST_UTILS);
+    @Test
+    public void captureFunctionBodyLine() throws IOException, RecognitionException {
+        setupFile(FILE_NAME);
 
-    results.setActiveClass(new DelphiClass("TListUtils"));
+        results.setActiveClass(new DelphiClass("TDemo"));
 
-    FunctionInterface functionSingleStatement = findFunction("SingleStatement");
-    assertThat(functionSingleStatement, notNullValue());
-    assertThat(functionSingleStatement.hasBody(), is(true));
-    assertThat(functionSingleStatement.getBodyLine(), is(67));
-    assertThat(functionSingleStatement.getStatements(), hasSize(0));
+        FunctionInterface function = findFunction("getFunction");
+        assertThat(function, notNullValue());
+        assertThat(function.hasBody(), is(true));
+        assertThat(function.getBodyLine(), is(42));
+    }
 
-    FunctionInterface function = findFunction("AddAll1");
-    assertThat(function, notNullValue());
-    assertThat(function.hasBody(), is(true));
-    assertThat(function.getBodyLine(), is(28));
-    assertThat(function.getStatements(), hasSize(1));
-  }
+    private FunctionInterface findFunction(String functionName) {
+        DelphiFunction activeFunction = new DelphiFunction(functionName);
+        final AdvanceToNodeOperation advanceToImplementationSection = new AdvanceToNodeOperation(Arrays.asList(LexerMetrics.IMPLEMENTATION));
+        final AdvanceToNodeOperation advanceToFunctionName = new AdvanceToNodeOperation(Arrays.asList(LexerMetrics.FUNCTION_NAME));
+        final AdvanceToNodeOperation advanceToFunctionBody = new AdvanceToNodeOperation(Arrays.asList(LexerMetrics.FUNCTION_BODY));
+
+        CodeNode<Tree> initialNode = codeTree.getCurrentCodeNode();
+        try {
+            codeTree.setCurrentNode(advanceToImplementationSection.execute(codeTree.getCurrentCodeNode().getNode()));
+
+            CodeNode<Tree> currentNode = codeTree.getCurrentCodeNode();
+            while (currentNode != null) {
+                try {
+                    CodeNode<Tree> functionNode = advanceToFunctionName.execute(codeTree.getCurrentCodeNode().getNode());
+                    codeTree.setCurrentNode(functionNode);
+                    final String currentFunctionName = functionNode.getNode().getChild(functionNode.getNode().getChildCount() - 1).getText();
+                    if (currentFunctionName.equalsIgnoreCase(functionName)) {
+                        results.setActiveFunction(activeFunction);
+                        codeTree.setCurrentNode(advanceToFunctionBody.execute(codeTree.getCurrentCodeNode().getNode()));
+                        analyzer.analyze(codeTree, results);
+                        return activeFunction;
+                    }
+                } catch (IllegalStateException e) {
+                    currentNode = null;
+                }
+            }
+        } finally {
+            codeTree.setCurrentNode(initialNode);
+        }
+        return null;
+    }
+
+    @Test
+    public void captureFunctionBodyLineRecordOperator() throws IOException, RecognitionException {
+        setupFile(FILE_NAME_OPERATOR_TEST);
+
+        results.setActiveClass(new DelphiClass("GenericA"));
+
+        FunctionInterface function = findFunction("Implicit");
+        assertThat(function, notNullValue());
+        assertThat(function.hasBody(), is(true));
+        assertThat(function.getBodyLine(), is(18));
+    }
+
+    @Test
+    public void listUtils() throws IOException, RecognitionException {
+        setupFile(FILE_NAME_LIST_UTILS);
+
+        results.setActiveClass(new DelphiClass("TListUtils"));
+
+        FunctionInterface functionSingleStatement = findFunction("SingleStatement");
+        assertThat(functionSingleStatement, notNullValue());
+        assertThat(functionSingleStatement.hasBody(), is(true));
+        assertThat(functionSingleStatement.getBodyLine(), is(67));
+        assertThat(functionSingleStatement.getStatements(), hasSize(0));
+
+        FunctionInterface function = findFunction("AddAll1");
+        assertThat(function, notNullValue());
+        assertThat(function.hasBody(), is(true));
+        assertThat(function.getBodyLine(), is(28));
+        assertThat(function.getStatements(), hasSize(1));
+    }
 
 }

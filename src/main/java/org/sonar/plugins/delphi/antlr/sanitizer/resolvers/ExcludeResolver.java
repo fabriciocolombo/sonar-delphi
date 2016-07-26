@@ -34,88 +34,87 @@ import org.sonar.plugins.delphi.antlr.sanitizer.subranges.impl.IntegerSubRange;
  */
 public class ExcludeResolver extends SourceResolver {
 
-  @Override
-  protected void doResolve(SourceResolverResults results) {
-    results.setFileExcludes(getAllExcludes(results.getFileData()));
-  }
-
-  /**
-   * @return sub range aggregator containing all exclude elements: comments,
-   *         strings
-   */
-  private SubRangeAggregator getAllExcludes(StringBuilder fileData) {
-    SubRangeMergingAggregator rangeAggregator = new SubRangeMergingAggregator();
-
-    if (fileData != null) {
-      rangeAggregator.addAll(excludeComments(fileData));
-      rangeAggregator.addAll(excludeBlockComments(fileData));
-      rangeAggregator.addAll(getExcludedStrings(fileData));
-    }
-    rangeAggregator.sort(new SubRangeFirstOccurenceComparator());
-    return rangeAggregator;
-  }
-
-  private SubRangeAggregator excludeComments(StringBuilder fileData) {
-    SubRangeAggregator rangeAggregator = new SubRangeMergingAggregator();
-    int pos = -1; // //...
-    while ((pos = fileData.indexOf("//", pos + 1)) != -1) {
-      int pos2 = fileData.indexOf("\n", pos + 1);
-      if (pos2 != -1 && !rangeAggregator.inRange(pos)) {
-        // make new subrange
-        rangeAggregator.add(new IntegerSubRange(pos, pos2));
-      }
-    }
-    return rangeAggregator;
-  }
-
-  private SubRangeAggregator excludeBlockComments(StringBuilder fileData) {
-    SubRangeAggregator rangeAggregator = new SubRangeMergingAggregator();
-    int pos = -1; // (* ... *)
-    while ((pos = fileData.indexOf("(*", pos + 1)) != -1) {
-      int pos2 = fileData.indexOf("*)", pos + 1);
-      if (pos2 != -1 && !rangeAggregator.inRange(pos)) {
-        // make new subrange
-        rangeAggregator.add(new IntegerSubRange(pos, pos2 + 2));
-      }
+    @Override
+    protected void doResolve(SourceResolverResults results) {
+        results.setFileExcludes(getAllExcludes(results.getFileData()));
     }
 
-    pos = -1; // { ... }
-    while ((pos = fileData.indexOf("{", pos + 1)) != -1) {
-      if (fileData.charAt(pos + 1) == '$') {
-        continue;
-      }
-      int pos2 = fileData.indexOf("}", pos + 1);
-      if (pos2 != -1 && !rangeAggregator.inRange(pos)) {
-        // make new subrange
-        rangeAggregator.add(new IntegerSubRange(pos, pos2 + 1));
-      }
-    }
-    return rangeAggregator;
-  }
+    /**
+     * @return sub range aggregator containing all exclude elements: comments,
+     * strings
+     */
+    private SubRangeAggregator getAllExcludes(StringBuilder fileData) {
+        SubRangeMergingAggregator rangeAggregator = new SubRangeMergingAggregator();
 
-  private SubRangeAggregator getExcludedStrings(StringBuilder fileData) {
-    SubRangeAggregator rangeAggregator = new SubRangeMergingAggregator();
-    int pos = -1;
-    // parses strings
-    while ((pos = fileData.indexOf("'", pos + 1)) != -1)
-    {
-      // get next ' position
-      int pos2 = fileData.indexOf("'", pos + 1);
-      if (pos2 == -1) {
-        break; // no pair
-      }
-      // get new line position
-      int newLine = fileData.indexOf("\n", pos + 1);
-      if (pos2 > newLine) {
-        // count only those quotes, that begin and end in a single line
-        continue;
-      }
-      // new quote range
-      rangeAggregator.add(new IntegerSubRange(pos, pos2 + 1));
-      // set current position to last ' position
-      pos = pos2;
+        if (fileData != null) {
+            rangeAggregator.addAll(excludeComments(fileData));
+            rangeAggregator.addAll(excludeBlockComments(fileData));
+            rangeAggregator.addAll(getExcludedStrings(fileData));
+        }
+        rangeAggregator.sort(new SubRangeFirstOccurenceComparator());
+        return rangeAggregator;
     }
-    return rangeAggregator;
-  }
+
+    private SubRangeAggregator excludeComments(StringBuilder fileData) {
+        SubRangeAggregator rangeAggregator = new SubRangeMergingAggregator();
+        int pos = -1; // //...
+        while ((pos = fileData.indexOf("//", pos + 1)) != -1) {
+            int pos2 = fileData.indexOf("\n", pos + 1);
+            if (pos2 != -1 && !rangeAggregator.inRange(pos)) {
+                // make new subrange
+                rangeAggregator.add(new IntegerSubRange(pos, pos2));
+            }
+        }
+        return rangeAggregator;
+    }
+
+    private SubRangeAggregator excludeBlockComments(StringBuilder fileData) {
+        SubRangeAggregator rangeAggregator = new SubRangeMergingAggregator();
+        int pos = -1; // (* ... *)
+        while ((pos = fileData.indexOf("(*", pos + 1)) != -1) {
+            int pos2 = fileData.indexOf("*)", pos + 1);
+            if (pos2 != -1 && !rangeAggregator.inRange(pos)) {
+                // make new subrange
+                rangeAggregator.add(new IntegerSubRange(pos, pos2 + 2));
+            }
+        }
+
+        pos = -1; // { ... }
+        while ((pos = fileData.indexOf("{", pos + 1)) != -1) {
+            if (fileData.charAt(pos + 1) == '$') {
+                continue;
+            }
+            int pos2 = fileData.indexOf("}", pos + 1);
+            if (pos2 != -1 && !rangeAggregator.inRange(pos)) {
+                // make new subrange
+                rangeAggregator.add(new IntegerSubRange(pos, pos2 + 1));
+            }
+        }
+        return rangeAggregator;
+    }
+
+    private SubRangeAggregator getExcludedStrings(StringBuilder fileData) {
+        SubRangeAggregator rangeAggregator = new SubRangeMergingAggregator();
+        int pos = -1;
+        // parses strings
+        while ((pos = fileData.indexOf("'", pos + 1)) != -1) {
+            // get next ' position
+            int pos2 = fileData.indexOf("'", pos + 1);
+            if (pos2 == -1) {
+                break; // no pair
+            }
+            // get new line position
+            int newLine = fileData.indexOf("\n", pos + 1);
+            if (pos2 > newLine) {
+                // count only those quotes, that begin and end in a single line
+                continue;
+            }
+            // new quote range
+            rangeAggregator.add(new IntegerSubRange(pos, pos2 + 1));
+            // set current position to last ' position
+            pos = pos2;
+        }
+        return rangeAggregator;
+    }
 
 }

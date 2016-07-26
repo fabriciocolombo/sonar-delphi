@@ -26,48 +26,48 @@ import static org.hamcrest.Matchers.*;
 
 public class UnitNameRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testValidRule() {
-    analyse(new DelphiUnitBuilderTest().unitName("MyUnit"));
+    @Test
+    public void testValidRule() {
+        analyse(new DelphiUnitBuilderTest().unitName("MyUnit"));
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void testValidUnitUsingNameSpace() {
-    analyse(new DelphiUnitBuilderTest().unitName("MySonar.MyUnit"));
+    @Test
+    public void testValidUnitUsingNameSpace() {
+        analyse(new DelphiUnitBuilderTest().unitName("MySonar.MyUnit"));
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void testInvalidRule() {
-    analyse(new DelphiUnitBuilderTest().unitName("myUnit"));
+    @Test
+    public void testInvalidRule() {
+        analyse(new DelphiUnitBuilderTest().unitName("myUnit"));
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("UnitNameRule"));
-    assertThat(issue.line(), is(1));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("UnitNameRule"));
+        assertThat(issue.line(), is(1));
+    }
 
-  @Test
-  public void testInvalidUnitUsingNameSpace() {
-    analyse(new DelphiUnitBuilderTest().unitName("MySonar.myUnit"));
+    @Test
+    public void testInvalidUnitUsingNameSpace() {
+        analyse(new DelphiUnitBuilderTest().unitName("MySonar.myUnit"));
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("UnitNameRule"));
-    assertThat(issue.line(), is(1));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("UnitNameRule"));
+        assertThat(issue.line(), is(1));
+    }
 
-  @Test
-  public void testInvalidUnitUsingLowerNameSpace() {
-    analyse(new DelphiUnitBuilderTest().unitName("mySonar.myUnit"));
+    @Test
+    public void testInvalidUnitUsingLowerNameSpace() {
+        analyse(new DelphiUnitBuilderTest().unitName("mySonar.myUnit"));
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("UnitNameRule"));
-    assertThat(issue.line(), is(1));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("UnitNameRule"));
+        assertThat(issue.line(), is(1));
+    }
 
 }

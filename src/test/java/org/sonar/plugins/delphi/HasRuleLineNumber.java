@@ -25,29 +25,29 @@ import org.sonar.api.issue.Issue;
 
 public class HasRuleLineNumber<T extends Issue> extends TypeSafeMatcher<T> {
 
-  private final int line;
+    private final int line;
 
-  public HasRuleLineNumber(int line) {
-    this.line = line;
-  }
+    public HasRuleLineNumber(int line) {
+        this.line = line;
+    }
 
-  @Override
-  protected boolean matchesSafely(T item) {
-    return line == item.line();
-  }
+    @Override
+    protected boolean matchesSafely(T item) {
+        return line == item.line();
+    }
 
-  @Override
-  public void describeTo(Description description) {
-    description.appendText("rule line ").appendValue(line);
-  }
+    @Override
+    public void describeTo(Description description) {
+        description.appendText("rule line ").appendValue(line);
+    }
 
-  @Override
-  protected void describeMismatchSafely(T item, Description mismatchDescription) {
-    mismatchDescription.appendText("was ").appendValue(item.line());
-  }
+    @Override
+    protected void describeMismatchSafely(T item, Description mismatchDescription) {
+        mismatchDescription.appendText("was ").appendValue(item.line());
+    }
 
-  public static <T extends Issue> Matcher<T> hasRuleLine(int line) {
-    return new HasRuleLineNumber<T>(line);
-  }
+    public static <T extends Issue> Matcher<T> hasRuleLine(int line) {
+        return new HasRuleLineNumber<T>(line);
+    }
 
 }

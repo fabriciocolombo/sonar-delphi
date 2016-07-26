@@ -24,20 +24,20 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
 public class PointerNameRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (isImplementationSection()) {
-      return;
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (isImplementationSection()) {
+            return;
+        }
+
+        if (node.getType() == DelphiLexer.POINTER2) {
+            String name = node.getParent().getText();
+
+            char firstCharAfterPrefix = name.charAt(1);
+
+            if (!name.startsWith("P") || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
+                addViolation(ctx, node);
+            }
+        }
     }
-
-    if (node.getType() == DelphiLexer.POINTER2) {
-      String name = node.getParent().getText();
-
-      char firstCharAfterPrefix = name.charAt(1);
-
-      if (!name.startsWith("P") || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
-        addViolation(ctx, node);
-      }
-    }
-  }
 }

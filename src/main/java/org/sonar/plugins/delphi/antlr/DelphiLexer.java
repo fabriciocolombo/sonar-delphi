@@ -31,220 +31,227 @@ import org.antlr.runtime.*;
 
 @SuppressWarnings("all")
 public class DelphiLexer extends Lexer {
-    public static final int EOF=-1;
-    public static final int T__200=200;
-    public static final int T__201=201;
-    public static final int ABSOLUTE=4;
-    public static final int ABSTRACT=5;
-    public static final int ADD=6;
-    public static final int AND=7;
-    public static final int ANSISTRING=8;
-    public static final int ARRAY=9;
-    public static final int AS=10;
-    public static final int ASM=11;
-    public static final int ASSEMBLER=12;
-    public static final int ASSEMBLY=13;
-    public static final int ASSIGN=14;
-    public static final int AT=15;
-    public static final int AT2=16;
-    public static final int AUTOMATED=17;
-    public static final int Alpha=18;
-    public static final int BEGIN=19;
-    public static final int BREAK=20;
-    public static final int CASE=21;
-    public static final int CDECL=22;
-    public static final int CLASS=23;
-    public static final int COLON=24;
-    public static final int COMMA=25;
-    public static final int COMMENT=26;
-    public static final int CONST=27;
-    public static final int CONSTRUCTOR=28;
-    public static final int CONTAINS=29;
-    public static final int CONTINUE=30;
-    public static final int ControlString=31;
-    public static final int Controlchar=32;
-    public static final int DEFAULT=33;
-    public static final int DEPRECATED=34;
-    public static final int DESTRUCTOR=35;
-    public static final int DISPID=36;
-    public static final int DISPINTERFACE=37;
-    public static final int DIV=38;
-    public static final int DO=39;
-    public static final int DOT=40;
-    public static final int DOTDOT=41;
-    public static final int DOWNTO=42;
-    public static final int DQ=43;
-    public static final int DW=44;
-    public static final int DYNAMIC=45;
-    public static final int Digit=46;
-    public static final int Digitseq=47;
-    public static final int ELSE=48;
-    public static final int END=49;
-    public static final int EQUAL=50;
-    public static final int EXCEPT=51;
-    public static final int EXIT=52;
-    public static final int EXPERIMENTAL=53;
-    public static final int EXPORT=54;
-    public static final int EXPORTS=55;
-    public static final int EXTERNAL=56;
-    public static final int FALSE=57;
-    public static final int FAR=58;
-    public static final int FILE=59;
-    public static final int FINAL=60;
-    public static final int FINALIZATION=61;
-    public static final int FINALLY=62;
-    public static final int FOR=63;
-    public static final int FORWARD=64;
-    public static final int FUNCTION=65;
-    public static final int GE=66;
-    public static final int GOTO=67;
-    public static final int GT=68;
-    public static final int HELPER=69;
-    public static final int Hexdigit=70;
-    public static final int Hexdigitseq=71;
-    public static final int IF=72;
-    public static final int IMPLEMENTATION=73;
-    public static final int IMPLEMENTS=74;
-    public static final int IN=75;
-    public static final int INDEX=76;
-    public static final int INHERITED=77;
-    public static final int INITIALIZATION=78;
-    public static final int INLINE=79;
-    public static final int INTERFACE=80;
-    public static final int IS=81;
-    public static final int LABEL=82;
-    public static final int LBRACK=83;
-    public static final int LBRACK2=84;
-    public static final int LCURLY=85;
-    public static final int LE=86;
-    public static final int LIBRARY=87;
-    public static final int LOCAL=88;
-    public static final int LPAREN=89;
-    public static final int LT=90;
-    public static final int MESSAGE=91;
-    public static final int MINUS=92;
-    public static final int MOD=93;
-    public static final int NAME=94;
-    public static final int NEAR=95;
-    public static final int NIL=96;
-    public static final int NODEFAULT=97;
-    public static final int NOT=98;
-    public static final int NOT_EQUAL=99;
-    public static final int OBJECT=100;
-    public static final int OF=101;
-    public static final int ON=102;
-    public static final int OPERATOR=103;
-    public static final int OR=104;
-    public static final int OUT=105;
-    public static final int OVERLOAD=106;
-    public static final int OVERRIDE=107;
-    public static final int PACKAGE=108;
-    public static final int PACKED=109;
-    public static final int PASCAL=110;
-    public static final int PLATFORM=111;
-    public static final int PLUS=112;
-    public static final int POINTER=113;
-    public static final int POINTER2=114;
-    public static final int PRIVATE=115;
-    public static final int PROCEDURE=116;
-    public static final int PROGRAM=117;
-    public static final int PROPERTY=118;
-    public static final int PROTECTED=119;
-    public static final int PUBLIC=120;
-    public static final int PUBLISHED=121;
-    public static final int QuotedString=122;
-    public static final int RAISE=123;
-    public static final int RBRACK=124;
-    public static final int RBRACK2=125;
-    public static final int RCURLY=126;
-    public static final int READ=127;
-    public static final int READONLY=128;
-    public static final int RECORD=129;
-    public static final int REFERENCE=130;
-    public static final int REGISTER=131;
-    public static final int REINTRODUCE=132;
-    public static final int REMOVE=133;
-    public static final int REPEAT=134;
-    public static final int REQUIRES=135;
-    public static final int RESIDENT=136;
-    public static final int RESOURCESTRING=137;
-    public static final int RPAREN=138;
-    public static final int SAFECALL=139;
-    public static final int SEALED=140;
-    public static final int SEMI=141;
-    public static final int SET=142;
-    public static final int SHL=143;
-    public static final int SHR=144;
-    public static final int SLASH=145;
-    public static final int STAR=146;
-    public static final int STATIC=147;
-    public static final int STDCALL=148;
-    public static final int STORED=149;
-    public static final int STRICT=150;
-    public static final int STRING=151;
-    public static final int THEN=152;
-    public static final int THREADVAR=153;
-    public static final int TO=154;
-    public static final int TRUE=155;
-    public static final int TRY=156;
-    public static final int TYPE=157;
-    public static final int TkAnonymousExpression=158;
-    public static final int TkAsmHexLabel=159;
-    public static final int TkAsmHexNum=160;
-    public static final int TkClass=161;
-    public static final int TkClassField=162;
-    public static final int TkClassOfType=163;
-    public static final int TkClassParents=164;
-    public static final int TkCustomAttribute=165;
-    public static final int TkCustomAttributeArgs=166;
-    public static final int TkFunctionArgs=167;
-    public static final int TkFunctionBody=168;
-    public static final int TkFunctionName=169;
-    public static final int TkFunctionReturn=170;
-    public static final int TkGlobalFunction=171;
-    public static final int TkGuid=172;
-    public static final int TkHexNum=173;
-    public static final int TkIdentifier=174;
-    public static final int TkIntNum=175;
-    public static final int TkInterface=176;
-    public static final int TkNewType=177;
-    public static final int TkObject=178;
-    public static final int TkRealNum=179;
-    public static final int TkRecord=180;
-    public static final int TkRecordHelper=181;
-    public static final int TkVariableIdents=182;
-    public static final int TkVariableParam=183;
-    public static final int TkVariableType=184;
-    public static final int UNIT=185;
-    public static final int UNSAFE=186;
-    public static final int UNTIL=187;
-    public static final int USES=188;
-    public static final int UnicodeBOM=189;
-    public static final int VAR=190;
-    public static final int VARARGS=191;
-    public static final int VARIANT=192;
-    public static final int VIRTUAL=193;
-    public static final int WHILE=194;
-    public static final int WITH=195;
-    public static final int WRITE=196;
-    public static final int WRITEONLY=197;
-    public static final int WS=198;
-    public static final int XOR=199;
+    public static final int EOF = -1;
+    public static final int T__200 = 200;
+    public static final int T__201 = 201;
+    public static final int ABSOLUTE = 4;
+    public static final int ABSTRACT = 5;
+    public static final int ADD = 6;
+    public static final int AND = 7;
+    public static final int ANSISTRING = 8;
+    public static final int ARRAY = 9;
+    public static final int AS = 10;
+    public static final int ASM = 11;
+    public static final int ASSEMBLER = 12;
+    public static final int ASSEMBLY = 13;
+    public static final int ASSIGN = 14;
+    public static final int AT = 15;
+    public static final int AT2 = 16;
+    public static final int AUTOMATED = 17;
+    public static final int Alpha = 18;
+    public static final int BEGIN = 19;
+    public static final int BREAK = 20;
+    public static final int CASE = 21;
+    public static final int CDECL = 22;
+    public static final int CLASS = 23;
+    public static final int COLON = 24;
+    public static final int COMMA = 25;
+    public static final int COMMENT = 26;
+    public static final int CONST = 27;
+    public static final int CONSTRUCTOR = 28;
+    public static final int CONTAINS = 29;
+    public static final int CONTINUE = 30;
+    public static final int ControlString = 31;
+    public static final int Controlchar = 32;
+    public static final int DEFAULT = 33;
+    public static final int DEPRECATED = 34;
+    public static final int DESTRUCTOR = 35;
+    public static final int DISPID = 36;
+    public static final int DISPINTERFACE = 37;
+    public static final int DIV = 38;
+    public static final int DO = 39;
+    public static final int DOT = 40;
+    public static final int DOTDOT = 41;
+    public static final int DOWNTO = 42;
+    public static final int DQ = 43;
+    public static final int DW = 44;
+    public static final int DYNAMIC = 45;
+    public static final int Digit = 46;
+    public static final int Digitseq = 47;
+    public static final int ELSE = 48;
+    public static final int END = 49;
+    public static final int EQUAL = 50;
+    public static final int EXCEPT = 51;
+    public static final int EXIT = 52;
+    public static final int EXPERIMENTAL = 53;
+    public static final int EXPORT = 54;
+    public static final int EXPORTS = 55;
+    public static final int EXTERNAL = 56;
+    public static final int FALSE = 57;
+    public static final int FAR = 58;
+    public static final int FILE = 59;
+    public static final int FINAL = 60;
+    public static final int FINALIZATION = 61;
+    public static final int FINALLY = 62;
+    public static final int FOR = 63;
+    public static final int FORWARD = 64;
+    public static final int FUNCTION = 65;
+    public static final int GE = 66;
+    public static final int GOTO = 67;
+    public static final int GT = 68;
+    public static final int HELPER = 69;
+    public static final int Hexdigit = 70;
+    public static final int Hexdigitseq = 71;
+    public static final int IF = 72;
+    public static final int IMPLEMENTATION = 73;
+    public static final int IMPLEMENTS = 74;
+    public static final int IN = 75;
+    public static final int INDEX = 76;
+    public static final int INHERITED = 77;
+    public static final int INITIALIZATION = 78;
+    public static final int INLINE = 79;
+    public static final int INTERFACE = 80;
+    public static final int IS = 81;
+    public static final int LABEL = 82;
+    public static final int LBRACK = 83;
+    public static final int LBRACK2 = 84;
+    public static final int LCURLY = 85;
+    public static final int LE = 86;
+    public static final int LIBRARY = 87;
+    public static final int LOCAL = 88;
+    public static final int LPAREN = 89;
+    public static final int LT = 90;
+    public static final int MESSAGE = 91;
+    public static final int MINUS = 92;
+    public static final int MOD = 93;
+    public static final int NAME = 94;
+    public static final int NEAR = 95;
+    public static final int NIL = 96;
+    public static final int NODEFAULT = 97;
+    public static final int NOT = 98;
+    public static final int NOT_EQUAL = 99;
+    public static final int OBJECT = 100;
+    public static final int OF = 101;
+    public static final int ON = 102;
+    public static final int OPERATOR = 103;
+    public static final int OR = 104;
+    public static final int OUT = 105;
+    public static final int OVERLOAD = 106;
+    public static final int OVERRIDE = 107;
+    public static final int PACKAGE = 108;
+    public static final int PACKED = 109;
+    public static final int PASCAL = 110;
+    public static final int PLATFORM = 111;
+    public static final int PLUS = 112;
+    public static final int POINTER = 113;
+    public static final int POINTER2 = 114;
+    public static final int PRIVATE = 115;
+    public static final int PROCEDURE = 116;
+    public static final int PROGRAM = 117;
+    public static final int PROPERTY = 118;
+    public static final int PROTECTED = 119;
+    public static final int PUBLIC = 120;
+    public static final int PUBLISHED = 121;
+    public static final int QuotedString = 122;
+    public static final int RAISE = 123;
+    public static final int RBRACK = 124;
+    public static final int RBRACK2 = 125;
+    public static final int RCURLY = 126;
+    public static final int READ = 127;
+    public static final int READONLY = 128;
+    public static final int RECORD = 129;
+    public static final int REFERENCE = 130;
+    public static final int REGISTER = 131;
+    public static final int REINTRODUCE = 132;
+    public static final int REMOVE = 133;
+    public static final int REPEAT = 134;
+    public static final int REQUIRES = 135;
+    public static final int RESIDENT = 136;
+    public static final int RESOURCESTRING = 137;
+    public static final int RPAREN = 138;
+    public static final int SAFECALL = 139;
+    public static final int SEALED = 140;
+    public static final int SEMI = 141;
+    public static final int SET = 142;
+    public static final int SHL = 143;
+    public static final int SHR = 144;
+    public static final int SLASH = 145;
+    public static final int STAR = 146;
+    public static final int STATIC = 147;
+    public static final int STDCALL = 148;
+    public static final int STORED = 149;
+    public static final int STRICT = 150;
+    public static final int STRING = 151;
+    public static final int THEN = 152;
+    public static final int THREADVAR = 153;
+    public static final int TO = 154;
+    public static final int TRUE = 155;
+    public static final int TRY = 156;
+    public static final int TYPE = 157;
+    public static final int TkAnonymousExpression = 158;
+    public static final int TkAsmHexLabel = 159;
+    public static final int TkAsmHexNum = 160;
+    public static final int TkClass = 161;
+    public static final int TkClassField = 162;
+    public static final int TkClassOfType = 163;
+    public static final int TkClassParents = 164;
+    public static final int TkCustomAttribute = 165;
+    public static final int TkCustomAttributeArgs = 166;
+    public static final int TkFunctionArgs = 167;
+    public static final int TkFunctionBody = 168;
+    public static final int TkFunctionName = 169;
+    public static final int TkFunctionReturn = 170;
+    public static final int TkGlobalFunction = 171;
+    public static final int TkGuid = 172;
+    public static final int TkHexNum = 173;
+    public static final int TkIdentifier = 174;
+    public static final int TkIntNum = 175;
+    public static final int TkInterface = 176;
+    public static final int TkNewType = 177;
+    public static final int TkObject = 178;
+    public static final int TkRealNum = 179;
+    public static final int TkRecord = 180;
+    public static final int TkRecordHelper = 181;
+    public static final int TkVariableIdents = 182;
+    public static final int TkVariableParam = 183;
+    public static final int TkVariableType = 184;
+    public static final int UNIT = 185;
+    public static final int UNSAFE = 186;
+    public static final int UNTIL = 187;
+    public static final int USES = 188;
+    public static final int UnicodeBOM = 189;
+    public static final int VAR = 190;
+    public static final int VARARGS = 191;
+    public static final int VARIANT = 192;
+    public static final int VIRTUAL = 193;
+    public static final int WHILE = 194;
+    public static final int WITH = 195;
+    public static final int WRITE = 196;
+    public static final int WRITEONLY = 197;
+    public static final int WS = 198;
+    public static final int XOR = 199;
 
     // delegates
     // delegators
     public Lexer[] getDelegates() {
-        return new Lexer[] {};
+        return new Lexer[]{};
     }
 
-    public DelphiLexer() {}
+    public DelphiLexer() {
+    }
+
     public DelphiLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
+
     public DelphiLexer(CharStream input, RecognizerSharedState state) {
-        super(input,state);
+        super(input, state);
     }
-    @Override public String getGrammarFileName() { return "org\\sonar\\plugins\\delphi\\antlr\\Delphi.g"; }
+
+    @Override
+    public String getGrammarFileName() {
+        return "org\\sonar\\plugins\\delphi\\antlr\\Delphi.g";
+    }
 
     // $ANTLR start "T__200"
     public final void mT__200() throws RecognitionException {
@@ -259,8 +266,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -280,8 +286,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -301,8 +306,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -322,8 +326,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -343,8 +346,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -364,8 +366,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -385,8 +386,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -406,8 +406,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -427,8 +426,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -448,8 +446,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -469,8 +466,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -490,8 +486,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -511,8 +506,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -532,8 +526,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -553,8 +546,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -574,8 +566,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -595,8 +586,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -616,8 +606,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -637,8 +626,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -658,8 +646,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -679,8 +666,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -700,8 +686,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -721,8 +706,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -742,8 +726,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -763,8 +746,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -784,8 +766,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -805,8 +786,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -826,8 +806,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -847,8 +826,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -868,8 +846,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -889,8 +866,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -910,8 +886,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -931,8 +906,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -952,8 +926,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -973,8 +946,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -994,8 +966,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1015,8 +986,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1036,8 +1006,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1057,8 +1026,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1078,8 +1046,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1099,8 +1066,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1120,8 +1086,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1141,8 +1106,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1162,8 +1126,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1183,8 +1146,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1204,8 +1166,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1225,8 +1186,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1246,8 +1206,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1267,8 +1226,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1288,8 +1246,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1309,8 +1266,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1330,8 +1286,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1351,8 +1306,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1372,8 +1326,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1393,8 +1346,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1414,8 +1366,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1435,8 +1386,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1456,8 +1406,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1477,8 +1426,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1498,8 +1446,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1519,8 +1466,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1540,8 +1486,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1561,8 +1506,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1582,8 +1526,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1603,8 +1546,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1624,8 +1566,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1645,8 +1586,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1666,8 +1606,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1687,8 +1626,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1708,8 +1646,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1729,8 +1666,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1750,8 +1686,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1771,8 +1706,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1792,8 +1726,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1813,8 +1746,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1834,8 +1766,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1855,8 +1786,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1876,8 +1806,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1897,8 +1826,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1918,8 +1846,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1939,8 +1866,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1960,8 +1886,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -1981,8 +1906,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2002,8 +1926,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2023,8 +1946,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2044,8 +1966,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2065,8 +1986,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2086,8 +2006,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2107,8 +2026,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2128,8 +2046,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2149,8 +2066,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2170,8 +2086,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2191,8 +2106,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2212,8 +2126,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2233,8 +2146,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2254,8 +2166,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2275,8 +2186,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2296,8 +2206,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2317,8 +2226,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2338,8 +2246,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2359,8 +2266,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2380,8 +2286,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2401,8 +2306,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2422,8 +2326,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2443,8 +2346,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2464,8 +2366,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2485,8 +2386,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2506,8 +2406,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2527,8 +2426,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2548,8 +2446,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2569,8 +2466,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2590,8 +2486,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2611,8 +2506,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2632,8 +2526,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2653,8 +2546,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2674,8 +2566,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2695,8 +2586,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2716,8 +2606,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2737,8 +2626,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2758,8 +2646,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2779,8 +2666,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2800,8 +2686,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2821,8 +2706,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2842,8 +2726,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2863,8 +2746,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2884,8 +2766,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2905,8 +2786,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2926,8 +2806,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2947,8 +2826,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2968,8 +2846,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -2989,8 +2866,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3010,8 +2886,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3031,8 +2906,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3052,8 +2926,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3072,8 +2945,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3092,8 +2964,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3112,8 +2983,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3132,8 +3002,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3153,8 +3022,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3173,8 +3041,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3193,8 +3060,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3213,8 +3079,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3233,8 +3098,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3254,8 +3118,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3274,8 +3137,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3295,8 +3157,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3316,8 +3177,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3336,8 +3196,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3356,8 +3215,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3376,8 +3234,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3396,8 +3253,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3417,8 +3273,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3437,8 +3292,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3458,8 +3312,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3478,8 +3331,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3498,8 +3350,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3518,8 +3369,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3539,8 +3389,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3559,8 +3408,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3579,8 +3427,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3600,8 +3447,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3621,8 +3467,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3642,8 +3487,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3663,8 +3507,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3684,8 +3527,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3705,8 +3547,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3726,8 +3567,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3747,8 +3587,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3768,8 +3607,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3789,8 +3627,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3810,8 +3647,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3831,8 +3667,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3852,8 +3687,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3873,8 +3707,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3894,8 +3727,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3915,8 +3747,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3936,8 +3767,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3957,8 +3787,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3978,8 +3807,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -3999,8 +3827,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4020,8 +3847,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4036,30 +3862,27 @@ public class DelphiLexer extends Lexer {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:27: ( Alpha | '_' ) ( Alpha | Digit | '_' )*
             {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:27: ( Alpha | '_' )
-                int alt1=2;
+                int alt1 = 2;
                 int LA1_0 = input.LA(1);
-                if ( ((LA1_0 >= 'A' && LA1_0 <= 'Z')||(LA1_0 >= 'a' && LA1_0 <= 'z')||(LA1_0 >= '\u0080' && LA1_0 <= '\uFFFE')) ) {
-                    alt1=1;
-                }
-                else if ( (LA1_0=='_') ) {
-                    alt1=2;
-                }
-
-                else {
+                if (((LA1_0 >= 'A' && LA1_0 <= 'Z') || (LA1_0 >= 'a' && LA1_0 <= 'z') || (LA1_0 >= '\u0080' && LA1_0 <= '\uFFFE'))) {
+                    alt1 = 1;
+                } else if ((LA1_0 == '_')) {
+                    alt1 = 2;
+                } else {
                     NoViableAltException nvae =
                             new NoViableAltException("", 1, 0, input);
                     throw nvae;
                 }
 
                 switch (alt1) {
-                    case 1 :
+                    case 1:
                         // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:28: Alpha
                     {
                         mAlpha();
 
                     }
                     break;
-                    case 2 :
+                    case 2:
                         // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:36: '_'
                     {
                         match('_');
@@ -4071,41 +3894,39 @@ public class DelphiLexer extends Lexer {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:41: ( Alpha | Digit | '_' )*
                 loop2:
                 while (true) {
-                    int alt2=4;
+                    int alt2 = 4;
                     int LA2_0 = input.LA(1);
-                    if ( ((LA2_0 >= 'A' && LA2_0 <= 'Z')||(LA2_0 >= 'a' && LA2_0 <= 'z')||(LA2_0 >= '\u0080' && LA2_0 <= '\uFFFE')) ) {
-                        alt2=1;
-                    }
-                    else if ( ((LA2_0 >= '0' && LA2_0 <= '9')) ) {
-                        alt2=2;
-                    }
-                    else if ( (LA2_0=='_') ) {
-                        alt2=3;
+                    if (((LA2_0 >= 'A' && LA2_0 <= 'Z') || (LA2_0 >= 'a' && LA2_0 <= 'z') || (LA2_0 >= '\u0080' && LA2_0 <= '\uFFFE'))) {
+                        alt2 = 1;
+                    } else if (((LA2_0 >= '0' && LA2_0 <= '9'))) {
+                        alt2 = 2;
+                    } else if ((LA2_0 == '_')) {
+                        alt2 = 3;
                     }
 
                     switch (alt2) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:42: Alpha
                         {
                             mAlpha();
 
                         }
                         break;
-                        case 2 :
+                        case 2:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:50: Digit
                         {
                             mDigit();
 
                         }
                         break;
-                        case 3 :
+                        case 3:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:918:58: '_'
                         {
                             match('_');
                         }
                         break;
 
-                        default :
+                        default:
                             break loop2;
                     }
                 }
@@ -4114,8 +3935,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4135,8 +3955,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4153,13 +3972,13 @@ public class DelphiLexer extends Lexer {
                 mDigitseq();
 
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:922:36: ( '.' Digitseq )?
-                int alt3=2;
+                int alt3 = 2;
                 int LA3_0 = input.LA(1);
-                if ( (LA3_0=='.') ) {
-                    alt3=1;
+                if ((LA3_0 == '.')) {
+                    alt3 = 1;
                 }
                 switch (alt3) {
-                    case 1 :
+                    case 1:
                         // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:922:37: '.' Digitseq
                     {
                         match('.');
@@ -4171,38 +3990,36 @@ public class DelphiLexer extends Lexer {
                 }
 
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:922:52: ( ( 'e' | 'E' ) ( '+' | '-' )? Digitseq )?
-                int alt5=2;
+                int alt5 = 2;
                 int LA5_0 = input.LA(1);
-                if ( (LA5_0=='E'||LA5_0=='e') ) {
-                    alt5=1;
+                if ((LA5_0 == 'E' || LA5_0 == 'e')) {
+                    alt5 = 1;
                 }
                 switch (alt5) {
-                    case 1 :
+                    case 1:
                         // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:922:53: ( 'e' | 'E' ) ( '+' | '-' )? Digitseq
                     {
-                        if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                        if (input.LA(1) == 'E' || input.LA(1) == 'e') {
                             input.consume();
-                        }
-                        else {
-                            MismatchedSetException mse = new MismatchedSetException(null,input);
+                        } else {
+                            MismatchedSetException mse = new MismatchedSetException(null, input);
                             recover(mse);
                             throw mse;
                         }
                         // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:922:63: ( '+' | '-' )?
-                        int alt4=2;
+                        int alt4 = 2;
                         int LA4_0 = input.LA(1);
-                        if ( (LA4_0=='+'||LA4_0=='-') ) {
-                            alt4=1;
+                        if ((LA4_0 == '+' || LA4_0 == '-')) {
+                            alt4 = 1;
                         }
                         switch (alt4) {
-                            case 1 :
+                            case 1:
                                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
                             {
-                                if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
+                                if (input.LA(1) == '+' || input.LA(1) == '-') {
                                     input.consume();
-                                }
-                                else {
-                                    MismatchedSetException mse = new MismatchedSetException(null,input);
+                                } else {
+                                    MismatchedSetException mse = new MismatchedSetException(null, input);
                                     recover(mse);
                                     throw mse;
                                 }
@@ -4222,8 +4039,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4244,8 +4060,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4261,11 +4076,10 @@ public class DelphiLexer extends Lexer {
             {
                 mHexdigitseq();
 
-                if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                if (input.LA(1) == 'H' || input.LA(1) == 'h') {
                     input.consume();
-                }
-                else {
-                    MismatchedSetException mse = new MismatchedSetException(null,input);
+                } else {
+                    MismatchedSetException mse = new MismatchedSetException(null, input);
                     recover(mse);
                     throw mse;
                 }
@@ -4273,8 +4087,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4295,8 +4108,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4314,42 +4126,40 @@ public class DelphiLexer extends Lexer {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:930:32: ( '\\'\\'' |~ ( '\\'' ) )*
                 loop6:
                 while (true) {
-                    int alt6=3;
+                    int alt6 = 3;
                     int LA6_0 = input.LA(1);
-                    if ( (LA6_0=='\'') ) {
+                    if ((LA6_0 == '\'')) {
                         int LA6_1 = input.LA(2);
-                        if ( (LA6_1=='\'') ) {
-                            alt6=1;
+                        if ((LA6_1 == '\'')) {
+                            alt6 = 1;
                         }
 
-                    }
-                    else if ( ((LA6_0 >= '\u0000' && LA6_0 <= '&')||(LA6_0 >= '(' && LA6_0 <= '\uFFFF')) ) {
-                        alt6=2;
+                    } else if (((LA6_0 >= '\u0000' && LA6_0 <= '&') || (LA6_0 >= '(' && LA6_0 <= '\uFFFF'))) {
+                        alt6 = 2;
                     }
 
                     switch (alt6) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:930:33: '\\'\\''
                         {
                             match("''");
 
                         }
                         break;
-                        case 2 :
+                        case 2:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:930:42: ~ ( '\\'' )
                         {
-                            if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&')||(input.LA(1) >= '(' && input.LA(1) <= '\uFFFF') ) {
+                            if ((input.LA(1) >= '\u0000' && input.LA(1) <= '&') || (input.LA(1) >= '(' && input.LA(1) <= '\uFFFF')) {
                                 input.consume();
-                            }
-                            else {
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
                             }
                         }
                         break;
 
-                        default :
+                        default:
                             break loop6;
                     }
                 }
@@ -4359,8 +4169,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4379,14 +4188,14 @@ public class DelphiLexer extends Lexer {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:932:39: ( Controlchar )*
                 loop7:
                 while (true) {
-                    int alt7=2;
+                    int alt7 = 2;
                     int LA7_0 = input.LA(1);
-                    if ( (LA7_0=='#') ) {
-                        alt7=1;
+                    if ((LA7_0 == '#')) {
+                        alt7 = 1;
                     }
 
                     switch (alt7) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:932:40: Controlchar
                         {
                             mControlchar();
@@ -4394,7 +4203,7 @@ public class DelphiLexer extends Lexer {
                         }
                         break;
 
-                        default :
+                        default:
                             break loop7;
                     }
                 }
@@ -4403,8 +4212,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4414,18 +4222,15 @@ public class DelphiLexer extends Lexer {
     public final void mControlchar() throws RecognitionException {
         try {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:937:25: ( '#' Digitseq | '#' '$' Hexdigitseq )
-            int alt8=2;
+            int alt8 = 2;
             int LA8_0 = input.LA(1);
-            if ( (LA8_0=='#') ) {
+            if ((LA8_0 == '#')) {
                 int LA8_1 = input.LA(2);
-                if ( (LA8_1=='$') ) {
-                    alt8=2;
-                }
-                else if ( ((LA8_1 >= '0' && LA8_1 <= '9')) ) {
-                    alt8=1;
-                }
-
-                else {
+                if ((LA8_1 == '$')) {
+                    alt8 = 2;
+                } else if (((LA8_1 >= '0' && LA8_1 <= '9'))) {
+                    alt8 = 1;
+                } else {
                     int nvaeMark = input.mark();
                     try {
                         input.consume();
@@ -4437,16 +4242,14 @@ public class DelphiLexer extends Lexer {
                     }
                 }
 
-            }
-
-            else {
+            } else {
                 NoViableAltException nvae =
                         new NoViableAltException("", 8, 0, input);
                 throw nvae;
             }
 
             switch (alt8) {
-                case 1 :
+                case 1:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:937:27: '#' Digitseq
                 {
                     match('#');
@@ -4454,7 +4257,7 @@ public class DelphiLexer extends Lexer {
 
                 }
                 break;
-                case 2 :
+                case 2:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:938:27: '#' '$' Hexdigitseq
                 {
                     match('#');
@@ -4465,8 +4268,7 @@ public class DelphiLexer extends Lexer {
                 break;
 
             }
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4476,46 +4278,41 @@ public class DelphiLexer extends Lexer {
     public final void mAlpha() throws RecognitionException {
         try {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:941:25: ( 'a' .. 'z' | 'A' .. 'Z' | '\\u0080' .. '\\uFFFE' ~ ( '\\uFEFF' ) )
-            int alt9=3;
+            int alt9 = 3;
             int LA9_0 = input.LA(1);
-            if ( ((LA9_0 >= 'a' && LA9_0 <= 'z')) ) {
-                alt9=1;
-            }
-            else if ( ((LA9_0 >= 'A' && LA9_0 <= 'Z')) ) {
-                alt9=2;
-            }
-            else if ( ((LA9_0 >= '\u0080' && LA9_0 <= '\uFFFE')) ) {
-                alt9=3;
-            }
-
-            else {
+            if (((LA9_0 >= 'a' && LA9_0 <= 'z'))) {
+                alt9 = 1;
+            } else if (((LA9_0 >= 'A' && LA9_0 <= 'Z'))) {
+                alt9 = 2;
+            } else if (((LA9_0 >= '\u0080' && LA9_0 <= '\uFFFE'))) {
+                alt9 = 3;
+            } else {
                 NoViableAltException nvae =
                         new NoViableAltException("", 9, 0, input);
                 throw nvae;
             }
 
             switch (alt9) {
-                case 1 :
+                case 1:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:941:27: 'a' .. 'z'
                 {
-                    matchRange('a','z');
+                    matchRange('a', 'z');
                 }
                 break;
-                case 2 :
+                case 2:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:942:27: 'A' .. 'Z'
                 {
-                    matchRange('A','Z');
+                    matchRange('A', 'Z');
                 }
                 break;
-                case 3 :
+                case 3:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:943:27: '\\u0080' .. '\\uFFFE' ~ ( '\\uFEFF' )
                 {
-                    matchRange('\u0080','\uFFFE');
-                    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\uFEFE')||(input.LA(1) >= '\uFF00' && input.LA(1) <= '\uFFFF') ) {
+                    matchRange('\u0080', '\uFFFE');
+                    if ((input.LA(1) >= '\u0000' && input.LA(1) <= '\uFEFE') || (input.LA(1) >= '\uFF00' && input.LA(1) <= '\uFFFF')) {
                         input.consume();
-                    }
-                    else {
-                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    } else {
+                        MismatchedSetException mse = new MismatchedSetException(null, input);
                         recover(mse);
                         throw mse;
                     }
@@ -4523,8 +4320,7 @@ public class DelphiLexer extends Lexer {
                 break;
 
             }
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4536,18 +4332,16 @@ public class DelphiLexer extends Lexer {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:946:25: ( '0' .. '9' )
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
             {
-                if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                if ((input.LA(1) >= '0' && input.LA(1) <= '9')) {
                     input.consume();
-                }
-                else {
-                    MismatchedSetException mse = new MismatchedSetException(null,input);
+                } else {
+                    MismatchedSetException mse = new MismatchedSetException(null, input);
                     recover(mse);
                     throw mse;
                 }
             }
 
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4564,36 +4358,34 @@ public class DelphiLexer extends Lexer {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:949:33: ( Digit )*
                 loop10:
                 while (true) {
-                    int alt10=2;
+                    int alt10 = 2;
                     int LA10_0 = input.LA(1);
-                    if ( ((LA10_0 >= '0' && LA10_0 <= '9')) ) {
-                        alt10=1;
+                    if (((LA10_0 >= '0' && LA10_0 <= '9'))) {
+                        alt10 = 1;
                     }
 
                     switch (alt10) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
                         {
-                            if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                            if ((input.LA(1) >= '0' && input.LA(1) <= '9')) {
                                 input.consume();
-                            }
-                            else {
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
                             }
                         }
                         break;
 
-                        default :
+                        default:
                             break loop10;
                     }
                 }
 
             }
 
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4605,18 +4397,16 @@ public class DelphiLexer extends Lexer {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:952:25: ( Digit | 'a' .. 'f' | 'A' .. 'F' )
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
             {
-                if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
+                if ((input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'A' && input.LA(1) <= 'F') || (input.LA(1) >= 'a' && input.LA(1) <= 'f')) {
                     input.consume();
-                }
-                else {
-                    MismatchedSetException mse = new MismatchedSetException(null,input);
+                } else {
+                    MismatchedSetException mse = new MismatchedSetException(null, input);
                     recover(mse);
                     throw mse;
                 }
             }
 
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4635,28 +4425,27 @@ public class DelphiLexer extends Lexer {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:953:36: ( Hexdigit )*
                 loop11:
                 while (true) {
-                    int alt11=2;
+                    int alt11 = 2;
                     int LA11_0 = input.LA(1);
-                    if ( ((LA11_0 >= '0' && LA11_0 <= '9')||(LA11_0 >= 'A' && LA11_0 <= 'F')||(LA11_0 >= 'a' && LA11_0 <= 'f')) ) {
-                        alt11=1;
+                    if (((LA11_0 >= '0' && LA11_0 <= '9') || (LA11_0 >= 'A' && LA11_0 <= 'F') || (LA11_0 >= 'a' && LA11_0 <= 'f'))) {
+                        alt11 = 1;
                     }
 
                     switch (alt11) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
                         {
-                            if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
+                            if ((input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'A' && input.LA(1) <= 'F') || (input.LA(1) >= 'a' && input.LA(1) <= 'f')) {
                                 input.consume();
-                            }
-                            else {
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
                             }
                         }
                         break;
 
-                        default :
+                        default:
                             break loop11;
                     }
                 }
@@ -4665,8 +4454,7 @@ public class DelphiLexer extends Lexer {
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4678,21 +4466,18 @@ public class DelphiLexer extends Lexer {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:955:25: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '(*' ( options {greedy=false; } : . )* '*)' | '{' ( options {greedy=false; } : . )* '}' )
-            int alt16=3;
-            switch ( input.LA(1) ) {
-                case '/':
-                {
-                    alt16=1;
+            int alt16 = 3;
+            switch (input.LA(1)) {
+                case '/': {
+                    alt16 = 1;
                 }
                 break;
-                case '(':
-                {
-                    alt16=2;
+                case '(': {
+                    alt16 = 2;
                 }
                 break;
-                case '{':
-                {
-                    alt16=3;
+                case '{': {
+                    alt16 = 3;
                 }
                 break;
                 default:
@@ -4701,7 +4486,7 @@ public class DelphiLexer extends Lexer {
                     throw nvae;
             }
             switch (alt16) {
-                case 1 :
+                case 1:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:955:28: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
                 {
                     match("//");
@@ -4709,40 +4494,39 @@ public class DelphiLexer extends Lexer {
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:955:33: (~ ( '\\n' | '\\r' ) )*
                     loop12:
                     while (true) {
-                        int alt12=2;
+                        int alt12 = 2;
                         int LA12_0 = input.LA(1);
-                        if ( ((LA12_0 >= '\u0000' && LA12_0 <= '\t')||(LA12_0 >= '\u000B' && LA12_0 <= '\f')||(LA12_0 >= '\u000E' && LA12_0 <= '\uFFFF')) ) {
-                            alt12=1;
+                        if (((LA12_0 >= '\u0000' && LA12_0 <= '\t') || (LA12_0 >= '\u000B' && LA12_0 <= '\f') || (LA12_0 >= '\u000E' && LA12_0 <= '\uFFFF'))) {
+                            alt12 = 1;
                         }
 
                         switch (alt12) {
-                            case 1 :
+                            case 1:
                                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
                             {
-                                if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
+                                if ((input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF')) {
                                     input.consume();
-                                }
-                                else {
-                                    MismatchedSetException mse = new MismatchedSetException(null,input);
+                                } else {
+                                    MismatchedSetException mse = new MismatchedSetException(null, input);
                                     recover(mse);
                                     throw mse;
                                 }
                             }
                             break;
 
-                            default :
+                            default:
                                 break loop12;
                         }
                     }
 
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:955:47: ( '\\r' )?
-                    int alt13=2;
+                    int alt13 = 2;
                     int LA13_0 = input.LA(1);
-                    if ( (LA13_0=='\r') ) {
-                        alt13=1;
+                    if ((LA13_0 == '\r')) {
+                        alt13 = 1;
                     }
                     switch (alt13) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:955:47: '\\r'
                         {
                             match('\r');
@@ -4752,10 +4536,10 @@ public class DelphiLexer extends Lexer {
                     }
 
                     match('\n');
-                    _channel=HIDDEN;
+                    _channel = HIDDEN;
                 }
                 break;
-                case 2 :
+                case 2:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:956:28: '(*' ( options {greedy=false; } : . )* '*)'
                 {
                     match("(*");
@@ -4763,79 +4547,75 @@ public class DelphiLexer extends Lexer {
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:956:33: ( options {greedy=false; } : . )*
                     loop14:
                     while (true) {
-                        int alt14=2;
+                        int alt14 = 2;
                         int LA14_0 = input.LA(1);
-                        if ( (LA14_0=='*') ) {
+                        if ((LA14_0 == '*')) {
                             int LA14_1 = input.LA(2);
-                            if ( (LA14_1==')') ) {
-                                alt14=2;
-                            }
-                            else if ( ((LA14_1 >= '\u0000' && LA14_1 <= '(')||(LA14_1 >= '*' && LA14_1 <= '\uFFFF')) ) {
-                                alt14=1;
+                            if ((LA14_1 == ')')) {
+                                alt14 = 2;
+                            } else if (((LA14_1 >= '\u0000' && LA14_1 <= '(') || (LA14_1 >= '*' && LA14_1 <= '\uFFFF'))) {
+                                alt14 = 1;
                             }
 
-                        }
-                        else if ( ((LA14_0 >= '\u0000' && LA14_0 <= ')')||(LA14_0 >= '+' && LA14_0 <= '\uFFFF')) ) {
-                            alt14=1;
+                        } else if (((LA14_0 >= '\u0000' && LA14_0 <= ')') || (LA14_0 >= '+' && LA14_0 <= '\uFFFF'))) {
+                            alt14 = 1;
                         }
 
                         switch (alt14) {
-                            case 1 :
+                            case 1:
                                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:956:61: .
                             {
                                 matchAny();
                             }
                             break;
 
-                            default :
+                            default:
                                 break loop14;
                         }
                     }
 
                     match("*)");
 
-                    _channel=HIDDEN;
+                    _channel = HIDDEN;
                 }
                 break;
-                case 3 :
+                case 3:
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:957:28: '{' ( options {greedy=false; } : . )* '}'
                 {
                     match('{');
                     // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:957:32: ( options {greedy=false; } : . )*
                     loop15:
                     while (true) {
-                        int alt15=2;
+                        int alt15 = 2;
                         int LA15_0 = input.LA(1);
-                        if ( (LA15_0=='}') ) {
-                            alt15=2;
-                        }
-                        else if ( ((LA15_0 >= '\u0000' && LA15_0 <= '|')||(LA15_0 >= '~' && LA15_0 <= '\uFFFF')) ) {
-                            alt15=1;
+                        if ((LA15_0 == '}')) {
+                            alt15 = 2;
+                        } else if (((LA15_0 >= '\u0000' && LA15_0 <= '|') || (LA15_0 >= '~' && LA15_0 <= '\uFFFF'))) {
+                            alt15 = 1;
                         }
 
                         switch (alt15) {
-                            case 1 :
+                            case 1:
                                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:957:60: .
                             {
                                 matchAny();
                             }
                             break;
 
-                            default :
+                            default:
                                 break loop15;
                         }
                     }
 
                     match('}');
-                    _channel=HIDDEN;
+                    _channel = HIDDEN;
                 }
                 break;
 
             }
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4850,45 +4630,43 @@ public class DelphiLexer extends Lexer {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:959:27: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )+
             {
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:959:27: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )+
-                int cnt17=0;
+                int cnt17 = 0;
                 loop17:
                 while (true) {
-                    int alt17=2;
+                    int alt17 = 2;
                     int LA17_0 = input.LA(1);
-                    if ( ((LA17_0 >= '\t' && LA17_0 <= '\n')||(LA17_0 >= '\f' && LA17_0 <= '\r')||LA17_0==' ') ) {
-                        alt17=1;
+                    if (((LA17_0 >= '\t' && LA17_0 <= '\n') || (LA17_0 >= '\f' && LA17_0 <= '\r') || LA17_0 == ' ')) {
+                        alt17 = 1;
                     }
 
                     switch (alt17) {
-                        case 1 :
+                        case 1:
                             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:
                         {
-                            if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
+                            if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || (input.LA(1) >= '\f' && input.LA(1) <= '\r') || input.LA(1) == ' ') {
                                 input.consume();
-                            }
-                            else {
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
                             }
                         }
                         break;
 
-                        default :
-                            if ( cnt17 >= 1 ) break loop17;
+                        default:
+                            if (cnt17 >= 1) break loop17;
                             EarlyExitException eee = new EarlyExitException(17, input);
                             throw eee;
                     }
                     cnt17++;
                 }
 
-                _channel=HIDDEN;
+                _channel = HIDDEN;
             }
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4903,13 +4681,12 @@ public class DelphiLexer extends Lexer {
             // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:961:27: '\\uFEFF'
             {
                 match('\uFEFF');
-                _channel=HIDDEN;
+                _channel = HIDDEN;
             }
 
             state.type = _type;
             state.channel = _channel;
-        }
-        finally {
+        } finally {
             // do for sure before leaving
         }
     }
@@ -4918,1354 +4695,1354 @@ public class DelphiLexer extends Lexer {
     @Override
     public void mTokens() throws RecognitionException {
         // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:8: ( T__200 | T__201 | ABSOLUTE | ABSTRACT | ADD | AND | ANSISTRING | ARRAY | AS | ASM | ASSEMBLER | ASSEMBLY | AT | AUTOMATED | BEGIN | BREAK | CASE | CDECL | CLASS | CONST | CONSTRUCTOR | CONTAINS | CONTINUE | DEFAULT | DEPRECATED | DESTRUCTOR | DISPID | DISPINTERFACE | DIV | DO | DOWNTO | DQ | DW | DYNAMIC | ELSE | END | EXCEPT | EXIT | EXPERIMENTAL | EXPORT | EXPORTS | EXTERNAL | FAR | FILE | FINAL | FINALIZATION | FINALLY | FOR | FORWARD | FUNCTION | GOTO | HELPER | IF | IMPLEMENTATION | IMPLEMENTS | IN | INDEX | INHERITED | INITIALIZATION | INLINE | INTERFACE | IS | LABEL | LIBRARY | LOCAL | MESSAGE | MOD | NAME | NEAR | NIL | NODEFAULT | NOT | OBJECT | OF | ON | OPERATOR | OR | OUT | OVERLOAD | OVERRIDE | PACKAGE | PACKED | PASCAL | PLATFORM | POINTER | PRIVATE | PROCEDURE | PROGRAM | PROPERTY | PROTECTED | PUBLIC | PUBLISHED | RAISE | READ | READONLY | RECORD | REFERENCE | REGISTER | REINTRODUCE | REMOVE | REPEAT | REQUIRES | RESIDENT | RESOURCESTRING | SAFECALL | SEALED | SET | SHL | SHR | STATIC | STDCALL | STORED | STRICT | STRING | THEN | THREADVAR | TO | TRY | TYPE | UNIT | UNSAFE | UNTIL | USES | VAR | VARARGS | VARIANT | VIRTUAL | WHILE | WITH | WRITE | WRITEONLY | XOR | FALSE | TRUE | PLUS | MINUS | STAR | SLASH | ASSIGN | COMMA | SEMI | COLON | EQUAL | NOT_EQUAL | LT | LE | GE | GT | LPAREN | RPAREN | LBRACK | LBRACK2 | RBRACK | RBRACK2 | POINTER2 | AT2 | DOT | DOTDOT | LCURLY | RCURLY | TkGlobalFunction | TkFunctionName | TkFunctionArgs | TkFunctionBody | TkFunctionReturn | TkCustomAttribute | TkCustomAttributeArgs | TkNewType | TkClass | TkRecord | TkRecordHelper | TkInterface | TkObject | TkClassOfType | TkVariableType | TkVariableIdents | TkVariableParam | TkGuid | TkClassParents | TkClassField | TkAnonymousExpression | TkIdentifier | TkIntNum | TkRealNum | TkHexNum | TkAsmHexNum | TkAsmHexLabel | QuotedString | ControlString | Hexdigitseq | COMMENT | WS | UnicodeBOM )
-        int alt18=193;
+        int alt18 = 193;
         alt18 = dfa18.predict(input);
         switch (alt18) {
-            case 1 :
+            case 1:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:10: T__200
             {
                 mT__200();
 
             }
             break;
-            case 2 :
+            case 2:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:17: T__201
             {
                 mT__201();
 
             }
             break;
-            case 3 :
+            case 3:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:24: ABSOLUTE
             {
                 mABSOLUTE();
 
             }
             break;
-            case 4 :
+            case 4:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:33: ABSTRACT
             {
                 mABSTRACT();
 
             }
             break;
-            case 5 :
+            case 5:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:42: ADD
             {
                 mADD();
 
             }
             break;
-            case 6 :
+            case 6:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:46: AND
             {
                 mAND();
 
             }
             break;
-            case 7 :
+            case 7:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:50: ANSISTRING
             {
                 mANSISTRING();
 
             }
             break;
-            case 8 :
+            case 8:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:61: ARRAY
             {
                 mARRAY();
 
             }
             break;
-            case 9 :
+            case 9:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:67: AS
             {
                 mAS();
 
             }
             break;
-            case 10 :
+            case 10:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:70: ASM
             {
                 mASM();
 
             }
             break;
-            case 11 :
+            case 11:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:74: ASSEMBLER
             {
                 mASSEMBLER();
 
             }
             break;
-            case 12 :
+            case 12:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:84: ASSEMBLY
             {
                 mASSEMBLY();
 
             }
             break;
-            case 13 :
+            case 13:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:93: AT
             {
                 mAT();
 
             }
             break;
-            case 14 :
+            case 14:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:96: AUTOMATED
             {
                 mAUTOMATED();
 
             }
             break;
-            case 15 :
+            case 15:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:106: BEGIN
             {
                 mBEGIN();
 
             }
             break;
-            case 16 :
+            case 16:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:112: BREAK
             {
                 mBREAK();
 
             }
             break;
-            case 17 :
+            case 17:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:118: CASE
             {
                 mCASE();
 
             }
             break;
-            case 18 :
+            case 18:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:123: CDECL
             {
                 mCDECL();
 
             }
             break;
-            case 19 :
+            case 19:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:129: CLASS
             {
                 mCLASS();
 
             }
             break;
-            case 20 :
+            case 20:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:135: CONST
             {
                 mCONST();
 
             }
             break;
-            case 21 :
+            case 21:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:141: CONSTRUCTOR
             {
                 mCONSTRUCTOR();
 
             }
             break;
-            case 22 :
+            case 22:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:153: CONTAINS
             {
                 mCONTAINS();
 
             }
             break;
-            case 23 :
+            case 23:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:162: CONTINUE
             {
                 mCONTINUE();
 
             }
             break;
-            case 24 :
+            case 24:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:171: DEFAULT
             {
                 mDEFAULT();
 
             }
             break;
-            case 25 :
+            case 25:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:179: DEPRECATED
             {
                 mDEPRECATED();
 
             }
             break;
-            case 26 :
+            case 26:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:190: DESTRUCTOR
             {
                 mDESTRUCTOR();
 
             }
             break;
-            case 27 :
+            case 27:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:201: DISPID
             {
                 mDISPID();
 
             }
             break;
-            case 28 :
+            case 28:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:208: DISPINTERFACE
             {
                 mDISPINTERFACE();
 
             }
             break;
-            case 29 :
+            case 29:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:222: DIV
             {
                 mDIV();
 
             }
             break;
-            case 30 :
+            case 30:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:226: DO
             {
                 mDO();
 
             }
             break;
-            case 31 :
+            case 31:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:229: DOWNTO
             {
                 mDOWNTO();
 
             }
             break;
-            case 32 :
+            case 32:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:236: DQ
             {
                 mDQ();
 
             }
             break;
-            case 33 :
+            case 33:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:239: DW
             {
                 mDW();
 
             }
             break;
-            case 34 :
+            case 34:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:242: DYNAMIC
             {
                 mDYNAMIC();
 
             }
             break;
-            case 35 :
+            case 35:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:250: ELSE
             {
                 mELSE();
 
             }
             break;
-            case 36 :
+            case 36:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:255: END
             {
                 mEND();
 
             }
             break;
-            case 37 :
+            case 37:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:259: EXCEPT
             {
                 mEXCEPT();
 
             }
             break;
-            case 38 :
+            case 38:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:266: EXIT
             {
                 mEXIT();
 
             }
             break;
-            case 39 :
+            case 39:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:271: EXPERIMENTAL
             {
                 mEXPERIMENTAL();
 
             }
             break;
-            case 40 :
+            case 40:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:284: EXPORT
             {
                 mEXPORT();
 
             }
             break;
-            case 41 :
+            case 41:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:291: EXPORTS
             {
                 mEXPORTS();
 
             }
             break;
-            case 42 :
+            case 42:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:299: EXTERNAL
             {
                 mEXTERNAL();
 
             }
             break;
-            case 43 :
+            case 43:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:308: FAR
             {
                 mFAR();
 
             }
             break;
-            case 44 :
+            case 44:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:312: FILE
             {
                 mFILE();
 
             }
             break;
-            case 45 :
+            case 45:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:317: FINAL
             {
                 mFINAL();
 
             }
             break;
-            case 46 :
+            case 46:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:323: FINALIZATION
             {
                 mFINALIZATION();
 
             }
             break;
-            case 47 :
+            case 47:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:336: FINALLY
             {
                 mFINALLY();
 
             }
             break;
-            case 48 :
+            case 48:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:344: FOR
             {
                 mFOR();
 
             }
             break;
-            case 49 :
+            case 49:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:348: FORWARD
             {
                 mFORWARD();
 
             }
             break;
-            case 50 :
+            case 50:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:356: FUNCTION
             {
                 mFUNCTION();
 
             }
             break;
-            case 51 :
+            case 51:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:365: GOTO
             {
                 mGOTO();
 
             }
             break;
-            case 52 :
+            case 52:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:370: HELPER
             {
                 mHELPER();
 
             }
             break;
-            case 53 :
+            case 53:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:377: IF
             {
                 mIF();
 
             }
             break;
-            case 54 :
+            case 54:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:380: IMPLEMENTATION
             {
                 mIMPLEMENTATION();
 
             }
             break;
-            case 55 :
+            case 55:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:395: IMPLEMENTS
             {
                 mIMPLEMENTS();
 
             }
             break;
-            case 56 :
+            case 56:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:406: IN
             {
                 mIN();
 
             }
             break;
-            case 57 :
+            case 57:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:409: INDEX
             {
                 mINDEX();
 
             }
             break;
-            case 58 :
+            case 58:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:415: INHERITED
             {
                 mINHERITED();
 
             }
             break;
-            case 59 :
+            case 59:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:425: INITIALIZATION
             {
                 mINITIALIZATION();
 
             }
             break;
-            case 60 :
+            case 60:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:440: INLINE
             {
                 mINLINE();
 
             }
             break;
-            case 61 :
+            case 61:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:447: INTERFACE
             {
                 mINTERFACE();
 
             }
             break;
-            case 62 :
+            case 62:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:457: IS
             {
                 mIS();
 
             }
             break;
-            case 63 :
+            case 63:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:460: LABEL
             {
                 mLABEL();
 
             }
             break;
-            case 64 :
+            case 64:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:466: LIBRARY
             {
                 mLIBRARY();
 
             }
             break;
-            case 65 :
+            case 65:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:474: LOCAL
             {
                 mLOCAL();
 
             }
             break;
-            case 66 :
+            case 66:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:480: MESSAGE
             {
                 mMESSAGE();
 
             }
             break;
-            case 67 :
+            case 67:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:488: MOD
             {
                 mMOD();
 
             }
             break;
-            case 68 :
+            case 68:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:492: NAME
             {
                 mNAME();
 
             }
             break;
-            case 69 :
+            case 69:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:497: NEAR
             {
                 mNEAR();
 
             }
             break;
-            case 70 :
+            case 70:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:502: NIL
             {
                 mNIL();
 
             }
             break;
-            case 71 :
+            case 71:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:506: NODEFAULT
             {
                 mNODEFAULT();
 
             }
             break;
-            case 72 :
+            case 72:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:516: NOT
             {
                 mNOT();
 
             }
             break;
-            case 73 :
+            case 73:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:520: OBJECT
             {
                 mOBJECT();
 
             }
             break;
-            case 74 :
+            case 74:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:527: OF
             {
                 mOF();
 
             }
             break;
-            case 75 :
+            case 75:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:530: ON
             {
                 mON();
 
             }
             break;
-            case 76 :
+            case 76:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:533: OPERATOR
             {
                 mOPERATOR();
 
             }
             break;
-            case 77 :
+            case 77:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:542: OR
             {
                 mOR();
 
             }
             break;
-            case 78 :
+            case 78:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:545: OUT
             {
                 mOUT();
 
             }
             break;
-            case 79 :
+            case 79:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:549: OVERLOAD
             {
                 mOVERLOAD();
 
             }
             break;
-            case 80 :
+            case 80:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:558: OVERRIDE
             {
                 mOVERRIDE();
 
             }
             break;
-            case 81 :
+            case 81:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:567: PACKAGE
             {
                 mPACKAGE();
 
             }
             break;
-            case 82 :
+            case 82:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:575: PACKED
             {
                 mPACKED();
 
             }
             break;
-            case 83 :
+            case 83:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:582: PASCAL
             {
                 mPASCAL();
 
             }
             break;
-            case 84 :
+            case 84:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:589: PLATFORM
             {
                 mPLATFORM();
 
             }
             break;
-            case 85 :
+            case 85:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:598: POINTER
             {
                 mPOINTER();
 
             }
             break;
-            case 86 :
+            case 86:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:606: PRIVATE
             {
                 mPRIVATE();
 
             }
             break;
-            case 87 :
+            case 87:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:614: PROCEDURE
             {
                 mPROCEDURE();
 
             }
             break;
-            case 88 :
+            case 88:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:624: PROGRAM
             {
                 mPROGRAM();
 
             }
             break;
-            case 89 :
+            case 89:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:632: PROPERTY
             {
                 mPROPERTY();
 
             }
             break;
-            case 90 :
+            case 90:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:641: PROTECTED
             {
                 mPROTECTED();
 
             }
             break;
-            case 91 :
+            case 91:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:651: PUBLIC
             {
                 mPUBLIC();
 
             }
             break;
-            case 92 :
+            case 92:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:658: PUBLISHED
             {
                 mPUBLISHED();
 
             }
             break;
-            case 93 :
+            case 93:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:668: RAISE
             {
                 mRAISE();
 
             }
             break;
-            case 94 :
+            case 94:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:674: READ
             {
                 mREAD();
 
             }
             break;
-            case 95 :
+            case 95:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:679: READONLY
             {
                 mREADONLY();
 
             }
             break;
-            case 96 :
+            case 96:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:688: RECORD
             {
                 mRECORD();
 
             }
             break;
-            case 97 :
+            case 97:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:695: REFERENCE
             {
                 mREFERENCE();
 
             }
             break;
-            case 98 :
+            case 98:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:705: REGISTER
             {
                 mREGISTER();
 
             }
             break;
-            case 99 :
+            case 99:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:714: REINTRODUCE
             {
                 mREINTRODUCE();
 
             }
             break;
-            case 100 :
+            case 100:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:726: REMOVE
             {
                 mREMOVE();
 
             }
             break;
-            case 101 :
+            case 101:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:733: REPEAT
             {
                 mREPEAT();
 
             }
             break;
-            case 102 :
+            case 102:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:740: REQUIRES
             {
                 mREQUIRES();
 
             }
             break;
-            case 103 :
+            case 103:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:749: RESIDENT
             {
                 mRESIDENT();
 
             }
             break;
-            case 104 :
+            case 104:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:758: RESOURCESTRING
             {
                 mRESOURCESTRING();
 
             }
             break;
-            case 105 :
+            case 105:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:773: SAFECALL
             {
                 mSAFECALL();
 
             }
             break;
-            case 106 :
+            case 106:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:782: SEALED
             {
                 mSEALED();
 
             }
             break;
-            case 107 :
+            case 107:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:789: SET
             {
                 mSET();
 
             }
             break;
-            case 108 :
+            case 108:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:793: SHL
             {
                 mSHL();
 
             }
             break;
-            case 109 :
+            case 109:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:797: SHR
             {
                 mSHR();
 
             }
             break;
-            case 110 :
+            case 110:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:801: STATIC
             {
                 mSTATIC();
 
             }
             break;
-            case 111 :
+            case 111:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:808: STDCALL
             {
                 mSTDCALL();
 
             }
             break;
-            case 112 :
+            case 112:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:816: STORED
             {
                 mSTORED();
 
             }
             break;
-            case 113 :
+            case 113:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:823: STRICT
             {
                 mSTRICT();
 
             }
             break;
-            case 114 :
+            case 114:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:830: STRING
             {
                 mSTRING();
 
             }
             break;
-            case 115 :
+            case 115:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:837: THEN
             {
                 mTHEN();
 
             }
             break;
-            case 116 :
+            case 116:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:842: THREADVAR
             {
                 mTHREADVAR();
 
             }
             break;
-            case 117 :
+            case 117:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:852: TO
             {
                 mTO();
 
             }
             break;
-            case 118 :
+            case 118:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:855: TRY
             {
                 mTRY();
 
             }
             break;
-            case 119 :
+            case 119:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:859: TYPE
             {
                 mTYPE();
 
             }
             break;
-            case 120 :
+            case 120:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:864: UNIT
             {
                 mUNIT();
 
             }
             break;
-            case 121 :
+            case 121:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:869: UNSAFE
             {
                 mUNSAFE();
 
             }
             break;
-            case 122 :
+            case 122:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:876: UNTIL
             {
                 mUNTIL();
 
             }
             break;
-            case 123 :
+            case 123:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:882: USES
             {
                 mUSES();
 
             }
             break;
-            case 124 :
+            case 124:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:887: VAR
             {
                 mVAR();
 
             }
             break;
-            case 125 :
+            case 125:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:891: VARARGS
             {
                 mVARARGS();
 
             }
             break;
-            case 126 :
+            case 126:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:899: VARIANT
             {
                 mVARIANT();
 
             }
             break;
-            case 127 :
+            case 127:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:907: VIRTUAL
             {
                 mVIRTUAL();
 
             }
             break;
-            case 128 :
+            case 128:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:915: WHILE
             {
                 mWHILE();
 
             }
             break;
-            case 129 :
+            case 129:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:921: WITH
             {
                 mWITH();
 
             }
             break;
-            case 130 :
+            case 130:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:926: WRITE
             {
                 mWRITE();
 
             }
             break;
-            case 131 :
+            case 131:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:932: WRITEONLY
             {
                 mWRITEONLY();
 
             }
             break;
-            case 132 :
+            case 132:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:942: XOR
             {
                 mXOR();
 
             }
             break;
-            case 133 :
+            case 133:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:946: FALSE
             {
                 mFALSE();
 
             }
             break;
-            case 134 :
+            case 134:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:952: TRUE
             {
                 mTRUE();
 
             }
             break;
-            case 135 :
+            case 135:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:957: PLUS
             {
                 mPLUS();
 
             }
             break;
-            case 136 :
+            case 136:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:962: MINUS
             {
                 mMINUS();
 
             }
             break;
-            case 137 :
+            case 137:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:968: STAR
             {
                 mSTAR();
 
             }
             break;
-            case 138 :
+            case 138:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:973: SLASH
             {
                 mSLASH();
 
             }
             break;
-            case 139 :
+            case 139:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:979: ASSIGN
             {
                 mASSIGN();
 
             }
             break;
-            case 140 :
+            case 140:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:986: COMMA
             {
                 mCOMMA();
 
             }
             break;
-            case 141 :
+            case 141:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:992: SEMI
             {
                 mSEMI();
 
             }
             break;
-            case 142 :
+            case 142:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:997: COLON
             {
                 mCOLON();
 
             }
             break;
-            case 143 :
+            case 143:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1003: EQUAL
             {
                 mEQUAL();
 
             }
             break;
-            case 144 :
+            case 144:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1009: NOT_EQUAL
             {
                 mNOT_EQUAL();
 
             }
             break;
-            case 145 :
+            case 145:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1019: LT
             {
                 mLT();
 
             }
             break;
-            case 146 :
+            case 146:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1022: LE
             {
                 mLE();
 
             }
             break;
-            case 147 :
+            case 147:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1025: GE
             {
                 mGE();
 
             }
             break;
-            case 148 :
+            case 148:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1028: GT
             {
                 mGT();
 
             }
             break;
-            case 149 :
+            case 149:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1031: LPAREN
             {
                 mLPAREN();
 
             }
             break;
-            case 150 :
+            case 150:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1038: RPAREN
             {
                 mRPAREN();
 
             }
             break;
-            case 151 :
+            case 151:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1045: LBRACK
             {
                 mLBRACK();
 
             }
             break;
-            case 152 :
+            case 152:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1052: LBRACK2
             {
                 mLBRACK2();
 
             }
             break;
-            case 153 :
+            case 153:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1060: RBRACK
             {
                 mRBRACK();
 
             }
             break;
-            case 154 :
+            case 154:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1067: RBRACK2
             {
                 mRBRACK2();
 
             }
             break;
-            case 155 :
+            case 155:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1075: POINTER2
             {
                 mPOINTER2();
 
             }
             break;
-            case 156 :
+            case 156:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1084: AT2
             {
                 mAT2();
 
             }
             break;
-            case 157 :
+            case 157:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1088: DOT
             {
                 mDOT();
 
             }
             break;
-            case 158 :
+            case 158:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1092: DOTDOT
             {
                 mDOTDOT();
 
             }
             break;
-            case 159 :
+            case 159:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1099: LCURLY
             {
                 mLCURLY();
 
             }
             break;
-            case 160 :
+            case 160:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1106: RCURLY
             {
                 mRCURLY();
 
             }
             break;
-            case 161 :
+            case 161:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1113: TkGlobalFunction
             {
                 mTkGlobalFunction();
 
             }
             break;
-            case 162 :
+            case 162:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1130: TkFunctionName
             {
                 mTkFunctionName();
 
             }
             break;
-            case 163 :
+            case 163:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1145: TkFunctionArgs
             {
                 mTkFunctionArgs();
 
             }
             break;
-            case 164 :
+            case 164:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1160: TkFunctionBody
             {
                 mTkFunctionBody();
 
             }
             break;
-            case 165 :
+            case 165:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1175: TkFunctionReturn
             {
                 mTkFunctionReturn();
 
             }
             break;
-            case 166 :
+            case 166:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1192: TkCustomAttribute
             {
                 mTkCustomAttribute();
 
             }
             break;
-            case 167 :
+            case 167:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1210: TkCustomAttributeArgs
             {
                 mTkCustomAttributeArgs();
 
             }
             break;
-            case 168 :
+            case 168:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1232: TkNewType
             {
                 mTkNewType();
 
             }
             break;
-            case 169 :
+            case 169:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1242: TkClass
             {
                 mTkClass();
 
             }
             break;
-            case 170 :
+            case 170:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1250: TkRecord
             {
                 mTkRecord();
 
             }
             break;
-            case 171 :
+            case 171:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1259: TkRecordHelper
             {
                 mTkRecordHelper();
 
             }
             break;
-            case 172 :
+            case 172:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1274: TkInterface
             {
                 mTkInterface();
 
             }
             break;
-            case 173 :
+            case 173:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1286: TkObject
             {
                 mTkObject();
 
             }
             break;
-            case 174 :
+            case 174:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1295: TkClassOfType
             {
                 mTkClassOfType();
 
             }
             break;
-            case 175 :
+            case 175:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1309: TkVariableType
             {
                 mTkVariableType();
 
             }
             break;
-            case 176 :
+            case 176:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1324: TkVariableIdents
             {
                 mTkVariableIdents();
 
             }
             break;
-            case 177 :
+            case 177:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1341: TkVariableParam
             {
                 mTkVariableParam();
 
             }
             break;
-            case 178 :
+            case 178:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1357: TkGuid
             {
                 mTkGuid();
 
             }
             break;
-            case 179 :
+            case 179:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1364: TkClassParents
             {
                 mTkClassParents();
 
             }
             break;
-            case 180 :
+            case 180:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1379: TkClassField
             {
                 mTkClassField();
 
             }
             break;
-            case 181 :
+            case 181:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1392: TkAnonymousExpression
             {
                 mTkAnonymousExpression();
 
             }
             break;
-            case 182 :
+            case 182:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1414: TkIdentifier
             {
                 mTkIdentifier();
 
             }
             break;
-            case 183 :
+            case 183:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1427: TkIntNum
             {
                 mTkIntNum();
 
             }
             break;
-            case 184 :
+            case 184:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1436: TkRealNum
             {
                 mTkRealNum();
 
             }
             break;
-            case 185 :
+            case 185:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1446: TkHexNum
             {
                 mTkHexNum();
 
             }
             break;
-            case 186 :
+            case 186:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1455: TkAsmHexNum
             {
                 mTkAsmHexNum();
 
             }
             break;
-            case 187 :
+            case 187:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1467: TkAsmHexLabel
             {
                 mTkAsmHexLabel();
 
             }
             break;
-            case 188 :
+            case 188:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1481: QuotedString
             {
                 mQuotedString();
 
             }
             break;
-            case 189 :
+            case 189:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1494: ControlString
             {
                 mControlString();
 
             }
             break;
-            case 190 :
+            case 190:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1508: Hexdigitseq
             {
                 mHexdigitseq();
 
             }
             break;
-            case 191 :
+            case 191:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1520: COMMENT
             {
                 mCOMMENT();
 
             }
             break;
-            case 192 :
+            case 192:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1528: WS
             {
                 mWS();
 
             }
             break;
-            case 193 :
+            case 193:
                 // org\\sonar\\plugins\\delphi\\antlr\\Delphi.g:1:1531: UnicodeBOM
             {
                 mUnicodeBOM();
@@ -6279,258 +6056,258 @@ public class DelphiLexer extends Lexer {
 
     protected DFA18 dfa18 = new DFA18(this);
     static final String DFA18_eotS =
-            "\2\uffff\1\73\25\62\3\uffff\1\u008a\1\u008c\3\uffff\1\u008f\1\u0091\1"+
-                    "\u0093\3\uffff\1\u0096\1\uffff\1\u0097\1\uffff\10\62\1\uffff\1\62\1\u00a1"+
-                    "\1\u00a2\6\uffff\4\62\1\u00af\1\u00b0\4\62\3\uffff\10\62\1\u00be\1\u00bf"+
-                    "\1\u00c0\12\62\1\u00d0\1\62\1\u00d7\1\u00d8\12\62\1\u00e4\1\u00e5\1\62"+
-                    "\1\u00e7\16\62\1\u0106\12\62\17\uffff\11\62\2\uffff\1\u00a2\1\uffff\2"+
-                    "\u011e\1\uffff\1\62\1\u0121\1\u0122\2\62\1\u0125\1\62\2\uffff\13\62\1"+
-                    "\u0133\1\62\3\uffff\2\62\1\u0137\4\62\1\u013d\3\62\1\u0142\3\62\1\uffff"+
-                    "\6\62\2\uffff\4\62\1\u0150\2\62\1\u0153\1\62\1\u0155\1\62\2\uffff\1\62"+
-                    "\1\uffff\1\u0158\24\62\1\u0171\1\u0172\1\u0173\6\62\1\uffff\1\u017a\6"+
-                    "\62\1\u0183\4\62\1\u0188\11\62\1\u00a4\1\uffff\2\62\2\uffff\2\62\1\uffff"+
-                    "\4\62\1\u019b\10\62\1\uffff\2\62\1\u01a7\1\uffff\1\62\1\u01a9\3\62\1\uffff"+
-                    "\1\62\1\u01ae\2\62\1\uffff\1\62\1\u01b2\13\62\1\uffff\1\u01be\1\u01bf"+
-                    "\1\uffff\1\62\1\uffff\2\62\1\uffff\14\62\1\u01d2\13\62\3\uffff\4\62\1"+
-                    "\u01e3\1\62\1\uffff\1\u01e5\1\u01e6\1\u01e7\2\62\1\u01ea\2\62\1\uffff"+
-                    "\2\62\1\u01ef\1\62\1\uffff\11\62\1\u00a4\3\62\1\u01fd\2\62\1\u0200\1\u0201"+
-                    "\1\uffff\1\u0202\1\u0203\1\u0205\10\62\1\uffff\1\62\1\uffff\3\62\1\u0213"+
-                    "\1\uffff\1\u0216\2\62\1\uffff\2\62\1\u021b\4\62\1\u0220\1\62\1\u0222\1"+
-                    "\62\2\uffff\20\62\1\u0235\1\62\1\uffff\20\62\1\uffff\1\62\3\uffff\1\62"+
-                    "\1\u0249\1\uffff\3\62\1\u024d\1\uffff\1\u024f\2\62\1\u0253\11\62\1\uffff"+
-                    "\2\62\4\uffff\1\62\1\uffff\5\62\1\u0265\1\62\1\u0267\1\62\1\u0269\1\62"+
-                    "\1\u026c\1\62\1\uffff\2\62\1\uffff\2\62\1\u0272\1\62\1\uffff\2\62\1\u0276"+
-                    "\1\62\1\uffff\1\62\1\uffff\2\62\1\u027b\4\62\1\u0280\1\u0281\7\62\1\u0289"+
-                    "\1\62\1\uffff\1\62\1\u028c\3\62\1\u0290\1\u0291\4\62\1\u0296\1\u0297\1"+
-                    "\62\1\u0299\1\u029a\1\u029b\1\62\1\u029d\1\uffff\3\62\1\uffff\1\62\1\uffff"+
-                    "\3\62\1\uffff\16\62\1\u02b6\2\62\1\uffff\1\62\1\uffff\1\u02ba\1\uffff"+
-                    "\1\62\1\u02bc\1\uffff\2\62\1\u02bf\1\u02c0\1\62\1\uffff\3\62\1\uffff\1"+
-                    "\62\1\u02c6\1\u02c7\1\62\1\uffff\3\62\1\u02cc\2\uffff\1\62\1\u02ce\1\u02cf"+
-                    "\1\62\1\u02d1\2\62\1\uffff\2\62\1\uffff\3\62\2\uffff\4\62\2\uffff\1\u02dd"+
-                    "\3\uffff\1\62\1\uffff\1\u02df\1\u02e0\1\u02e1\14\62\1\u02ef\1\u02f0\2"+
-                    "\62\1\u02f3\2\62\1\u02f6\1\u02f7\1\uffff\3\62\1\uffff\1\62\1\uffff\1\u02fc"+
-                    "\1\62\2\uffff\1\u02fe\4\62\2\uffff\1\62\1\u0304\1\u0305\1\u0306\1\uffff"+
-                    "\1\u0307\2\uffff\1\62\1\uffff\1\u0309\2\62\1\u030c\1\62\1\u030e\1\62\1"+
-                    "\u0310\1\u0311\1\62\1\u0313\1\uffff\1\62\3\uffff\6\62\1\u031b\6\62\2\uffff"+
-                    "\1\62\1\u0323\1\uffff\1\u0324\1\62\2\uffff\4\62\1\uffff\1\62\1\uffff\1"+
-                    "\62\1\u032d\1\62\1\u032f\1\u0330\4\uffff\1\u0331\1\uffff\1\u0332\1\u0333"+
-                    "\1\uffff\1\u0334\1\uffff\1\62\2\uffff\1\62\1\uffff\1\u0337\1\u0338\5\62"+
-                    "\1\uffff\6\62\1\u034a\2\uffff\1\62\1\u034c\1\u034d\4\62\1\u0352\1\uffff"+
-                    "\1\62\6\uffff\2\62\2\uffff\21\62\1\uffff\1\u0368\2\uffff\4\62\1\uffff"+
-                    "\1\62\1\u036e\11\62\1\u0378\1\u0379\3\62\1\u037d\4\62\1\uffff\1\62\1\u0383"+
-                    "\1\u0384\2\62\1\uffff\11\62\2\uffff\3\62\1\uffff\4\62\1\u0397\2\uffff"+
-                    "\4\62\1\u039c\1\u039d\1\u039e\2\62\1\u03a1\1\u03a2\1\u03a3\2\62\1\u03a6"+
-                    "\3\62\1\uffff\1\u03aa\1\u03ab\1\u03ac\1\62\3\uffff\2\62\3\uffff\1\u03b0"+
-                    "\1\u03b1\1\uffff\1\62\1\u03b3\1\62\3\uffff\1\u03b5\1\u03b6\1\62\2\uffff"+
-                    "\1\u03b8\1\uffff\1\62\2\uffff\1\u03bb\1\uffff\2\62\1\uffff\6\62\1\u03c4"+
+            "\2\uffff\1\73\25\62\3\uffff\1\u008a\1\u008c\3\uffff\1\u008f\1\u0091\1" +
+                    "\u0093\3\uffff\1\u0096\1\uffff\1\u0097\1\uffff\10\62\1\uffff\1\62\1\u00a1" +
+                    "\1\u00a2\6\uffff\4\62\1\u00af\1\u00b0\4\62\3\uffff\10\62\1\u00be\1\u00bf" +
+                    "\1\u00c0\12\62\1\u00d0\1\62\1\u00d7\1\u00d8\12\62\1\u00e4\1\u00e5\1\62" +
+                    "\1\u00e7\16\62\1\u0106\12\62\17\uffff\11\62\2\uffff\1\u00a2\1\uffff\2" +
+                    "\u011e\1\uffff\1\62\1\u0121\1\u0122\2\62\1\u0125\1\62\2\uffff\13\62\1" +
+                    "\u0133\1\62\3\uffff\2\62\1\u0137\4\62\1\u013d\3\62\1\u0142\3\62\1\uffff" +
+                    "\6\62\2\uffff\4\62\1\u0150\2\62\1\u0153\1\62\1\u0155\1\62\2\uffff\1\62" +
+                    "\1\uffff\1\u0158\24\62\1\u0171\1\u0172\1\u0173\6\62\1\uffff\1\u017a\6" +
+                    "\62\1\u0183\4\62\1\u0188\11\62\1\u00a4\1\uffff\2\62\2\uffff\2\62\1\uffff" +
+                    "\4\62\1\u019b\10\62\1\uffff\2\62\1\u01a7\1\uffff\1\62\1\u01a9\3\62\1\uffff" +
+                    "\1\62\1\u01ae\2\62\1\uffff\1\62\1\u01b2\13\62\1\uffff\1\u01be\1\u01bf" +
+                    "\1\uffff\1\62\1\uffff\2\62\1\uffff\14\62\1\u01d2\13\62\3\uffff\4\62\1" +
+                    "\u01e3\1\62\1\uffff\1\u01e5\1\u01e6\1\u01e7\2\62\1\u01ea\2\62\1\uffff" +
+                    "\2\62\1\u01ef\1\62\1\uffff\11\62\1\u00a4\3\62\1\u01fd\2\62\1\u0200\1\u0201" +
+                    "\1\uffff\1\u0202\1\u0203\1\u0205\10\62\1\uffff\1\62\1\uffff\3\62\1\u0213" +
+                    "\1\uffff\1\u0216\2\62\1\uffff\2\62\1\u021b\4\62\1\u0220\1\62\1\u0222\1" +
+                    "\62\2\uffff\20\62\1\u0235\1\62\1\uffff\20\62\1\uffff\1\62\3\uffff\1\62" +
+                    "\1\u0249\1\uffff\3\62\1\u024d\1\uffff\1\u024f\2\62\1\u0253\11\62\1\uffff" +
+                    "\2\62\4\uffff\1\62\1\uffff\5\62\1\u0265\1\62\1\u0267\1\62\1\u0269\1\62" +
+                    "\1\u026c\1\62\1\uffff\2\62\1\uffff\2\62\1\u0272\1\62\1\uffff\2\62\1\u0276" +
+                    "\1\62\1\uffff\1\62\1\uffff\2\62\1\u027b\4\62\1\u0280\1\u0281\7\62\1\u0289" +
+                    "\1\62\1\uffff\1\62\1\u028c\3\62\1\u0290\1\u0291\4\62\1\u0296\1\u0297\1" +
+                    "\62\1\u0299\1\u029a\1\u029b\1\62\1\u029d\1\uffff\3\62\1\uffff\1\62\1\uffff" +
+                    "\3\62\1\uffff\16\62\1\u02b6\2\62\1\uffff\1\62\1\uffff\1\u02ba\1\uffff" +
+                    "\1\62\1\u02bc\1\uffff\2\62\1\u02bf\1\u02c0\1\62\1\uffff\3\62\1\uffff\1" +
+                    "\62\1\u02c6\1\u02c7\1\62\1\uffff\3\62\1\u02cc\2\uffff\1\62\1\u02ce\1\u02cf" +
+                    "\1\62\1\u02d1\2\62\1\uffff\2\62\1\uffff\3\62\2\uffff\4\62\2\uffff\1\u02dd" +
+                    "\3\uffff\1\62\1\uffff\1\u02df\1\u02e0\1\u02e1\14\62\1\u02ef\1\u02f0\2" +
+                    "\62\1\u02f3\2\62\1\u02f6\1\u02f7\1\uffff\3\62\1\uffff\1\62\1\uffff\1\u02fc" +
+                    "\1\62\2\uffff\1\u02fe\4\62\2\uffff\1\62\1\u0304\1\u0305\1\u0306\1\uffff" +
+                    "\1\u0307\2\uffff\1\62\1\uffff\1\u0309\2\62\1\u030c\1\62\1\u030e\1\62\1" +
+                    "\u0310\1\u0311\1\62\1\u0313\1\uffff\1\62\3\uffff\6\62\1\u031b\6\62\2\uffff" +
+                    "\1\62\1\u0323\1\uffff\1\u0324\1\62\2\uffff\4\62\1\uffff\1\62\1\uffff\1" +
+                    "\62\1\u032d\1\62\1\u032f\1\u0330\4\uffff\1\u0331\1\uffff\1\u0332\1\u0333" +
+                    "\1\uffff\1\u0334\1\uffff\1\62\2\uffff\1\62\1\uffff\1\u0337\1\u0338\5\62" +
+                    "\1\uffff\6\62\1\u034a\2\uffff\1\62\1\u034c\1\u034d\4\62\1\u0352\1\uffff" +
+                    "\1\62\6\uffff\2\62\2\uffff\21\62\1\uffff\1\u0368\2\uffff\4\62\1\uffff" +
+                    "\1\62\1\u036e\11\62\1\u0378\1\u0379\3\62\1\u037d\4\62\1\uffff\1\62\1\u0383" +
+                    "\1\u0384\2\62\1\uffff\11\62\2\uffff\3\62\1\uffff\4\62\1\u0397\2\uffff" +
+                    "\4\62\1\u039c\1\u039d\1\u039e\2\62\1\u03a1\1\u03a2\1\u03a3\2\62\1\u03a6" +
+                    "\3\62\1\uffff\1\u03aa\1\u03ab\1\u03ac\1\62\3\uffff\2\62\3\uffff\1\u03b0" +
+                    "\1\u03b1\1\uffff\1\62\1\u03b3\1\62\3\uffff\1\u03b5\1\u03b6\1\62\2\uffff" +
+                    "\1\u03b8\1\uffff\1\62\2\uffff\1\u03bb\1\uffff\2\62\1\uffff\6\62\1\u03c4" +
                     "\1\u03c5\2\uffff";
     static final String DFA18_eofS =
             "\u03c6\uffff";
     static final String DFA18_minS =
-            "\1\11\1\uffff\1\100\6\60\1\157\1\145\1\146\1\141\1\145\1\141\1\142\3\141"+
-                    "\1\150\1\156\1\141\1\150\1\157\3\uffff\1\57\1\75\3\uffff\2\75\1\52\3\uffff"+
-                    "\1\51\1\uffff\1\0\1\uffff\2\60\2\105\1\116\1\102\1\101\1\60\1\uffff\1"+
-                    "\60\1\0\1\56\6\uffff\2\60\1\144\1\162\2\60\1\164\3\60\3\uffff\1\60\1\145"+
-                    "\2\60\1\141\1\156\1\60\1\163\3\60\1\156\1\163\1\144\1\143\1\60\1\154\1"+
-                    "\162\1\156\1\164\1\154\1\60\1\160\2\60\2\142\1\143\1\163\1\144\1\155\1"+
-                    "\141\1\154\1\144\1\152\2\60\1\145\1\60\1\164\1\145\1\143\1\141\2\151\1"+
-                    "\142\1\151\1\141\1\146\1\141\1\154\1\141\1\145\1\60\1\165\1\160\1\151"+
-                    "\1\145\2\162\1\151\1\164\1\151\1\162\17\uffff\1\116\1\123\1\101\1\127"+
-                    "\1\103\1\124\1\112\1\122\1\117\2\uffff\1\56\1\uffff\1\53\1\60\1\uffff"+
-                    "\1\157\2\60\1\151\1\141\1\60\1\145\2\uffff\1\157\1\151\1\141\1\145\1\60"+
-                    "\2\163\1\60\1\162\1\164\1\160\1\60\1\156\3\uffff\1\141\1\145\1\60\1\145"+
-                    "\1\164\2\145\1\60\1\163\1\145\1\141\1\60\1\143\1\157\1\160\1\uffff\1\154"+
-                    "\2\145\1\164\1\151\1\145\2\uffff\1\145\1\162\1\141\1\163\1\60\1\145\1"+
-                    "\162\1\60\1\145\1\60\1\145\2\uffff\1\162\1\uffff\1\60\1\162\1\153\1\143"+
-                    "\1\164\1\156\1\166\1\143\1\154\1\163\1\144\1\157\1\145\1\151\1\156\1\157"+
-                    "\1\145\1\165\1\151\1\145\1\154\3\60\1\164\1\143\1\162\1\151\1\156\1\145"+
-                    "\1\uffff\1\60\2\145\1\164\1\141\1\151\1\163\1\60\1\164\1\154\1\150\1\164"+
-                    "\1\60\1\103\1\124\1\123\1\137\1\117\2\105\1\111\1\116\1\60\1\uffff\1\154"+
-                    "\1\162\2\uffff\1\163\1\171\1\uffff\2\155\1\156\1\153\2\60\1\163\1\164"+
-                    "\1\141\1\60\1\145\1\162\1\151\1\uffff\1\164\1\155\1\60\1\uffff\1\160\1"+
-                    "\60\3\162\1\uffff\1\145\1\60\1\154\1\141\1\uffff\1\164\1\60\2\145\1\170"+
-                    "\1\162\1\151\1\156\1\162\1\154\1\141\1\154\1\141\1\uffff\2\60\1\uffff"+
-                    "\1\146\1\uffff\1\143\1\141\1\uffff\1\154\2\141\1\146\1\164\1\141\1\145"+
-                    "\1\162\2\145\1\151\1\145\1\60\2\162\1\163\1\164\1\166\1\141\1\151\1\144"+
-                    "\1\165\1\143\1\145\3\uffff\1\151\1\141\1\145\1\143\1\60\1\141\1\uffff"+
-                    "\3\60\1\146\1\154\1\60\1\162\1\141\1\uffff\1\165\1\145\1\60\1\145\1\uffff"+
-                    "\1\124\1\117\1\123\1\124\2\122\1\103\1\101\1\131\1\60\1\165\1\141\1\164"+
-                    "\1\60\1\142\1\141\2\60\1\uffff\3\60\1\151\1\156\1\154\1\143\1\165\1\144"+
-                    "\1\157\1\151\1\uffff\1\164\1\uffff\1\151\1\164\1\156\1\60\1\uffff\1\60"+
-                    "\1\162\1\151\1\uffff\1\162\1\155\1\60\1\151\1\141\1\145\1\146\1\60\1\162"+
-                    "\1\60\1\147\2\uffff\1\141\2\164\1\157\1\151\1\147\1\144\1\154\1\157\1"+
-                    "\145\1\164\1\144\1\141\1\162\2\143\1\60\1\156\1\uffff\1\144\1\145\1\164"+
-                    "\1\162\1\145\1\164\1\162\1\145\1\162\1\141\1\144\1\143\1\154\1\144\1\164"+
-                    "\1\147\1\uffff\1\144\3\uffff\1\145\1\60\1\uffff\1\147\1\156\1\141\1\60"+
-                    "\1\uffff\1\60\1\111\1\115\1\60\1\131\1\104\1\106\1\124\1\102\1\115\1\164"+
-                    "\1\143\1\162\1\uffff\1\154\1\164\4\uffff\1\165\1\uffff\1\156\1\165\1\164"+
-                    "\1\141\1\143\1\60\1\164\1\60\1\143\1\60\1\155\1\60\1\141\1\uffff\1\172"+
-                    "\1\171\1\uffff\1\144\1\157\1\60\1\145\1\uffff\1\164\1\154\1\60\1\141\1"+
-                    "\uffff\1\171\1\uffff\1\145\1\165\1\60\1\157\1\141\1\144\1\145\2\60\2\162"+
-                    "\1\145\1\165\1\155\2\164\1\60\1\150\1\uffff\1\154\1\60\1\156\1\145\1\157"+
-                    "\2\60\1\145\1\156\1\143\1\154\2\60\1\154\3\60\1\166\1\60\1\uffff\1\163"+
-                    "\1\164\1\154\1\uffff\1\156\1\uffff\1\117\1\137\1\106\1\uffff\1\120\1\137"+
-                    "\1\101\1\137\1\114\1\117\1\145\1\164\1\151\2\145\1\143\1\163\1\145\1\60"+
-                    "\2\164\1\uffff\1\145\1\uffff\1\60\1\uffff\1\145\1\60\1\uffff\1\154\1\141"+
-                    "\2\60\1\156\1\uffff\1\156\1\145\1\151\1\uffff\1\143\2\60\1\154\1\uffff"+
-                    "\1\162\1\144\1\145\1\60\2\uffff\1\155\2\60\1\162\1\60\1\171\1\145\1\uffff"+
-                    "\1\145\1\171\1\uffff\1\143\1\162\1\144\2\uffff\1\163\1\164\1\145\1\154"+
-                    "\2\uffff\1\60\3\uffff\1\141\1\uffff\3\60\1\154\1\116\1\101\1\106\1\101"+
-                    "\1\111\1\105\1\110\1\103\1\124\1\105\1\125\2\60\1\156\1\162\1\60\1\144"+
-                    "\1\164\2\60\1\uffff\1\145\1\157\1\162\1\uffff\1\156\1\uffff\1\60\1\164"+
-                    "\2\uffff\1\60\1\164\1\144\1\172\1\145\2\uffff\1\164\3\60\1\uffff\1\60"+
-                    "\2\uffff\1\145\1\uffff\1\60\2\144\1\60\1\145\1\60\1\165\2\60\1\163\1\60"+
-                    "\1\uffff\1\162\3\uffff\1\171\1\137\1\124\1\137\1\122\1\105\1\60\1\131"+
-                    "\2\105\1\131\1\137\1\123\2\uffff\1\147\1\60\1\uffff\1\60\1\157\2\uffff"+
-                    "\1\144\1\162\1\146\1\164\1\uffff\1\151\1\uffff\1\141\1\60\1\141\2\60\4"+
-                    "\uffff\1\60\1\uffff\2\60\1\uffff\1\60\1\uffff\1\143\2\uffff\1\164\1\uffff"+
-                    "\2\60\1\101\2\124\1\105\1\114\1\uffff\1\120\1\114\1\137\1\120\1\111\1"+
-                    "\137\1\60\2\uffff\1\162\2\60\2\141\1\157\1\164\1\60\1\uffff\1\164\6\uffff"+
-                    "\1\145\1\162\2\uffff\1\114\1\101\1\122\1\117\1\105\1\122\1\131\1\116\1"+
-                    "\104\1\105\1\120\1\107\1\105\1\131\1\104\1\101\1\105\1\uffff\1\60\2\uffff"+
-                    "\1\143\1\154\1\156\1\151\1\uffff\1\151\1\60\1\151\1\117\1\115\1\107\1"+
-                    "\104\1\124\1\111\1\120\1\124\2\60\1\105\1\131\1\125\1\60\1\120\1\105\1"+
-                    "\122\1\130\1\uffff\1\145\2\60\2\157\1\uffff\1\156\1\102\1\105\1\123\1"+
-                    "\131\1\125\1\102\1\105\1\123\2\uffff\1\122\1\120\1\111\1\uffff\1\105\1"+
-                    "\116\1\101\1\120\1\60\2\uffff\2\156\1\147\1\101\3\60\1\122\1\125\3\60"+
-                    "\1\105\1\104\1\60\1\124\1\115\1\122\1\uffff\3\60\1\114\3\uffff\1\116\1"+
-                    "\124\3\uffff\2\60\1\uffff\1\123\1\60\1\105\3\uffff\2\60\1\105\2\uffff"+
-                    "\1\60\1\uffff\1\123\2\uffff\1\60\1\uffff\1\123\1\101\1\uffff\1\111\1\122"+
+            "\1\11\1\uffff\1\100\6\60\1\157\1\145\1\146\1\141\1\145\1\141\1\142\3\141" +
+                    "\1\150\1\156\1\141\1\150\1\157\3\uffff\1\57\1\75\3\uffff\2\75\1\52\3\uffff" +
+                    "\1\51\1\uffff\1\0\1\uffff\2\60\2\105\1\116\1\102\1\101\1\60\1\uffff\1" +
+                    "\60\1\0\1\56\6\uffff\2\60\1\144\1\162\2\60\1\164\3\60\3\uffff\1\60\1\145" +
+                    "\2\60\1\141\1\156\1\60\1\163\3\60\1\156\1\163\1\144\1\143\1\60\1\154\1" +
+                    "\162\1\156\1\164\1\154\1\60\1\160\2\60\2\142\1\143\1\163\1\144\1\155\1" +
+                    "\141\1\154\1\144\1\152\2\60\1\145\1\60\1\164\1\145\1\143\1\141\2\151\1" +
+                    "\142\1\151\1\141\1\146\1\141\1\154\1\141\1\145\1\60\1\165\1\160\1\151" +
+                    "\1\145\2\162\1\151\1\164\1\151\1\162\17\uffff\1\116\1\123\1\101\1\127" +
+                    "\1\103\1\124\1\112\1\122\1\117\2\uffff\1\56\1\uffff\1\53\1\60\1\uffff" +
+                    "\1\157\2\60\1\151\1\141\1\60\1\145\2\uffff\1\157\1\151\1\141\1\145\1\60" +
+                    "\2\163\1\60\1\162\1\164\1\160\1\60\1\156\3\uffff\1\141\1\145\1\60\1\145" +
+                    "\1\164\2\145\1\60\1\163\1\145\1\141\1\60\1\143\1\157\1\160\1\uffff\1\154" +
+                    "\2\145\1\164\1\151\1\145\2\uffff\1\145\1\162\1\141\1\163\1\60\1\145\1" +
+                    "\162\1\60\1\145\1\60\1\145\2\uffff\1\162\1\uffff\1\60\1\162\1\153\1\143" +
+                    "\1\164\1\156\1\166\1\143\1\154\1\163\1\144\1\157\1\145\1\151\1\156\1\157" +
+                    "\1\145\1\165\1\151\1\145\1\154\3\60\1\164\1\143\1\162\1\151\1\156\1\145" +
+                    "\1\uffff\1\60\2\145\1\164\1\141\1\151\1\163\1\60\1\164\1\154\1\150\1\164" +
+                    "\1\60\1\103\1\124\1\123\1\137\1\117\2\105\1\111\1\116\1\60\1\uffff\1\154" +
+                    "\1\162\2\uffff\1\163\1\171\1\uffff\2\155\1\156\1\153\2\60\1\163\1\164" +
+                    "\1\141\1\60\1\145\1\162\1\151\1\uffff\1\164\1\155\1\60\1\uffff\1\160\1" +
+                    "\60\3\162\1\uffff\1\145\1\60\1\154\1\141\1\uffff\1\164\1\60\2\145\1\170" +
+                    "\1\162\1\151\1\156\1\162\1\154\1\141\1\154\1\141\1\uffff\2\60\1\uffff" +
+                    "\1\146\1\uffff\1\143\1\141\1\uffff\1\154\2\141\1\146\1\164\1\141\1\145" +
+                    "\1\162\2\145\1\151\1\145\1\60\2\162\1\163\1\164\1\166\1\141\1\151\1\144" +
+                    "\1\165\1\143\1\145\3\uffff\1\151\1\141\1\145\1\143\1\60\1\141\1\uffff" +
+                    "\3\60\1\146\1\154\1\60\1\162\1\141\1\uffff\1\165\1\145\1\60\1\145\1\uffff" +
+                    "\1\124\1\117\1\123\1\124\2\122\1\103\1\101\1\131\1\60\1\165\1\141\1\164" +
+                    "\1\60\1\142\1\141\2\60\1\uffff\3\60\1\151\1\156\1\154\1\143\1\165\1\144" +
+                    "\1\157\1\151\1\uffff\1\164\1\uffff\1\151\1\164\1\156\1\60\1\uffff\1\60" +
+                    "\1\162\1\151\1\uffff\1\162\1\155\1\60\1\151\1\141\1\145\1\146\1\60\1\162" +
+                    "\1\60\1\147\2\uffff\1\141\2\164\1\157\1\151\1\147\1\144\1\154\1\157\1" +
+                    "\145\1\164\1\144\1\141\1\162\2\143\1\60\1\156\1\uffff\1\144\1\145\1\164" +
+                    "\1\162\1\145\1\164\1\162\1\145\1\162\1\141\1\144\1\143\1\154\1\144\1\164" +
+                    "\1\147\1\uffff\1\144\3\uffff\1\145\1\60\1\uffff\1\147\1\156\1\141\1\60" +
+                    "\1\uffff\1\60\1\111\1\115\1\60\1\131\1\104\1\106\1\124\1\102\1\115\1\164" +
+                    "\1\143\1\162\1\uffff\1\154\1\164\4\uffff\1\165\1\uffff\1\156\1\165\1\164" +
+                    "\1\141\1\143\1\60\1\164\1\60\1\143\1\60\1\155\1\60\1\141\1\uffff\1\172" +
+                    "\1\171\1\uffff\1\144\1\157\1\60\1\145\1\uffff\1\164\1\154\1\60\1\141\1" +
+                    "\uffff\1\171\1\uffff\1\145\1\165\1\60\1\157\1\141\1\144\1\145\2\60\2\162" +
+                    "\1\145\1\165\1\155\2\164\1\60\1\150\1\uffff\1\154\1\60\1\156\1\145\1\157" +
+                    "\2\60\1\145\1\156\1\143\1\154\2\60\1\154\3\60\1\166\1\60\1\uffff\1\163" +
+                    "\1\164\1\154\1\uffff\1\156\1\uffff\1\117\1\137\1\106\1\uffff\1\120\1\137" +
+                    "\1\101\1\137\1\114\1\117\1\145\1\164\1\151\2\145\1\143\1\163\1\145\1\60" +
+                    "\2\164\1\uffff\1\145\1\uffff\1\60\1\uffff\1\145\1\60\1\uffff\1\154\1\141" +
+                    "\2\60\1\156\1\uffff\1\156\1\145\1\151\1\uffff\1\143\2\60\1\154\1\uffff" +
+                    "\1\162\1\144\1\145\1\60\2\uffff\1\155\2\60\1\162\1\60\1\171\1\145\1\uffff" +
+                    "\1\145\1\171\1\uffff\1\143\1\162\1\144\2\uffff\1\163\1\164\1\145\1\154" +
+                    "\2\uffff\1\60\3\uffff\1\141\1\uffff\3\60\1\154\1\116\1\101\1\106\1\101" +
+                    "\1\111\1\105\1\110\1\103\1\124\1\105\1\125\2\60\1\156\1\162\1\60\1\144" +
+                    "\1\164\2\60\1\uffff\1\145\1\157\1\162\1\uffff\1\156\1\uffff\1\60\1\164" +
+                    "\2\uffff\1\60\1\164\1\144\1\172\1\145\2\uffff\1\164\3\60\1\uffff\1\60" +
+                    "\2\uffff\1\145\1\uffff\1\60\2\144\1\60\1\145\1\60\1\165\2\60\1\163\1\60" +
+                    "\1\uffff\1\162\3\uffff\1\171\1\137\1\124\1\137\1\122\1\105\1\60\1\131" +
+                    "\2\105\1\131\1\137\1\123\2\uffff\1\147\1\60\1\uffff\1\60\1\157\2\uffff" +
+                    "\1\144\1\162\1\146\1\164\1\uffff\1\151\1\uffff\1\141\1\60\1\141\2\60\4" +
+                    "\uffff\1\60\1\uffff\2\60\1\uffff\1\60\1\uffff\1\143\2\uffff\1\164\1\uffff" +
+                    "\2\60\1\101\2\124\1\105\1\114\1\uffff\1\120\1\114\1\137\1\120\1\111\1" +
+                    "\137\1\60\2\uffff\1\162\2\60\2\141\1\157\1\164\1\60\1\uffff\1\164\6\uffff" +
+                    "\1\145\1\162\2\uffff\1\114\1\101\1\122\1\117\1\105\1\122\1\131\1\116\1" +
+                    "\104\1\105\1\120\1\107\1\105\1\131\1\104\1\101\1\105\1\uffff\1\60\2\uffff" +
+                    "\1\143\1\154\1\156\1\151\1\uffff\1\151\1\60\1\151\1\117\1\115\1\107\1" +
+                    "\104\1\124\1\111\1\120\1\124\2\60\1\105\1\131\1\125\1\60\1\120\1\105\1" +
+                    "\122\1\130\1\uffff\1\145\2\60\2\157\1\uffff\1\156\1\102\1\105\1\123\1" +
+                    "\131\1\125\1\102\1\105\1\123\2\uffff\1\122\1\120\1\111\1\uffff\1\105\1" +
+                    "\116\1\101\1\120\1\60\2\uffff\2\156\1\147\1\101\3\60\1\122\1\125\3\60" +
+                    "\1\105\1\104\1\60\1\124\1\115\1\122\1\uffff\3\60\1\114\3\uffff\1\116\1" +
+                    "\124\3\uffff\2\60\1\uffff\1\123\1\60\1\105\3\uffff\2\60\1\105\2\uffff" +
+                    "\1\60\1\uffff\1\123\2\uffff\1\60\1\uffff\1\123\1\101\1\uffff\1\111\1\122" +
                     "\1\117\1\107\1\116\1\123\2\60\2\uffff";
     static final String DFA18_maxS =
-            "\1\ufffe\1\uffff\1\100\1\165\1\162\1\157\1\171\1\170\1\165\1\157\1\145"+
-                    "\1\163\3\157\1\166\1\165\1\145\1\164\1\171\1\163\1\151\1\162\1\157\3\uffff"+
-                    "\1\57\1\75\3\uffff\1\76\1\75\1\56\3\uffff\1\56\1\uffff\1\uffff\1\uffff"+
-                    "\2\150\2\105\1\116\1\102\1\101\1\150\1\uffff\1\150\1\uffff\1\150\6\uffff"+
-                    "\1\163\1\150\1\163\1\162\2\ufffe\1\164\3\150\3\uffff\1\150\1\145\1\163"+
-                    "\1\150\1\141\1\156\1\163\1\166\3\ufffe\1\156\1\163\1\144\1\164\1\162\1"+
-                    "\156\1\162\1\156\1\164\1\154\1\ufffe\1\160\2\ufffe\2\142\1\143\1\163\1"+
-                    "\144\1\155\1\141\1\154\1\164\1\152\2\ufffe\1\145\1\ufffe\1\164\1\145\1"+
-                    "\163\1\141\1\151\1\157\1\142\1\151\1\163\1\146\1\164\3\162\1\ufffe\1\171"+
-                    "\1\160\1\164\1\145\2\162\1\151\1\164\1\151\1\162\17\uffff\1\116\1\123"+
-                    "\1\101\1\127\1\103\1\124\1\112\1\122\1\117\2\uffff\1\150\1\uffff\2\150"+
-                    "\1\uffff\1\164\2\ufffe\1\151\1\141\1\ufffe\1\145\2\uffff\1\157\1\151\1"+
-                    "\141\1\145\1\150\1\163\1\164\1\150\1\162\1\164\1\160\1\ufffe\1\156\3\uffff"+
-                    "\1\141\1\145\1\ufffe\1\145\1\164\1\157\1\145\1\ufffe\1\163\1\145\1\141"+
-                    "\1\ufffe\1\143\1\157\1\160\1\uffff\1\154\2\145\1\164\1\151\1\145\2\uffff"+
-                    "\1\145\1\162\1\141\1\163\1\ufffe\1\145\1\162\1\ufffe\1\145\1\ufffe\1\145"+
-                    "\2\uffff\1\162\1\uffff\1\ufffe\1\162\1\153\1\143\1\164\1\156\1\166\1\164"+
-                    "\1\154\1\163\1\144\1\157\1\145\1\151\1\156\1\157\1\145\1\165\1\157\1\145"+
-                    "\1\154\3\ufffe\1\164\1\143\1\162\1\151\1\156\1\145\1\uffff\1\ufffe\2\145"+
-                    "\1\164\1\141\1\151\1\163\1\ufffe\1\164\1\154\1\150\1\164\1\ufffe\1\103"+
-                    "\1\124\1\123\1\137\1\117\2\105\1\111\1\116\1\150\1\uffff\1\154\1\162\2"+
-                    "\uffff\1\163\1\171\1\uffff\2\155\1\156\1\153\1\ufffe\1\154\1\163\1\164"+
-                    "\1\151\1\165\1\145\1\162\1\151\1\uffff\1\164\1\155\1\ufffe\1\uffff\1\160"+
-                    "\1\ufffe\3\162\1\uffff\1\145\1\ufffe\1\154\1\141\1\uffff\1\164\1\ufffe"+
-                    "\2\145\1\170\1\162\1\151\1\156\1\162\1\154\1\141\1\154\1\141\1\uffff\2"+
-                    "\ufffe\1\uffff\1\146\1\uffff\1\143\1\141\1\uffff\1\162\1\145\1\141\1\146"+
-                    "\1\164\1\141\1\145\1\162\2\145\1\151\1\145\1\ufffe\2\162\1\163\1\164\1"+
-                    "\166\1\141\1\151\1\144\1\165\1\143\1\145\3\uffff\1\151\1\141\1\145\1\156"+
-                    "\1\ufffe\1\141\1\uffff\3\ufffe\1\146\1\154\1\ufffe\1\162\1\141\1\uffff"+
-                    "\1\165\1\145\1\ufffe\1\145\1\uffff\1\124\1\117\1\123\1\124\2\122\1\103"+
-                    "\1\101\1\131\1\150\1\165\1\141\1\164\1\ufffe\1\142\1\141\2\ufffe\1\uffff"+
-                    "\3\ufffe\1\151\1\156\1\154\1\143\1\165\1\156\1\157\1\151\1\uffff\1\164"+
-                    "\1\uffff\1\151\1\164\1\156\1\ufffe\1\uffff\1\ufffe\1\162\1\151\1\uffff"+
-                    "\1\162\1\155\1\ufffe\1\151\1\141\1\145\1\146\1\ufffe\1\162\1\ufffe\1\147"+
-                    "\2\uffff\1\141\2\164\1\157\1\151\1\147\1\144\1\154\1\157\1\145\1\164\1"+
-                    "\144\1\141\1\162\1\143\1\163\1\ufffe\1\156\1\uffff\1\144\1\145\1\164\1"+
-                    "\162\1\145\1\164\1\162\1\145\1\162\1\141\1\144\1\143\1\154\1\144\1\164"+
-                    "\1\147\1\uffff\1\144\3\uffff\1\145\1\ufffe\1\uffff\1\147\1\156\1\141\1"+
-                    "\ufffe\1\uffff\1\ufffe\1\111\1\115\1\ufffe\1\131\1\104\1\106\1\124\1\102"+
-                    "\1\115\1\164\1\143\1\162\1\uffff\1\154\1\164\4\uffff\1\165\1\uffff\1\156"+
-                    "\1\165\1\164\1\141\1\143\1\ufffe\1\164\1\ufffe\1\143\1\ufffe\1\155\1\ufffe"+
-                    "\1\141\1\uffff\1\172\1\171\1\uffff\1\144\1\157\1\ufffe\1\145\1\uffff\1"+
-                    "\164\1\154\1\ufffe\1\141\1\uffff\1\171\1\uffff\1\145\1\165\1\ufffe\1\157"+
-                    "\1\141\1\144\1\145\2\ufffe\2\162\1\145\1\165\1\155\2\164\1\ufffe\1\150"+
-                    "\1\uffff\1\154\1\ufffe\1\156\1\145\1\157\2\ufffe\1\145\1\156\1\143\1\154"+
-                    "\2\ufffe\1\154\3\ufffe\1\166\1\ufffe\1\uffff\1\163\1\164\1\154\1\uffff"+
-                    "\1\156\1\uffff\1\117\1\137\1\120\1\uffff\1\120\1\137\1\101\1\137\1\114"+
-                    "\1\117\1\145\1\164\1\151\1\171\1\145\1\143\1\163\1\145\1\ufffe\2\164\1"+
-                    "\uffff\1\145\1\uffff\1\ufffe\1\uffff\1\145\1\ufffe\1\uffff\1\154\1\141"+
-                    "\2\ufffe\1\156\1\uffff\1\156\1\145\1\151\1\uffff\1\143\2\ufffe\1\154\1"+
-                    "\uffff\1\162\1\144\1\145\1\ufffe\2\uffff\1\155\2\ufffe\1\162\1\ufffe\1"+
-                    "\171\1\145\1\uffff\1\145\1\171\1\uffff\1\143\1\162\1\144\2\uffff\1\163"+
-                    "\1\164\1\145\1\154\2\uffff\1\ufffe\3\uffff\1\141\1\uffff\3\ufffe\1\154"+
-                    "\1\116\1\101\1\106\1\101\1\111\1\105\1\124\1\103\1\124\1\105\1\125\2\ufffe"+
-                    "\1\156\1\162\1\ufffe\1\144\1\164\2\ufffe\1\uffff\1\145\1\157\1\162\1\uffff"+
-                    "\1\156\1\uffff\1\ufffe\1\164\2\uffff\1\ufffe\1\164\1\144\1\172\1\145\2"+
-                    "\uffff\1\164\3\ufffe\1\uffff\1\ufffe\2\uffff\1\145\1\uffff\1\ufffe\2\144"+
-                    "\1\ufffe\1\145\1\ufffe\1\165\2\ufffe\1\163\1\ufffe\1\uffff\1\162\3\uffff"+
-                    "\1\171\1\137\1\124\1\137\1\122\1\105\1\ufffe\1\131\2\105\1\131\1\137\1"+
-                    "\123\2\uffff\1\147\1\ufffe\1\uffff\1\ufffe\1\157\2\uffff\1\144\1\162\1"+
-                    "\146\1\164\1\uffff\1\151\1\uffff\1\163\1\ufffe\1\141\2\ufffe\4\uffff\1"+
-                    "\ufffe\1\uffff\2\ufffe\1\uffff\1\ufffe\1\uffff\1\143\2\uffff\1\164\1\uffff"+
-                    "\2\ufffe\1\122\2\124\1\105\1\114\1\uffff\1\120\1\114\1\137\1\120\1\124"+
-                    "\1\137\1\ufffe\2\uffff\1\162\2\ufffe\2\141\1\157\1\164\1\ufffe\1\uffff"+
-                    "\1\164\6\uffff\1\145\1\162\2\uffff\1\114\1\101\1\122\1\117\1\105\1\122"+
-                    "\1\131\1\116\1\104\1\105\1\120\1\124\1\105\1\131\1\104\1\101\1\105\1\uffff"+
-                    "\1\ufffe\2\uffff\1\143\1\154\1\156\1\151\1\uffff\1\151\1\ufffe\1\151\1"+
-                    "\117\1\115\1\107\1\104\1\124\1\111\1\120\1\124\2\ufffe\1\105\1\131\1\125"+
-                    "\1\ufffe\1\120\1\105\1\122\1\130\1\uffff\1\145\2\ufffe\2\157\1\uffff\1"+
-                    "\156\1\102\1\105\1\123\1\131\1\125\1\102\1\105\1\123\2\uffff\1\122\1\120"+
-                    "\1\111\1\uffff\1\105\1\116\1\101\1\120\1\ufffe\2\uffff\2\156\1\147\1\101"+
-                    "\3\ufffe\1\122\1\125\3\ufffe\1\105\1\104\1\ufffe\1\124\1\115\1\122\1\uffff"+
-                    "\3\ufffe\1\114\3\uffff\1\116\1\124\3\uffff\2\ufffe\1\uffff\1\123\1\ufffe"+
-                    "\1\105\3\uffff\2\ufffe\1\105\2\uffff\1\ufffe\1\uffff\1\123\2\uffff\1\ufffe"+
-                    "\1\uffff\1\123\1\101\1\uffff\1\111\1\122\1\117\1\107\1\116\1\123\2\ufffe"+
+            "\1\ufffe\1\uffff\1\100\1\165\1\162\1\157\1\171\1\170\1\165\1\157\1\145" +
+                    "\1\163\3\157\1\166\1\165\1\145\1\164\1\171\1\163\1\151\1\162\1\157\3\uffff" +
+                    "\1\57\1\75\3\uffff\1\76\1\75\1\56\3\uffff\1\56\1\uffff\1\uffff\1\uffff" +
+                    "\2\150\2\105\1\116\1\102\1\101\1\150\1\uffff\1\150\1\uffff\1\150\6\uffff" +
+                    "\1\163\1\150\1\163\1\162\2\ufffe\1\164\3\150\3\uffff\1\150\1\145\1\163" +
+                    "\1\150\1\141\1\156\1\163\1\166\3\ufffe\1\156\1\163\1\144\1\164\1\162\1" +
+                    "\156\1\162\1\156\1\164\1\154\1\ufffe\1\160\2\ufffe\2\142\1\143\1\163\1" +
+                    "\144\1\155\1\141\1\154\1\164\1\152\2\ufffe\1\145\1\ufffe\1\164\1\145\1" +
+                    "\163\1\141\1\151\1\157\1\142\1\151\1\163\1\146\1\164\3\162\1\ufffe\1\171" +
+                    "\1\160\1\164\1\145\2\162\1\151\1\164\1\151\1\162\17\uffff\1\116\1\123" +
+                    "\1\101\1\127\1\103\1\124\1\112\1\122\1\117\2\uffff\1\150\1\uffff\2\150" +
+                    "\1\uffff\1\164\2\ufffe\1\151\1\141\1\ufffe\1\145\2\uffff\1\157\1\151\1" +
+                    "\141\1\145\1\150\1\163\1\164\1\150\1\162\1\164\1\160\1\ufffe\1\156\3\uffff" +
+                    "\1\141\1\145\1\ufffe\1\145\1\164\1\157\1\145\1\ufffe\1\163\1\145\1\141" +
+                    "\1\ufffe\1\143\1\157\1\160\1\uffff\1\154\2\145\1\164\1\151\1\145\2\uffff" +
+                    "\1\145\1\162\1\141\1\163\1\ufffe\1\145\1\162\1\ufffe\1\145\1\ufffe\1\145" +
+                    "\2\uffff\1\162\1\uffff\1\ufffe\1\162\1\153\1\143\1\164\1\156\1\166\1\164" +
+                    "\1\154\1\163\1\144\1\157\1\145\1\151\1\156\1\157\1\145\1\165\1\157\1\145" +
+                    "\1\154\3\ufffe\1\164\1\143\1\162\1\151\1\156\1\145\1\uffff\1\ufffe\2\145" +
+                    "\1\164\1\141\1\151\1\163\1\ufffe\1\164\1\154\1\150\1\164\1\ufffe\1\103" +
+                    "\1\124\1\123\1\137\1\117\2\105\1\111\1\116\1\150\1\uffff\1\154\1\162\2" +
+                    "\uffff\1\163\1\171\1\uffff\2\155\1\156\1\153\1\ufffe\1\154\1\163\1\164" +
+                    "\1\151\1\165\1\145\1\162\1\151\1\uffff\1\164\1\155\1\ufffe\1\uffff\1\160" +
+                    "\1\ufffe\3\162\1\uffff\1\145\1\ufffe\1\154\1\141\1\uffff\1\164\1\ufffe" +
+                    "\2\145\1\170\1\162\1\151\1\156\1\162\1\154\1\141\1\154\1\141\1\uffff\2" +
+                    "\ufffe\1\uffff\1\146\1\uffff\1\143\1\141\1\uffff\1\162\1\145\1\141\1\146" +
+                    "\1\164\1\141\1\145\1\162\2\145\1\151\1\145\1\ufffe\2\162\1\163\1\164\1" +
+                    "\166\1\141\1\151\1\144\1\165\1\143\1\145\3\uffff\1\151\1\141\1\145\1\156" +
+                    "\1\ufffe\1\141\1\uffff\3\ufffe\1\146\1\154\1\ufffe\1\162\1\141\1\uffff" +
+                    "\1\165\1\145\1\ufffe\1\145\1\uffff\1\124\1\117\1\123\1\124\2\122\1\103" +
+                    "\1\101\1\131\1\150\1\165\1\141\1\164\1\ufffe\1\142\1\141\2\ufffe\1\uffff" +
+                    "\3\ufffe\1\151\1\156\1\154\1\143\1\165\1\156\1\157\1\151\1\uffff\1\164" +
+                    "\1\uffff\1\151\1\164\1\156\1\ufffe\1\uffff\1\ufffe\1\162\1\151\1\uffff" +
+                    "\1\162\1\155\1\ufffe\1\151\1\141\1\145\1\146\1\ufffe\1\162\1\ufffe\1\147" +
+                    "\2\uffff\1\141\2\164\1\157\1\151\1\147\1\144\1\154\1\157\1\145\1\164\1" +
+                    "\144\1\141\1\162\1\143\1\163\1\ufffe\1\156\1\uffff\1\144\1\145\1\164\1" +
+                    "\162\1\145\1\164\1\162\1\145\1\162\1\141\1\144\1\143\1\154\1\144\1\164" +
+                    "\1\147\1\uffff\1\144\3\uffff\1\145\1\ufffe\1\uffff\1\147\1\156\1\141\1" +
+                    "\ufffe\1\uffff\1\ufffe\1\111\1\115\1\ufffe\1\131\1\104\1\106\1\124\1\102" +
+                    "\1\115\1\164\1\143\1\162\1\uffff\1\154\1\164\4\uffff\1\165\1\uffff\1\156" +
+                    "\1\165\1\164\1\141\1\143\1\ufffe\1\164\1\ufffe\1\143\1\ufffe\1\155\1\ufffe" +
+                    "\1\141\1\uffff\1\172\1\171\1\uffff\1\144\1\157\1\ufffe\1\145\1\uffff\1" +
+                    "\164\1\154\1\ufffe\1\141\1\uffff\1\171\1\uffff\1\145\1\165\1\ufffe\1\157" +
+                    "\1\141\1\144\1\145\2\ufffe\2\162\1\145\1\165\1\155\2\164\1\ufffe\1\150" +
+                    "\1\uffff\1\154\1\ufffe\1\156\1\145\1\157\2\ufffe\1\145\1\156\1\143\1\154" +
+                    "\2\ufffe\1\154\3\ufffe\1\166\1\ufffe\1\uffff\1\163\1\164\1\154\1\uffff" +
+                    "\1\156\1\uffff\1\117\1\137\1\120\1\uffff\1\120\1\137\1\101\1\137\1\114" +
+                    "\1\117\1\145\1\164\1\151\1\171\1\145\1\143\1\163\1\145\1\ufffe\2\164\1" +
+                    "\uffff\1\145\1\uffff\1\ufffe\1\uffff\1\145\1\ufffe\1\uffff\1\154\1\141" +
+                    "\2\ufffe\1\156\1\uffff\1\156\1\145\1\151\1\uffff\1\143\2\ufffe\1\154\1" +
+                    "\uffff\1\162\1\144\1\145\1\ufffe\2\uffff\1\155\2\ufffe\1\162\1\ufffe\1" +
+                    "\171\1\145\1\uffff\1\145\1\171\1\uffff\1\143\1\162\1\144\2\uffff\1\163" +
+                    "\1\164\1\145\1\154\2\uffff\1\ufffe\3\uffff\1\141\1\uffff\3\ufffe\1\154" +
+                    "\1\116\1\101\1\106\1\101\1\111\1\105\1\124\1\103\1\124\1\105\1\125\2\ufffe" +
+                    "\1\156\1\162\1\ufffe\1\144\1\164\2\ufffe\1\uffff\1\145\1\157\1\162\1\uffff" +
+                    "\1\156\1\uffff\1\ufffe\1\164\2\uffff\1\ufffe\1\164\1\144\1\172\1\145\2" +
+                    "\uffff\1\164\3\ufffe\1\uffff\1\ufffe\2\uffff\1\145\1\uffff\1\ufffe\2\144" +
+                    "\1\ufffe\1\145\1\ufffe\1\165\2\ufffe\1\163\1\ufffe\1\uffff\1\162\3\uffff" +
+                    "\1\171\1\137\1\124\1\137\1\122\1\105\1\ufffe\1\131\2\105\1\131\1\137\1" +
+                    "\123\2\uffff\1\147\1\ufffe\1\uffff\1\ufffe\1\157\2\uffff\1\144\1\162\1" +
+                    "\146\1\164\1\uffff\1\151\1\uffff\1\163\1\ufffe\1\141\2\ufffe\4\uffff\1" +
+                    "\ufffe\1\uffff\2\ufffe\1\uffff\1\ufffe\1\uffff\1\143\2\uffff\1\164\1\uffff" +
+                    "\2\ufffe\1\122\2\124\1\105\1\114\1\uffff\1\120\1\114\1\137\1\120\1\124" +
+                    "\1\137\1\ufffe\2\uffff\1\162\2\ufffe\2\141\1\157\1\164\1\ufffe\1\uffff" +
+                    "\1\164\6\uffff\1\145\1\162\2\uffff\1\114\1\101\1\122\1\117\1\105\1\122" +
+                    "\1\131\1\116\1\104\1\105\1\120\1\124\1\105\1\131\1\104\1\101\1\105\1\uffff" +
+                    "\1\ufffe\2\uffff\1\143\1\154\1\156\1\151\1\uffff\1\151\1\ufffe\1\151\1" +
+                    "\117\1\115\1\107\1\104\1\124\1\111\1\120\1\124\2\ufffe\1\105\1\131\1\125" +
+                    "\1\ufffe\1\120\1\105\1\122\1\130\1\uffff\1\145\2\ufffe\2\157\1\uffff\1" +
+                    "\156\1\102\1\105\1\123\1\131\1\125\1\102\1\105\1\123\2\uffff\1\122\1\120" +
+                    "\1\111\1\uffff\1\105\1\116\1\101\1\120\1\ufffe\2\uffff\2\156\1\147\1\101" +
+                    "\3\ufffe\1\122\1\125\3\ufffe\1\105\1\104\1\ufffe\1\124\1\115\1\122\1\uffff" +
+                    "\3\ufffe\1\114\3\uffff\1\116\1\124\3\uffff\2\ufffe\1\uffff\1\123\1\ufffe" +
+                    "\1\105\3\uffff\2\ufffe\1\105\2\uffff\1\ufffe\1\uffff\1\123\2\uffff\1\ufffe" +
+                    "\1\uffff\1\123\1\101\1\uffff\1\111\1\122\1\117\1\107\1\116\1\123\2\ufffe" +
                     "\2\uffff";
     static final String DFA18_acceptS =
-            "\1\uffff\1\1\26\uffff\1\u0087\1\u0088\1\u0089\2\uffff\1\u008c\1\u008d"+
-                    "\1\u008f\3\uffff\1\u0096\1\u0097\1\u0099\1\uffff\1\u009b\1\uffff\1\u00a0"+
-                    "\10\uffff\1\u00b6\3\uffff\1\u00b9\1\u00bc\1\u00bd\1\u00c0\1\2\1\u009c"+
-                    "\12\uffff\2\u00b6\1\u00bb\100\uffff\1\u00bf\1\u008a\1\u008b\1\u008e\1"+
-                    "\u0090\1\u0092\1\u0091\1\u0093\1\u0094\1\u0098\1\u0095\1\u009a\1\u009e"+
-                    "\1\u009d\1\u009f\11\uffff\1\u00c1\1\u00b7\1\uffff\1\u00b8\2\uffff\1\u00ba"+
-                    "\7\uffff\1\11\1\15\15\uffff\1\36\1\40\1\41\17\uffff\1\65\6\uffff\1\70"+
-                    "\1\76\13\uffff\1\112\1\113\1\uffff\1\115\36\uffff\1\165\27\uffff\1\u00be"+
-                    "\2\uffff\1\5\1\6\2\uffff\1\12\15\uffff\1\35\3\uffff\1\44\5\uffff\1\53"+
-                    "\4\uffff\1\60\15\uffff\1\103\2\uffff\1\106\1\uffff\1\110\2\uffff\1\116"+
-                    "\30\uffff\1\153\1\154\1\155\6\uffff\1\166\10\uffff\1\174\4\uffff\1\u0084"+
-                    "\22\uffff\1\21\13\uffff\1\43\1\uffff\1\46\4\uffff\1\54\3\uffff\1\63\13"+
-                    "\uffff\1\104\1\105\22\uffff\1\136\20\uffff\1\163\1\uffff\1\u0086\1\167"+
-                    "\1\170\2\uffff\1\173\4\uffff\1\u0081\15\uffff\1\10\2\uffff\1\17\1\20\1"+
-                    "\22\1\23\1\uffff\1\24\15\uffff\1\u0085\2\uffff\1\55\4\uffff\1\71\4\uffff"+
-                    "\1\77\1\uffff\1\101\22\uffff\1\135\23\uffff\1\172\3\uffff\1\u0080\1\uffff"+
-                    "\1\u0082\3\uffff\1\u00a9\21\uffff\1\33\1\uffff\1\37\1\uffff\1\45\2\uffff"+
-                    "\1\50\5\uffff\1\64\3\uffff\1\74\4\uffff\1\111\4\uffff\1\122\1\123\7\uffff"+
-                    "\1\133\2\uffff\1\140\3\uffff\1\144\1\145\4\uffff\1\152\1\156\1\uffff\1"+
-                    "\160\1\161\1\162\1\uffff\1\171\30\uffff\1\30\3\uffff\1\42\1\uffff\1\51"+
-                    "\2\uffff\1\57\1\61\5\uffff\1\100\1\102\4\uffff\1\121\1\uffff\1\125\1\126"+
-                    "\1\uffff\1\130\13\uffff\1\157\1\uffff\1\175\1\176\1\177\15\uffff\1\3\1"+
-                    "\4\2\uffff\1\14\2\uffff\1\26\1\27\4\uffff\1\52\1\uffff\1\62\5\uffff\1"+
-                    "\114\1\117\1\120\1\124\1\uffff\1\131\2\uffff\1\137\1\uffff\1\142\1\uffff"+
-                    "\1\146\1\147\1\uffff\1\151\7\uffff\1\u00a8\7\uffff\1\13\1\16\10\uffff"+
-                    "\1\72\1\uffff\1\75\1\107\1\127\1\132\1\134\1\141\2\uffff\1\164\1\u0083"+
-                    "\21\uffff\1\7\1\uffff\1\31\1\32\4\uffff\1\67\25\uffff\1\25\5\uffff\1\143"+
-                    "\11\uffff\1\u00b4\1\u00aa\3\uffff\1\u00ad\5\uffff\1\47\1\56\22\uffff\1"+
-                    "\34\4\uffff\1\u00a2\1\u00a3\1\u00a4\2\uffff\1\u00ae\1\u00b3\1\u00ab\2"+
-                    "\uffff\1\u00af\3\uffff\1\66\1\73\1\150\3\uffff\1\u00ac\1\u00b2\1\uffff"+
-                    "\1\u00b1\1\uffff\1\u00a1\1\u00a5\1\uffff\1\u00b0\2\uffff\1\u00a6\10\uffff"+
+            "\1\uffff\1\1\26\uffff\1\u0087\1\u0088\1\u0089\2\uffff\1\u008c\1\u008d" +
+                    "\1\u008f\3\uffff\1\u0096\1\u0097\1\u0099\1\uffff\1\u009b\1\uffff\1\u00a0" +
+                    "\10\uffff\1\u00b6\3\uffff\1\u00b9\1\u00bc\1\u00bd\1\u00c0\1\2\1\u009c" +
+                    "\12\uffff\2\u00b6\1\u00bb\100\uffff\1\u00bf\1\u008a\1\u008b\1\u008e\1" +
+                    "\u0090\1\u0092\1\u0091\1\u0093\1\u0094\1\u0098\1\u0095\1\u009a\1\u009e" +
+                    "\1\u009d\1\u009f\11\uffff\1\u00c1\1\u00b7\1\uffff\1\u00b8\2\uffff\1\u00ba" +
+                    "\7\uffff\1\11\1\15\15\uffff\1\36\1\40\1\41\17\uffff\1\65\6\uffff\1\70" +
+                    "\1\76\13\uffff\1\112\1\113\1\uffff\1\115\36\uffff\1\165\27\uffff\1\u00be" +
+                    "\2\uffff\1\5\1\6\2\uffff\1\12\15\uffff\1\35\3\uffff\1\44\5\uffff\1\53" +
+                    "\4\uffff\1\60\15\uffff\1\103\2\uffff\1\106\1\uffff\1\110\2\uffff\1\116" +
+                    "\30\uffff\1\153\1\154\1\155\6\uffff\1\166\10\uffff\1\174\4\uffff\1\u0084" +
+                    "\22\uffff\1\21\13\uffff\1\43\1\uffff\1\46\4\uffff\1\54\3\uffff\1\63\13" +
+                    "\uffff\1\104\1\105\22\uffff\1\136\20\uffff\1\163\1\uffff\1\u0086\1\167" +
+                    "\1\170\2\uffff\1\173\4\uffff\1\u0081\15\uffff\1\10\2\uffff\1\17\1\20\1" +
+                    "\22\1\23\1\uffff\1\24\15\uffff\1\u0085\2\uffff\1\55\4\uffff\1\71\4\uffff" +
+                    "\1\77\1\uffff\1\101\22\uffff\1\135\23\uffff\1\172\3\uffff\1\u0080\1\uffff" +
+                    "\1\u0082\3\uffff\1\u00a9\21\uffff\1\33\1\uffff\1\37\1\uffff\1\45\2\uffff" +
+                    "\1\50\5\uffff\1\64\3\uffff\1\74\4\uffff\1\111\4\uffff\1\122\1\123\7\uffff" +
+                    "\1\133\2\uffff\1\140\3\uffff\1\144\1\145\4\uffff\1\152\1\156\1\uffff\1" +
+                    "\160\1\161\1\162\1\uffff\1\171\30\uffff\1\30\3\uffff\1\42\1\uffff\1\51" +
+                    "\2\uffff\1\57\1\61\5\uffff\1\100\1\102\4\uffff\1\121\1\uffff\1\125\1\126" +
+                    "\1\uffff\1\130\13\uffff\1\157\1\uffff\1\175\1\176\1\177\15\uffff\1\3\1" +
+                    "\4\2\uffff\1\14\2\uffff\1\26\1\27\4\uffff\1\52\1\uffff\1\62\5\uffff\1" +
+                    "\114\1\117\1\120\1\124\1\uffff\1\131\2\uffff\1\137\1\uffff\1\142\1\uffff" +
+                    "\1\146\1\147\1\uffff\1\151\7\uffff\1\u00a8\7\uffff\1\13\1\16\10\uffff" +
+                    "\1\72\1\uffff\1\75\1\107\1\127\1\132\1\134\1\141\2\uffff\1\164\1\u0083" +
+                    "\21\uffff\1\7\1\uffff\1\31\1\32\4\uffff\1\67\25\uffff\1\25\5\uffff\1\143" +
+                    "\11\uffff\1\u00b4\1\u00aa\3\uffff\1\u00ad\5\uffff\1\47\1\56\22\uffff\1" +
+                    "\34\4\uffff\1\u00a2\1\u00a3\1\u00a4\2\uffff\1\u00ae\1\u00b3\1\u00ab\2" +
+                    "\uffff\1\u00af\3\uffff\1\66\1\73\1\150\3\uffff\1\u00ac\1\u00b2\1\uffff" +
+                    "\1\u00b1\1\uffff\1\u00a1\1\u00a5\1\uffff\1\u00b0\2\uffff\1\u00a6\10\uffff" +
                     "\1\u00b5\1\u00a7";
     static final String DFA18_specialS =
             "\50\uffff\1\1\13\uffff\1\0\u0391\uffff}>";
     static final String[] DFA18_transitionS = {
-            "\2\71\1\uffff\2\71\22\uffff\1\71\2\uffff\1\70\1\66\1\uffff\1\1\1\67\1"+
-                    "\42\1\43\1\32\1\30\1\35\1\31\1\46\1\33\12\65\1\34\1\36\1\40\1\37\1\41"+
-                    "\1\uffff\1\2\1\61\1\63\1\53\2\63\1\52\2\62\1\56\4\62\1\54\1\57\2\62\1"+
-                    "\55\3\62\1\60\4\62\1\44\1\uffff\1\45\1\47\1\62\1\uffff\1\3\1\4\1\5\1"+
-                    "\6\1\7\1\10\1\11\1\12\1\13\2\62\1\14\1\15\1\16\1\17\1\20\1\62\1\21\1"+
-                    "\22\1\23\1\24\1\25\1\26\1\27\2\62\1\50\1\uffff\1\51\2\uffff\ufe7f\62"+
+            "\2\71\1\uffff\2\71\22\uffff\1\71\2\uffff\1\70\1\66\1\uffff\1\1\1\67\1" +
+                    "\42\1\43\1\32\1\30\1\35\1\31\1\46\1\33\12\65\1\34\1\36\1\40\1\37\1\41" +
+                    "\1\uffff\1\2\1\61\1\63\1\53\2\63\1\52\2\62\1\56\4\62\1\54\1\57\2\62\1" +
+                    "\55\3\62\1\60\4\62\1\44\1\uffff\1\45\1\47\1\62\1\uffff\1\3\1\4\1\5\1" +
+                    "\6\1\7\1\10\1\11\1\12\1\13\2\62\1\14\1\15\1\16\1\17\1\20\1\62\1\21\1" +
+                    "\22\1\23\1\24\1\25\1\26\1\27\2\62\1\50\1\uffff\1\51\2\uffff\ufe7f\62" +
                     "\1\64\u00ff\62",
             "",
             "\1\72",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\103\1\74\1\103"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\103\1\74\1\103" +
                     "\1\75\2\103\1\uffff\1\106\5\uffff\1\76\3\uffff\1\77\1\100\1\101\1\102",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\4\103\1\111\1\103"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\4\103\1\111\1\103" +
                     "\1\uffff\1\106\11\uffff\1\112",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\113\2\103\1\114"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\113\2\103\1\114" +
                     "\2\103\1\uffff\1\106\3\uffff\1\115\2\uffff\1\116",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\4\103\1\117\1\103"+
-                    "\1\uffff\1\106\1\120\5\uffff\1\121\1\uffff\1\122\5\uffff\1\123\1\uffff"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\4\103\1\117\1\103" +
+                    "\1\uffff\1\106\1\120\5\uffff\1\121\1\uffff\1\122\5\uffff\1\123\1\uffff" +
                     "\1\124",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106" +
                     "\3\uffff\1\125\1\uffff\1\126\11\uffff\1\127",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\130\5\103\1\uffff"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\130\5\103\1\uffff" +
                     "\1\106\1\131\5\uffff\1\132\5\uffff\1\133",
             "\1\134",
             "\1\135",
@@ -6538,7 +6315,7 @@ public class DelphiLexer extends Lexer {
             "\1\142\7\uffff\1\143\5\uffff\1\144",
             "\1\145\11\uffff\1\146",
             "\1\147\3\uffff\1\150\3\uffff\1\151\5\uffff\1\152",
-            "\1\153\3\uffff\1\154\7\uffff\1\155\1\uffff\1\156\1\uffff\1\157\2\uffff"+
+            "\1\153\3\uffff\1\154\7\uffff\1\155\1\uffff\1\156\1\uffff\1\157\2\uffff" +
                     "\1\160\1\161",
             "\1\162\12\uffff\1\163\2\uffff\1\164\2\uffff\1\165\2\uffff\1\166",
             "\1\167\3\uffff\1\170",
@@ -6566,21 +6343,21 @@ public class DelphiLexer extends Lexer {
             "",
             "\0\u0089",
             "",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\14\uffff\1\u0098\13\uffff"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\14\uffff\1\u0098\13\uffff" +
                     "\6\103\1\uffff\1\106",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\3\uffff\1\u009a\10\uffff\1"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\3\uffff\1\u009a\10\uffff\1" +
                     "\u0099\13\uffff\6\103\1\uffff\1\106",
             "\1\u009b",
             "\1\u009c",
             "\1\u009d",
             "\1\u009e",
             "\1\u009f",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\5\uffff\1\u00a0\22\uffff\6"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\5\uffff\1\u00a0\22\uffff\6" +
                     "\103\1\uffff\1\106",
             "",
             "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106",
             "\ufeff\62\1\uffff\u0100\62",
-            "\1\u00a4\1\uffff\12\u00a3\1\110\6\uffff\4\u00a6\1\u00a5\1\u00a6\1\uffff"+
+            "\1\u00a4\1\uffff\12\u00a3\1\110\6\uffff\4\u00a6\1\u00a5\1\u00a6\1\uffff" +
                     "\1\u00a7\30\uffff\4\u00a6\1\u00a5\1\u00a6\1\uffff\1\u00a7",
             "",
             "",
@@ -6588,13 +6365,13 @@ public class DelphiLexer extends Lexer {
             "",
             "",
             "",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106" +
                     "\12\uffff\1\u00a8",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\3\103\1\u00a9\2\103"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\3\103\1\u00a9\2\103" +
                     "\1\uffff\1\106",
             "\1\u00aa\16\uffff\1\u00ab",
             "\1\u00ac",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\14\62\1\u00ad\5\62\1\u00ae"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\14\62\1\u00ad\5\62\1\u00ae" +
                     "\7\62\5\uffff\uff7f\62",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\1\u00b1",
@@ -6606,16 +6383,16 @@ public class DelphiLexer extends Lexer {
             "",
             "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\u00b2\1\106",
             "\1\u00b3",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106" +
                     "\12\uffff\1\u00b4",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\4\103\1\u00b5\1\103"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\4\103\1\u00b5\1\103" +
                     "\1\uffff\1\106",
             "\1\u00b6",
             "\1\u00b7",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\5\103\1\u00b8\1\uffff"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\5\103\1\u00b8\1\uffff" +
                     "\1\106\7\uffff\1\u00b9\2\uffff\1\u00ba",
             "\1\u00bb\2\uffff\1\u00bc",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\26\62\1\u00bd\3\62\5\uffff"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\26\62\1\u00bd\3\62\5\uffff" +
                     "\uff7f\62",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
@@ -6623,7 +6400,7 @@ public class DelphiLexer extends Lexer {
             "\1\u00c2",
             "\1\u00c3",
             "\1\u00c4\5\uffff\1\u00c5\6\uffff\1\u00c6\3\uffff\1\u00c7",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106" +
                     "\3\uffff\1\u00c9\5\uffff\1\u00c8",
             "\1\u00ca\1\uffff\1\u00cb",
             "\1\u00cc",
@@ -6632,7 +6409,7 @@ public class DelphiLexer extends Lexer {
             "\1\u00cf",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\1\u00d1",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\3\62\1\u00d2\3\62\1\u00d3"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\3\62\1\u00d2\3\62\1\u00d3" +
                     "\1\u00d4\2\62\1\u00d5\7\62\1\u00d6\6\62\5\uffff\uff7f\62",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\1\u00d9",
@@ -6657,7 +6434,7 @@ public class DelphiLexer extends Lexer {
             "\1\u00ee\5\uffff\1\u00ef",
             "\1\u00f0",
             "\1\u00f1",
-            "\1\u00f2\1\uffff\1\u00f3\2\uffff\1\u00f4\1\u00f5\1\uffff\1\u00f6\3\uffff"+
+            "\1\u00f2\1\uffff\1\u00f3\2\uffff\1\u00f4\1\u00f5\1\uffff\1\u00f6\3\uffff" +
                     "\1\u00f7\2\uffff\1\u00f8\1\u00f9\1\uffff\1\u00fa",
             "\1\u00fb",
             "\1\u00fc\22\uffff\1\u00fd",
@@ -6701,16 +6478,16 @@ public class DelphiLexer extends Lexer {
             "\1\u011c",
             "",
             "",
-            "\1\u00a4\1\uffff\12\u00a3\1\110\6\uffff\4\u00a6\1\u00a5\1\u00a6\1\uffff"+
+            "\1\u00a4\1\uffff\12\u00a3\1\110\6\uffff\4\u00a6\1\u00a5\1\u00a6\1\uffff" +
                     "\1\u00a7\30\uffff\4\u00a6\1\u00a5\1\u00a6\1\uffff\1\u00a7",
             "",
-            "\1\u00a4\1\uffff\1\u00a4\2\uffff\12\u011d\1\110\6\uffff\6\u00a6\1\uffff"+
+            "\1\u00a4\1\uffff\1\u00a4\2\uffff\12\u011d\1\110\6\uffff\6\u00a6\1\uffff" +
                     "\1\u00a7\30\uffff\6\u00a6\1\uffff\1\u00a7",
-            "\12\u00a6\1\110\6\uffff\6\u00a6\1\uffff\1\u00a7\30\uffff\6\u00a6\1\uffff"+
+            "\12\u00a6\1\110\6\uffff\6\u00a6\1\uffff\1\u00a7\30\uffff\6\u00a6\1\uffff" +
                     "\1\u00a7",
             "",
             "\1\u011f\4\uffff\1\u0120",
-            "\12\105\1\110\6\uffff\6\104\1\62\1\107\22\62\4\uffff\1\62\1\uffff\6"+
+            "\12\105\1\110\6\uffff\6\104\1\62\1\107\22\62\4\uffff\1\62\1\uffff\6" +
                     "\103\1\62\1\106\22\62\5\uffff\uff7f\62",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\1\u0123",
@@ -6723,11 +6500,11 @@ public class DelphiLexer extends Lexer {
             "\1\u0128",
             "\1\u0129",
             "\1\u012a",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\2\103\1\u012b\3\103"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\2\103\1\u012b\3\103" +
                     "\1\uffff\1\106",
             "\1\u012c",
             "\1\u012d\1\u012e",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\u012f\5\103\1\uffff"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\1\u012f\5\103\1\uffff" +
                     "\1\106",
             "\1\u0130",
             "\1\u0131",
@@ -6748,7 +6525,7 @@ public class DelphiLexer extends Lexer {
             "\1\u013e",
             "\1\u013f",
             "\1\u0140",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\26\62\1\u0141\3\62\5\uffff"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\26\62\1\u0141\3\62\5\uffff" +
                     "\uff7f\62",
             "\1\u0143",
             "\1\u0144",
@@ -6815,7 +6592,7 @@ public class DelphiLexer extends Lexer {
             "\1\u017e",
             "\1\u017f",
             "\1\u0180",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\1\u0181\7\62\1\u0182\21\62"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\1\u0181\7\62\1\u0182\21\62" +
                     "\5\uffff\uff7f\62",
             "\1\u0184",
             "\1\u0185",
@@ -6831,7 +6608,7 @@ public class DelphiLexer extends Lexer {
             "\1\u018f",
             "\1\u0190",
             "\1\u0191",
-            "\12\u0192\1\110\6\uffff\6\u00a6\1\uffff\1\u00a7\30\uffff\6\u00a6\1\uffff"+
+            "\12\u0192\1\110\6\uffff\6\u00a6\1\uffff\1\u00a7\30\uffff\6\u00a6\1\uffff" +
                     "\1\u00a7",
             "",
             "\1\u0193",
@@ -6846,12 +6623,12 @@ public class DelphiLexer extends Lexer {
             "\1\u0199",
             "\1\u019a",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106" +
                     "\3\uffff\1\u019c",
             "\1\u019d",
             "\1\u019e",
             "\1\u019f\7\uffff\1\u01a0",
-            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106"+
+            "\12\105\1\110\6\uffff\6\104\1\uffff\1\107\30\uffff\6\103\1\uffff\1\106" +
                     "\14\uffff\1\u01a1",
             "\1\u01a2",
             "\1\u01a3",
@@ -6906,7 +6683,7 @@ public class DelphiLexer extends Lexer {
             "\1\u01ce",
             "\1\u01cf",
             "\1\u01d0",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\16\62\1\u01d1\13\62\5\uffff"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\16\62\1\u01d1\13\62\5\uffff" +
                     "\uff7f\62",
             "\1\u01d3",
             "\1\u01d4",
@@ -6952,7 +6729,7 @@ public class DelphiLexer extends Lexer {
             "\1\u01f7",
             "\1\u01f8",
             "\1\u01f9",
-            "\12\u0192\1\110\6\uffff\6\u00a6\1\uffff\1\u00a7\30\uffff\6\u00a6\1\uffff"+
+            "\12\u0192\1\110\6\uffff\6\u00a6\1\uffff\1\u00a7\30\uffff\6\u00a6\1\uffff" +
                     "\1\u00a7",
             "\1\u01fa",
             "\1\u01fb",
@@ -6965,7 +6742,7 @@ public class DelphiLexer extends Lexer {
             "",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\21\62\1\u0204\10\62\5\uffff"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\21\62\1\u0204\10\62\5\uffff" +
                     "\uff7f\62",
             "\1\u0206",
             "\1\u0207",
@@ -6983,7 +6760,7 @@ public class DelphiLexer extends Lexer {
             "\1\u0212",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\10\62\1\u0214\2\62\1\u0215"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\10\62\1\u0214\2\62\1\u0215" +
                     "\16\62\5\uffff\uff7f\62",
             "\1\u0217",
             "\1\u0218",
@@ -7049,7 +6826,7 @@ public class DelphiLexer extends Lexer {
             "\1\u024c",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\16\62\1\u024e\13\62\5\uffff"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\16\62\1\u024e\13\62\5\uffff" +
                     "\uff7f\62",
             "\1\u0250",
             "\1\u0251",
@@ -7083,7 +6860,7 @@ public class DelphiLexer extends Lexer {
             "\1\u0268",
             "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\32\62\5\uffff\uff7f\62",
             "\1\u026a",
-            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\22\62\1\u026b\7\62\5\uffff"+
+            "\12\62\7\uffff\32\62\4\uffff\1\62\1\uffff\22\62\1\u026b\7\62\5\uffff" +
                     "\uff7f\62",
             "\1\u026d",
             "",
@@ -7534,7 +7311,7 @@ public class DelphiLexer extends Lexer {
     static {
         int numStates = DFA18_transitionS.length;
         DFA18_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
+        for (int i = 0; i < numStates; i++) {
             DFA18_transition[i] = DFA.unpackEncodedString(DFA18_transitionS[i]);
         }
     }
@@ -7552,29 +7329,33 @@ public class DelphiLexer extends Lexer {
             this.special = DFA18_special;
             this.transition = DFA18_transition;
         }
+
         @Override
         public String getDescription() {
             return "1:1: Tokens : ( T__200 | T__201 | ABSOLUTE | ABSTRACT | ADD | AND | ANSISTRING | ARRAY | AS | ASM | ASSEMBLER | ASSEMBLY | AT | AUTOMATED | BEGIN | BREAK | CASE | CDECL | CLASS | CONST | CONSTRUCTOR | CONTAINS | CONTINUE | DEFAULT | DEPRECATED | DESTRUCTOR | DISPID | DISPINTERFACE | DIV | DO | DOWNTO | DQ | DW | DYNAMIC | ELSE | END | EXCEPT | EXIT | EXPERIMENTAL | EXPORT | EXPORTS | EXTERNAL | FAR | FILE | FINAL | FINALIZATION | FINALLY | FOR | FORWARD | FUNCTION | GOTO | HELPER | IF | IMPLEMENTATION | IMPLEMENTS | IN | INDEX | INHERITED | INITIALIZATION | INLINE | INTERFACE | IS | LABEL | LIBRARY | LOCAL | MESSAGE | MOD | NAME | NEAR | NIL | NODEFAULT | NOT | OBJECT | OF | ON | OPERATOR | OR | OUT | OVERLOAD | OVERRIDE | PACKAGE | PACKED | PASCAL | PLATFORM | POINTER | PRIVATE | PROCEDURE | PROGRAM | PROPERTY | PROTECTED | PUBLIC | PUBLISHED | RAISE | READ | READONLY | RECORD | REFERENCE | REGISTER | REINTRODUCE | REMOVE | REPEAT | REQUIRES | RESIDENT | RESOURCESTRING | SAFECALL | SEALED | SET | SHL | SHR | STATIC | STDCALL | STORED | STRICT | STRING | THEN | THREADVAR | TO | TRY | TYPE | UNIT | UNSAFE | UNTIL | USES | VAR | VARARGS | VARIANT | VIRTUAL | WHILE | WITH | WRITE | WRITEONLY | XOR | FALSE | TRUE | PLUS | MINUS | STAR | SLASH | ASSIGN | COMMA | SEMI | COLON | EQUAL | NOT_EQUAL | LT | LE | GE | GT | LPAREN | RPAREN | LBRACK | LBRACK2 | RBRACK | RBRACK2 | POINTER2 | AT2 | DOT | DOTDOT | LCURLY | RCURLY | TkGlobalFunction | TkFunctionName | TkFunctionArgs | TkFunctionBody | TkFunctionReturn | TkCustomAttribute | TkCustomAttributeArgs | TkNewType | TkClass | TkRecord | TkRecordHelper | TkInterface | TkObject | TkClassOfType | TkVariableType | TkVariableIdents | TkVariableParam | TkGuid | TkClassParents | TkClassField | TkAnonymousExpression | TkIdentifier | TkIntNum | TkRealNum | TkHexNum | TkAsmHexNum | TkAsmHexLabel | QuotedString | ControlString | Hexdigitseq | COMMENT | WS | UnicodeBOM );";
         }
+
         @Override
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
             int _s = s;
-            switch ( s ) {
-                case 0 :
+            switch (s) {
+                case 0:
                     int LA18_52 = input.LA(1);
                     s = -1;
-                    if ( ((LA18_52 >= '\u0000' && LA18_52 <= '\uFEFE')||(LA18_52 >= '\uFF00' && LA18_52 <= '\uFFFF')) ) {s = 50;}
-                    else s = 161;
-                    if ( s>=0 ) return s;
+                    if (((LA18_52 >= '\u0000' && LA18_52 <= '\uFEFE') || (LA18_52 >= '\uFF00' && LA18_52 <= '\uFFFF'))) {
+                        s = 50;
+                    } else s = 161;
+                    if (s >= 0) return s;
                     break;
 
-                case 1 :
+                case 1:
                     int LA18_40 = input.LA(1);
                     s = -1;
-                    if ( ((LA18_40 >= '\u0000' && LA18_40 <= '\uFFFF')) ) {s = 137;}
-                    else s = 151;
-                    if ( s>=0 ) return s;
+                    if (((LA18_40 >= '\u0000' && LA18_40 <= '\uFFFF'))) {
+                        s = 137;
+                    } else s = 151;
+                    if (s >= 0) return s;
                     break;
             }
             NoViableAltException nvae =

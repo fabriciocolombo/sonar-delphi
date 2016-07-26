@@ -25,29 +25,29 @@ import org.sonar.api.issue.Issue;
 
 public class HasRuleMessage<T extends Issue> extends TypeSafeMatcher<T> {
 
-  private final String message;
+    private final String message;
 
-  public HasRuleMessage(String message) {
-    this.message = message;
-  }
+    public HasRuleMessage(String message) {
+        this.message = message;
+    }
 
-  @Override
-  protected boolean matchesSafely(T item) {
-    return message.equals(item.message());
-  }
+    @Override
+    protected boolean matchesSafely(T item) {
+        return message.equals(item.message());
+    }
 
-  @Override
-  public void describeTo(Description description) {
-    description.appendText("message ").appendValue(message);
-  }
+    @Override
+    public void describeTo(Description description) {
+        description.appendText("message ").appendValue(message);
+    }
 
-  @Override
-  protected void describeMismatchSafely(T item, Description mismatchDescription) {
-    mismatchDescription.appendText("was ").appendValue(item.message());
-  }
+    @Override
+    protected void describeMismatchSafely(T item, Description mismatchDescription) {
+        mismatchDescription.appendText("was ").appendValue(item.message());
+    }
 
-  public static <T extends Issue> Matcher<T> hasRuleMessage(String message) {
-    return new HasRuleMessage<T>(message);
-  }
+    public static <T extends Issue> Matcher<T> hasRuleMessage(String message) {
+        return new HasRuleMessage<T>(message);
+    }
 
 }

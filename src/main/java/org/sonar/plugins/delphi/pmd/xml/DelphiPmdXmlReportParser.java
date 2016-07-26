@@ -42,67 +42,67 @@ import java.io.File;
  */
 public class DelphiPmdXmlReportParser {
 
-  private final DelphiProjectHelper delphiProjectHelper;
-  private final ResourcePerspectives perspectives;
+    private final DelphiProjectHelper delphiProjectHelper;
+    private final ResourcePerspectives perspectives;
 
-  public DelphiPmdXmlReportParser(DelphiProjectHelper delphiProjectHelper, ResourcePerspectives perspectives) {
-    this.delphiProjectHelper = delphiProjectHelper;
-    this.perspectives = perspectives;
-  }
+    public DelphiPmdXmlReportParser(DelphiProjectHelper delphiProjectHelper, ResourcePerspectives perspectives) {
+        this.delphiProjectHelper = delphiProjectHelper;
+        this.perspectives = perspectives;
+    }
 
-  /**
-   * Parses XML file
-   * 
-   * @param xmlFile PMD xml file
-   */
-  public void parse(File xmlFile) {
-    StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
+    /**
+     * Parses XML file
+     *
+     * @param xmlFile PMD xml file
+     */
+    public void parse(File xmlFile) {
+        StaxParser parser = new StaxParser(new StaxParser.XmlStreamHandler() {
 
-      @Override
-      public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
-        rootCursor.advance();
+            @Override
+            public void stream(SMHierarchicCursor rootCursor) throws XMLStreamException {
+                rootCursor.advance();
 
-        SMInputCursor fileCursor = rootCursor.descendantElementCursor("file");
-        while (fileCursor.getNext() != null) {
-          String fileName = fileCursor.getAttrValue("name");
+                SMInputCursor fileCursor = rootCursor.descendantElementCursor("file");
+                while (fileCursor.getNext() != null) {
+                    String fileName = fileCursor.getAttrValue("name");
 
-          SMInputCursor violationCursor = fileCursor.descendantElementCursor("violation");
-          while (violationCursor.getNext() != null) {
-            String beginLine = violationCursor.getAttrValue("beginline");
-            //String endLine = violationCursor.getAttrValue("beginline");
-            String ruleKey = violationCursor.getAttrValue("rule");
-            String message = StringUtils.trim(violationCursor.collectDescendantText());
-            System.out.println("HIER parse1:"+ruleKey+message+beginLine);
-            addIssue(ruleKey, fileName, Integer.parseInt(beginLine), message);
-          }
+                    SMInputCursor violationCursor = fileCursor.descendantElementCursor("violation");
+                    while (violationCursor.getNext() != null) {
+                        String beginLine = violationCursor.getAttrValue("beginline");
+                        //String endLine = violationCursor.getAttrValue("beginline");
+                        String ruleKey = violationCursor.getAttrValue("rule");
+                        String message = StringUtils.trim(violationCursor.collectDescendantText());
+                        System.out.println("HIER parse1:" + ruleKey + message + beginLine);
+                        addIssue(ruleKey, fileName, Integer.parseInt(beginLine), message);
+                    }
+                }
+            }
+        });
+
+        try {
+            parser.parse(xmlFile);
+        } catch (XMLStreamException e) {
+            DelphiUtils.LOG.error("Error parsing file : {}", xmlFile);
         }
-      }
-    });
-
-    try {
-      parser.parse(xmlFile);
-    } catch (XMLStreamException e) {
-      DelphiUtils.LOG.error("Error parsing file : {}", xmlFile);
-    }
-  }
-
-  private void addIssue(String ruleKey, String fileName, Integer beginLine, String message) {
-
-    DelphiUtils.LOG.debug("PMD Violation - rule: " + ruleKey + " file: " + fileName + " message: " + message);
-
-    InputFile inputFile = delphiProjectHelper.getFile(fileName);
-    Issuable issuable = perspectives.as(Issuable.class, inputFile);
-    if (issuable != null) {
-                //note this has been added to get compatibility with sonar 5.2
-        issuable.addIssue(
-                issuable.newIssueBuilder()
-                        .ruleKey(RuleKey.of(DelphiPmdConstants.REPOSITORY_KEY, ruleKey))
-                        .effortToFix(0.0)
-                        .message(message)
-                        .build()
-        );
-        //System.out.println("ISSUE TOSTRING: "+issue.toString());
     }
 
-  }
+    private void addIssue(String ruleKey, String fileName, Integer beginLine, String message) {
+
+        DelphiUtils.LOG.debug("PMD Violation - rule: " + ruleKey + " file: " + fileName + " message: " + message);
+
+        InputFile inputFile = delphiProjectHelper.getFile(fileName);
+        Issuable issuable = perspectives.as(Issuable.class, inputFile);
+        if (issuable != null) {
+            //note this has been added to get compatibility with sonar 5.2
+            issuable.addIssue(
+                    issuable.newIssueBuilder()
+                            .ruleKey(RuleKey.of(DelphiPmdConstants.REPOSITORY_KEY, ruleKey))
+                            .effortToFix(0.0)
+                            .message(message)
+                            .build()
+            );
+            //System.out.println("ISSUE TOSTRING: "+issue.toString());
+        }
+
+    }
 }

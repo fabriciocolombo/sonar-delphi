@@ -3,13 +3,13 @@ unit FunctionVirtualTest;
 interface
 
 type
-  TWithVirtualFunction = class
-  public
-    procedure AfterConstruction; override;
-    destructor Destroy; override;
-    procedure a;virtual;
-    function b: Integer; virtual;
-  end;
+    TWithVirtualFunction = class
+    public
+        procedure AfterConstruction; override;
+        destructor Destroy; override;
+        procedure a; virtual;
+        function b: Integer; virtual;
+    end;
 
 implementation
 
@@ -22,7 +22,7 @@ end;
 
 procedure TWithVirtualFunction.AfterConstruction;
 begin
-  inherited;
+    inherited;
 
 end;
 
@@ -34,7 +34,7 @@ end;
 destructor TWithVirtualFunction.Destroy;
 begin
 
-  inherited;
+    inherited;
 end;
 
 end.

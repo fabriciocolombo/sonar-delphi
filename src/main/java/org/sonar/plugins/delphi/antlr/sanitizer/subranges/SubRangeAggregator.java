@@ -32,78 +32,78 @@ import java.util.List;
  */
 public class SubRangeAggregator {
 
-  protected ArrayList<SubRange> data = new ArrayList<SubRange>();
+    protected ArrayList<SubRange> data = new ArrayList<SubRange>();
 
-  /**
-   * add a new sub range
-   * 
-   * @param newRange new sub range
-   */
-  public void add(SubRange newRange) {
-    if (newRange == null) {
-      return;
+    /**
+     * add a new sub range
+     *
+     * @param newRange new sub range
+     */
+    public void add(SubRange newRange) {
+        if (newRange == null) {
+            return;
+        }
+
+        for (SubRange range : data) {
+            if (range.inRange(newRange)) {
+                return;
+            }
+        }
+
+        data.add(newRange);
     }
 
-    for (SubRange range : data) {
-      if (range.inRange(newRange)) {
-        return;
-      }
+    /**
+     * check if providen value is in range of all agregated ranges
+     *
+     * @param value value to check
+     * @return true if so, false otherwise
+     */
+    public boolean inRange(int value) {
+        for (SubRange range : data) {
+            if (range.inRange(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    data.add(newRange);
-  }
-
-  /**
-   * check if providen value is in range of all agregated ranges
-   * 
-   * @param value value to check
-   * @return true if so, false otherwise
-   */
-  public boolean inRange(int value) {
-    for (SubRange range : data) {
-      if (range.inRange(value)) {
-        return true;
-      }
+    /**
+     * adds all elements from another aggregator, check for duplications and
+     * merges them
+     *
+     * @param subRangeAggregator another aggregator
+     */
+    public void addAll(SubRangeAggregator subRangeAggregator) {
+        for (SubRange newRange : subRangeAggregator.getRanges()) {
+            add(newRange);
+        }
     }
-    return false;
-  }
 
-  /**
-   * adds all elements from another aggregator, check for duplications and
-   * merges them
-   * 
-   * @param subRangeAggregator another aggregator
-   */
-  public void addAll(SubRangeAggregator subRangeAggregator) {
-    for (SubRange newRange : subRangeAggregator.getRanges()) {
-      add(newRange);
+    /**
+     * adds all elements.
+     *
+     * @param subRange List of SubRange
+     */
+    public void addAll(SubRange... subRange) {
+        for (SubRange newRange : subRange) {
+            add(newRange);
+        }
     }
-  }
 
-  /**
-   * adds all elements.
-   * 
-   * @param subRange List of SubRange
-   */
-  public void addAll(SubRange... subRange) {
-    for (SubRange newRange : subRange) {
-      add(newRange);
+    /**
+     * sort aggregated sub ranges with providen comparator
+     *
+     * @param comparator Sub range comparator
+     */
+    public void sort(Comparator<? super SubRange> comparator) {
+        Collections.sort(data, comparator);
     }
-  }
 
-  /**
-   * sort aggregated sub ranges with providen comparator
-   * 
-   * @param comparator Sub range comparator
-   */
-  public void sort(Comparator<? super SubRange> comparator) {
-    Collections.sort(data, comparator);
-  }
-
-  /**
-   * @return get the list of all aggregated sub ranges
-   */
-  public List<SubRange> getRanges() {
-    return data;
-  }
+    /**
+     * @return get the list of all aggregated sub ranges
+     */
+    public List<SubRange> getRanges() {
+        return data;
+    }
 }

@@ -3,11 +3,11 @@ unit GlobalsTest;
 interface
 
 type
-  TGlobalsTest = class
-	public
-		function rfcFunction(xyz: integer): integer;			
-	private
-  end;
+    TGlobalsTest = class
+    public
+        function rfcFunction(xyz: integer): integer;
+    private
+    end;
 
 implementation
 
@@ -16,9 +16,9 @@ implementation
 //rfc = 4: rfcFunction + globalProcedure (+1) + globalFunction
 function TGlobalsTest.rfcFunction(xyz: integer): integer;
 begin
-	globalProcedure;
-	globalFunction;
-	xyz;
+    globalProcedure;
+    globalFunction;
+    xyz;
 end;
 
 end.

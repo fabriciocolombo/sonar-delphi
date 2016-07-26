@@ -36,16 +36,16 @@ import static org.junit.Assert.assertEquals;
 
 public class DelphiPMDTest {
 
-  private static final String TEST_FILE = "/org/sonar/plugins/delphi/PMDTest/smallpmd.pas";
+    private static final String TEST_FILE = "/org/sonar/plugins/delphi/PMDTest/smallpmd.pas";
 
-  @Test
-  public void getNodesFromASTTest() throws IOException, RecognitionException {
-    File testFile = DelphiUtils.getResource(TEST_FILE);
-    DelphiPMD pmd = new DelphiPMD();
-    DelphiAST ast = new DelphiAST(testFile);
-    List<CompilationUnit> nodes = pmd.getNodesFromAST(ast);
+    @Test
+    public void getNodesFromASTTest() throws IOException, RecognitionException {
+        File testFile = DelphiUtils.getResource(TEST_FILE);
+        DelphiPMD pmd = new DelphiPMD();
+        DelphiAST ast = new DelphiAST(testFile);
+        List<CompilationUnit> nodes = pmd.getNodesFromAST(ast);
 
-    assertEquals(7, nodes.size());
-  }
+        assertEquals(7, nodes.size());
+    }
 
 }

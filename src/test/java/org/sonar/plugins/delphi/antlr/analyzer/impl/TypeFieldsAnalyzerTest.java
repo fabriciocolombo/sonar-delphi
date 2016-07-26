@@ -46,43 +46,43 @@ import static org.junit.Assert.*;
 
 public class TypeFieldsAnalyzerTest {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
-  private TypeFieldsAnalyzer analyzer;
-  private ASTTree ast;
-  private CodeAnalysisResults results;
-  private CodeTree code;
-  private AdvanceToNodeOperation advanceToOp;
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
+    private TypeFieldsAnalyzer analyzer;
+    private ASTTree ast;
+    private CodeAnalysisResults results;
+    private CodeTree code;
+    private AdvanceToNodeOperation advanceToOp;
 
-  @Before
-  public void init() throws IOException, RecognitionException {
-    analyzer = new TypeFieldsAnalyzer();
-    results = new CodeAnalysisResults();
-    results.setActiveUnit(new DelphiUnit("test"));
+    @Before
+    public void init() throws IOException, RecognitionException {
+        analyzer = new TypeFieldsAnalyzer();
+        results = new CodeAnalysisResults();
+        results.setActiveUnit(new DelphiUnit("test"));
 
-    File file = DelphiUtils.getResource(FILE_NAME);
-    ast = new DelphiAST(file);
-    code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
-    advanceToOp = new AdvanceToNodeOperation(LexerMetrics.CLASS_FIELD);
-  }
+        File file = DelphiUtils.getResource(FILE_NAME);
+        ast = new DelphiAST(file);
+        code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
+        advanceToOp = new AdvanceToNodeOperation(LexerMetrics.CLASS_FIELD);
+    }
 
-  @Test
-  public void analyzeTest() {
-    code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
-    ClassInterface clazz = new DelphiClass("test");
-    results.setActiveClass(clazz);
+    @Test
+    public void analyzeTest() {
+        code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
+        ClassInterface clazz = new DelphiClass("test");
+        results.setActiveClass(clazz);
 
-    analyzer.analyze(code, results);
+        analyzer.analyze(code, results);
 
-    ClassFieldInterface fields[] = clazz.getFields();
-    assertEquals(1, fields.length);
-    assertEquals("bshowtracker", fields[0].getName());
-  }
+        ClassFieldInterface fields[] = clazz.getFields();
+        assertEquals(1, fields.length);
+        assertEquals("bshowtracker", fields[0].getName());
+    }
 
-  @Test
-  public void canAnalyzeTest() {
-    assertFalse(analyzer.canAnalyze(code));
-    code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
-    assertTrue(analyzer.canAnalyze(code));
-  }
+    @Test
+    public void canAnalyzeTest() {
+        assertFalse(analyzer.canAnalyze(code));
+        code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
+        assertTrue(analyzer.canAnalyze(code));
+    }
 
 }

@@ -6,7 +6,7 @@ implementation
 
 function FunctionTest2: integer;
 begin
-	result := 0;
+    result := 0;
 end;
 
 procedure ProcedureTest2;

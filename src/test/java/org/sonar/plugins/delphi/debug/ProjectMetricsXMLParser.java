@@ -34,61 +34,61 @@ import java.util.*;
  */
 public class ProjectMetricsXMLParser extends SimpleXMLParser {
 
-  private Map<String, Node> fileMap = null;
+    private Map<String, Node> fileMap = null;
 
-  public ProjectMetricsXMLParser(File xmlFile) {
-    if (xmlFile == null) {
-      throw new IllegalArgumentException("xmlFile cannot be null.");
-    }
-    fileMap = new HashMap<String, Node>();
-    Document doc = parseXML(xmlFile);
-    NodeList filesNode = doc.getElementsByTagName("file");
-    parse(filesNode);
-  }
-
-  // parse file for "file" node
-  private void parse(NodeList filesNode) {
-    for (int i = 0; i < filesNode.getLength(); ++i) // for all files
-    {
-      Node file = filesNode.item(i); // get file
-      String fileName = getNodeValueText(getValueNodes(file, "name").item(0)); // get
-                                                                               // its
-                                                                               // "name"
-                                                                               // node
-      fileMap.put(fileName, file); // put to map
+    public ProjectMetricsXMLParser(File xmlFile) {
+        if (xmlFile == null) {
+            throw new IllegalArgumentException("xmlFile cannot be null.");
+        }
+        fileMap = new HashMap<String, Node>();
+        Document doc = parseXML(xmlFile);
+        NodeList filesNode = doc.getElementsByTagName("file");
+        parse(filesNode);
     }
 
-  }
+    // parse file for "file" node
+    private void parse(NodeList filesNode) {
+        for (int i = 0; i < filesNode.getLength(); ++i) // for all files
+        {
+            Node file = filesNode.item(i); // get file
+            String fileName = getNodeValueText(getValueNodes(file, "name").item(0)); // get
+            // its
+            // "name"
+            // node
+            fileMap.put(fileName, file); // put to map
+        }
 
-  /**
-   * Gets the name of all files to check in DelphiSensorTest class
-   * 
-   * @return Set of file names (set of Strings)
-   */
-  public Set<String> getFileNames() {
-    return fileMap.keySet();
-  }
-
-  /**
-   * Gets expected metric values for specified file
-   * 
-   * @param filename File name
-   * @return Expected values, array of doubles
-   */
-  public Double[] getFileValues(String filename) {
-
-    if (!fileMap.containsKey(filename)) {
-      return null;
-    }
-    NodeList att = getValueNodes(fileMap.get(filename), "metric");
-    List<Double> data = new ArrayList<Double>();
-
-    for (int i = 0; i < att.getLength(); ++i) {
-      Node metric = att.item(i);
-      data.add(Double.valueOf(getNodeValueText(metric)));
     }
 
-    return data.toArray(new Double[data.size()]);
-  }
+    /**
+     * Gets the name of all files to check in DelphiSensorTest class
+     *
+     * @return Set of file names (set of Strings)
+     */
+    public Set<String> getFileNames() {
+        return fileMap.keySet();
+    }
+
+    /**
+     * Gets expected metric values for specified file
+     *
+     * @param filename File name
+     * @return Expected values, array of doubles
+     */
+    public Double[] getFileValues(String filename) {
+
+        if (!fileMap.containsKey(filename)) {
+            return null;
+        }
+        NodeList att = getValueNodes(fileMap.get(filename), "metric");
+        List<Double> data = new ArrayList<Double>();
+
+        for (int i = 0; i < att.getLength(); ++i) {
+            Node metric = att.item(i);
+            data.add(Double.valueOf(getNodeValueText(metric)));
+        }
+
+        return data.toArray(new Double[data.size()]);
+    }
 
 }

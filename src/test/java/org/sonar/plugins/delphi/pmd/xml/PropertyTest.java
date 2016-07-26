@@ -28,11 +28,11 @@ import static org.junit.Assert.assertEquals;
 
 public class PropertyTest {
 
-  @Test
-  public void propertyTest() {
-    Property p = new Property("name", "value");
-    assertEquals("name", p.getName());
-    assertEquals("value", p.getValue());
-  }
+    @Test
+    public void propertyTest() {
+        Property p = new Property("name", "value");
+        assertEquals("name", p.getName());
+        assertEquals("value", p.getValue());
+    }
 
 }

@@ -27,9 +27,8 @@ import org.junit.Test;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.plugins.delphi.core.DelphiRecognizer;
 import org.sonar.plugins.delphi.utils.DelphiUtils;
-import org.sonar.squidbridge.measures.Metric;
-
 import org.sonar.squid.text.delphi.DelphiSource;
+import org.sonar.squidbridge.measures.Metric;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,44 +44,44 @@ import static org.mockito.Mockito.when;
 
 public class BasicMetricTest {
 
-  private DelphiSource source;
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/MetricsTest.pas";
+    private DelphiSource source;
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/MetricsTest.pas";
 
-  @Before
-  public void setUp() throws Exception {
-    File testFile = DelphiUtils.getResource(FILE_NAME);
-    Reader reader = new BufferedReader(new FileReader(testFile));
-    source = new DelphiSource(reader, new DelphiRecognizer());
-  }
+    @Before
+    public void setUp() throws Exception {
+        File testFile = DelphiUtils.getResource(FILE_NAME);
+        Reader reader = new BufferedReader(new FileReader(testFile));
+        source = new DelphiSource(reader, new DelphiRecognizer());
+    }
 
-  @Test
-  public void executeOnResource() {
-    InputFile pasResource = mock(InputFile.class);
-    InputFile dprResource = mock(InputFile.class);
-    InputFile dpkResource = mock(InputFile.class);
-    InputFile cppResource = mock(InputFile.class);
-    when(pasResource.absolutePath()).thenReturn("source.pas");
-    when(dprResource.absolutePath()).thenReturn("source.dpr");
-    when(cppResource.absolutePath()).thenReturn("source.cpp");
-    when(dpkResource.absolutePath()).thenReturn("source.dpk");
+    @Test
+    public void executeOnResource() {
+        InputFile pasResource = mock(InputFile.class);
+        InputFile dprResource = mock(InputFile.class);
+        InputFile dpkResource = mock(InputFile.class);
+        InputFile cppResource = mock(InputFile.class);
+        when(pasResource.absolutePath()).thenReturn("source.pas");
+        when(dprResource.absolutePath()).thenReturn("source.dpr");
+        when(cppResource.absolutePath()).thenReturn("source.cpp");
+        when(dpkResource.absolutePath()).thenReturn("source.dpk");
 
-    assertTrue(new BasicMetrics().executeOnResource(pasResource));
-    assertTrue(new BasicMetrics().executeOnResource(dprResource));
-    assertTrue(new BasicMetrics().executeOnResource(dpkResource));
-    assertFalse(new BasicMetrics().executeOnResource(cppResource));
-  }
+        assertTrue(new BasicMetrics().executeOnResource(pasResource));
+        assertTrue(new BasicMetrics().executeOnResource(dprResource));
+        assertTrue(new BasicMetrics().executeOnResource(dpkResource));
+        assertFalse(new BasicMetrics().executeOnResource(cppResource));
+    }
 
-  @Test
-  public void testComments() {
-    assertThat((int) source.getMeasure(Metric.COMMENT_LINES), is(14));
-    assertThat((int) source.getMeasure(Metric.COMMENT_BLANK_LINES), is(1));
-    assertThat((int) source.getMeasure(Metric.PUBLIC_DOC_API), is(2));
-  }
+    @Test
+    public void testComments() {
+        assertThat((int) source.getMeasure(Metric.COMMENT_LINES), is(14));
+        assertThat((int) source.getMeasure(Metric.COMMENT_BLANK_LINES), is(1));
+        assertThat((int) source.getMeasure(Metric.PUBLIC_DOC_API), is(2));
+    }
 
-  @Test
-  public void testLines() {
-    assertThat((int) source.getMeasure(Metric.LINES), is(76));
-    assertThat((int) source.getMeasure(Metric.LINES_OF_CODE), is(46));
-  }
+    @Test
+    public void testLines() {
+        assertThat((int) source.getMeasure(Metric.LINES), is(76));
+        assertThat((int) source.getMeasure(Metric.LINES_OF_CODE), is(46));
+    }
 
 }

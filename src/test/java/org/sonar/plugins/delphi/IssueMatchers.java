@@ -24,20 +24,20 @@ import org.sonar.api.issue.Issue;
 
 public class IssueMatchers {
 
-  public static <T extends Issue> Matcher<T> hasRuleKey(String key) {
-    return HasRuleKey.hasRuleKey(key);
-  }
+    public static <T extends Issue> Matcher<T> hasRuleKey(String key) {
+        return HasRuleKey.hasRuleKey(key);
+    }
 
-  public static <T extends Issue> Matcher<T> hasRuleMessage(String message) {
-    return HasRuleMessage.hasRuleMessage(message);
-  }
+    public static <T extends Issue> Matcher<T> hasRuleMessage(String message) {
+        return HasRuleMessage.hasRuleMessage(message);
+    }
 
-  public static <T extends Issue> Matcher<T> hasRuleLine(int line) {
-    return HasRuleLineNumber.hasRuleLine(line);
-  }
+    public static <T extends Issue> Matcher<T> hasRuleLine(int line) {
+        return HasRuleLineNumber.hasRuleLine(line);
+    }
 
-  public static <T extends Issue> Matcher<T> hasRuleKeyAtLine(String key, int line) {
-    return Matchers.allOf(HasRuleKey.hasRuleKey(key), hasRuleLine(line));
-  }
+    public static <T extends Issue> Matcher<T> hasRuleKeyAtLine(String key, int line) {
+        return Matchers.allOf(HasRuleKey.hasRuleKey(key), hasRuleLine(line));
+    }
 
 }

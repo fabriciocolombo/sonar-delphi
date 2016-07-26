@@ -31,70 +31,70 @@ import javax.annotation.Nullable;
 
 public class StubIssueBuilder implements IssueBuilder {
 
-  private RuleKey ruleKey;
-  private Integer line;
-  private String message;
+    private RuleKey ruleKey;
+    private Integer line;
+    private String message;
 
-  @Override
-  public IssueBuilder ruleKey(RuleKey ruleKey) {
-    this.ruleKey = ruleKey;
-    return this;
-  }
+    @Override
+    public IssueBuilder ruleKey(RuleKey ruleKey) {
+        this.ruleKey = ruleKey;
+        return this;
+    }
 
-  @Override
-  public IssueBuilder line(@Nullable Integer integer) {
-    return null;
-  }
+    @Override
+    public IssueBuilder line(@Nullable Integer integer) {
+        return null;
+    }
 
-  @Override
-  public IssueBuilder message(@Nullable String s) {
-    return null;
-  }
+    @Override
+    public IssueBuilder message(@Nullable String s) {
+        return null;
+    }
 
-  @Override
-  public NewIssueLocation newLocation() {
-    return null;
-  }
+    @Override
+    public NewIssueLocation newLocation() {
+        return null;
+    }
 
-  @Override
-  public IssueBuilder at(NewIssueLocation newIssueLocation) {
-    return null;
-  }
+    @Override
+    public IssueBuilder at(NewIssueLocation newIssueLocation) {
+        return null;
+    }
 
-  @Override
-  public IssueBuilder addLocation(NewIssueLocation newIssueLocation) {
-    return null;
-  }
+    @Override
+    public IssueBuilder addLocation(NewIssueLocation newIssueLocation) {
+        return null;
+    }
 
-  @Override
-  public IssueBuilder addFlow(Iterable<NewIssueLocation> iterable) {
-    return null;
-  }
+    @Override
+    public IssueBuilder addFlow(Iterable<NewIssueLocation> iterable) {
+        return null;
+    }
 
-  @Override
-  public IssueBuilder severity(String severity) {
-    return this;
-  }
+    @Override
+    public IssueBuilder severity(String severity) {
+        return this;
+    }
 
-  @Override
-  public IssueBuilder reporter(String reporter) {
-    return this;
-  }
+    @Override
+    public IssueBuilder reporter(String reporter) {
+        return this;
+    }
 
-  @Override
-  public IssueBuilder effortToFix(Double d) {
-    return this;
-  }
+    @Override
+    public IssueBuilder effortToFix(Double d) {
+        return this;
+    }
 
-  @Override
-  public IssueBuilder attribute(String key, String value) {
-    return this;
-  }
+    @Override
+    public IssueBuilder attribute(String key, String value) {
+        return this;
+    }
 
-  @Override
-  public Issue build() {
-    //DefaultIssue defaultIssue = new DefaultIssue().forRule(ruleKey);
-    return new DelphiIssue(line, ruleKey, message)
-            .getIssue();
+    @Override
+    public Issue build() {
+        //DefaultIssue defaultIssue = new DefaultIssue().forRule(ruleKey);
+        return new DelphiIssue(line, ruleKey, message)
+                .getIssue();
     }//(Issue)defaultIssue;
 }

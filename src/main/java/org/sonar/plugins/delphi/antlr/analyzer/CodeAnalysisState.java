@@ -31,100 +31,100 @@ import org.sonar.plugins.delphi.core.language.UnitInterface;
  */
 public class CodeAnalysisState extends CodeAnalysisCacheResults {
 
-  protected UnitInterface activeUnit = null;
-  protected FunctionInterface activeFunction = null;
-  protected ClassInterface activeClass = null;
+    protected UnitInterface activeUnit = null;
+    protected FunctionInterface activeFunction = null;
+    protected ClassInterface activeClass = null;
 
-  /**
-   * File, Implementation or Interface section.
-   */
-  protected LexerMetrics parseStatus = LexerMetrics.FILE;
+    /**
+     * File, Implementation or Interface section.
+     */
+    protected LexerMetrics parseStatus = LexerMetrics.FILE;
 
-  /**
-   * We start with public because whole classes in interface are public.
-   */
-  protected LexerMetrics parseVisibility = LexerMetrics.PUBLIC;
+    /**
+     * We start with public because whole classes in interface are public.
+     */
+    protected LexerMetrics parseVisibility = LexerMetrics.PUBLIC;
 
-  /**
-   * @return unit currently being processed
-   */
-  public UnitInterface getActiveUnit() {
-    return activeUnit;
-  }
+    /**
+     * @return unit currently being processed
+     */
+    public UnitInterface getActiveUnit() {
+        return activeUnit;
+    }
 
-  /**
-   * set unit being processed
-   * 
-   * @param activeUnit unit
-   */
-  public void setActiveUnit(UnitInterface activeUnit) {
-    this.activeUnit = activeUnit;
-  }
+    /**
+     * set unit being processed
+     *
+     * @param activeUnit unit
+     */
+    public void setActiveUnit(UnitInterface activeUnit) {
+        this.activeUnit = activeUnit;
+    }
 
-  /**
-   * sets function being currently processed
-   * 
-   * @param function function to set
-   */
-  public void setActiveFunction(FunctionInterface function) {
-    this.activeFunction = function;
-  }
+    /**
+     * sets function being currently processed
+     *
+     * @param function function to set
+     */
+    public void setActiveFunction(FunctionInterface function) {
+        this.activeFunction = function;
+    }
 
-  /**
-   * get function being currently processed
-   * 
-   * @return function currently processed
-   */
-  public FunctionInterface getActiveFunction() {
-    return activeFunction;
-  }
+    /**
+     * get function being currently processed
+     *
+     * @return function currently processed
+     */
+    public FunctionInterface getActiveFunction() {
+        return activeFunction;
+    }
 
-  /**
-   * sets current visibility scope
-   * 
-   * @param parseVisibility visibility scope
-   */
-  public void setParseVisibility(LexerMetrics parseVisibility) {
-    this.parseVisibility = parseVisibility;
-  }
+    /**
+     * sets current visibility scope
+     *
+     * @param parseVisibility visibility scope
+     */
+    public void setParseVisibility(LexerMetrics parseVisibility) {
+        this.parseVisibility = parseVisibility;
+    }
 
-  /**
-   * @return current visibility scope
-   */
-  public LexerMetrics getParseVisibility() {
-    return parseVisibility;
-  }
+    /**
+     * @return current visibility scope
+     */
+    public LexerMetrics getParseVisibility() {
+        return parseVisibility;
+    }
 
-  /**
-   * sets active class begin processed
-   * 
-   * @param activeClass class
-   */
-  public void setActiveClass(ClassInterface activeClass) {
-    this.activeClass = activeClass;
-  }
+    /**
+     * sets active class begin processed
+     *
+     * @param activeClass class
+     */
+    public void setActiveClass(ClassInterface activeClass) {
+        this.activeClass = activeClass;
+    }
 
-  /**
-   * @return active class being processed
-   */
-  public ClassInterface getActiveClass() {
-    return activeClass;
-  }
+    /**
+     * @return active class being processed
+     */
+    public ClassInterface getActiveClass() {
+        return activeClass;
+    }
 
-  /**
-   * @return parse status
-   */
-  public LexerMetrics getParseStatus() {
-    return parseStatus;
-  }
+    /**
+     * @return parse status
+     */
+    public LexerMetrics getParseStatus() {
+        return parseStatus;
+    }
 
-  /**
-   * sets parse status
-   * 
-   * @param status parse status
-   */
-  public void setParseStatus(LexerMetrics status) {
-    parseStatus = status;
-  }
+    /**
+     * sets parse status
+     *
+     * @param status parse status
+     */
+    public void setParseStatus(LexerMetrics status) {
+        parseStatus = status;
+    }
 
 }

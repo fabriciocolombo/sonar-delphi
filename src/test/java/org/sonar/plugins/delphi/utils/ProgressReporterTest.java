@@ -26,31 +26,30 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ProgressReporterTest
-{
-  @Test
-  public void testDefaultReporter() {
-    ProgressReporter reporter = new ProgressReporter();
-    testReporter(reporter, 5);
-  }
-
-  @Test
-  public void testCustomReporter() {
-    ProgressReporter reporter = new ProgressReporter(7, 10, new ProgressReporterLogger());
-    testReporter(reporter, 11);
-
-    reporter = new ProgressReporter(10, 2, new ProgressReporterLogger());
-    testReporter(reporter, 3);
-
-    reporter = new ProgressReporter(75, 3, new ProgressReporterLogger());
-    testReporter(reporter, 4);
-  }
-
-  public void testReporter(ProgressReporter reporter, int expectedReports) {
-    int numReports = 0;
-    for (int i = 0; i < reporter.getTargetProgress(); i++) {
-      numReports += reporter.progress();
+public class ProgressReporterTest {
+    @Test
+    public void testDefaultReporter() {
+        ProgressReporter reporter = new ProgressReporter();
+        testReporter(reporter, 5);
     }
-    assertEquals(expectedReports, numReports);
-  }
+
+    @Test
+    public void testCustomReporter() {
+        ProgressReporter reporter = new ProgressReporter(7, 10, new ProgressReporterLogger());
+        testReporter(reporter, 11);
+
+        reporter = new ProgressReporter(10, 2, new ProgressReporterLogger());
+        testReporter(reporter, 3);
+
+        reporter = new ProgressReporter(75, 3, new ProgressReporterLogger());
+        testReporter(reporter, 4);
+    }
+
+    public void testReporter(ProgressReporter reporter, int expectedReports) {
+        int numReports = 0;
+        for (int i = 0; i < reporter.getTargetProgress(); i++) {
+            numReports += reporter.progress();
+        }
+        assertEquals(expectedReports, numReports);
+    }
 }

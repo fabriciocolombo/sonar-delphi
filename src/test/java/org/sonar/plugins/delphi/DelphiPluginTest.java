@@ -33,16 +33,16 @@ import static org.hamcrest.Matchers.greaterThan;
  */
 public class DelphiPluginTest {
 
-  private DelphiPlugin plugin;
+    private DelphiPlugin plugin;
 
-  @Before
-  public void setUp() {
-    plugin = new DelphiPlugin();
-  }
+    @Before
+    public void setUp() {
+        plugin = new DelphiPlugin();
+    }
 
-  @Test
-  public void testExtensions() {
-    assertThat(plugin.getExtensions().size(), greaterThan(0));
-  }
+    @Test
+    public void testExtensions() {
+        assertThat(plugin.getExtensions().size(), greaterThan(0));
+    }
 
 }

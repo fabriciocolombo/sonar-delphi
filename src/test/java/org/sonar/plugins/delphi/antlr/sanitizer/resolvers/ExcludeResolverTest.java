@@ -36,37 +36,37 @@ import static org.junit.Assert.assertEquals;
 
 public class ExcludeResolverTest extends FileTestsCommon {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/syntax/SyntaxTest.pas";
-  private static final int SUBRANGES_COUNT = 7;
-  private ExcludeResolver resolver;
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/syntax/SyntaxTest.pas";
+    private static final int SUBRANGES_COUNT = 7;
+    private ExcludeResolver resolver;
 
-  @BeforeClass
-  public static void init() throws IOException {
-    loadFile(FILE_NAME);
-  }
-
-  @Before
-  public void setup() {
-    StringBuilder data = new StringBuilder();
-    data.append(testFileString);
-    resolver = new ExcludeResolver();
-  }
-
-  @Test
-  public void getAllExcludesTest() {
-    SubRange expectedResults[] = {new IntegerSubRange(42, 60), new IntegerSubRange(62, 118),
-      new IntegerSubRange(329, 365),
-      new IntegerSubRange(375, 400), new IntegerSubRange(402, 411), new IntegerSubRange(420, 436),
-      new IntegerSubRange(449, 478)};
-
-    SourceResolverResults result = new SourceResolverResults(testFile.getAbsolutePath(), testFileString);
-    resolver.resolve(result);
-
-    List<SubRange> excludes = result.getFileExcludes().getRanges();
-    assertEquals(SUBRANGES_COUNT, excludes.size());
-
-    for (int i = 0; i < expectedResults.length; ++i) {
-      assertEquals(expectedResults[i], excludes.get(i));
+    @BeforeClass
+    public static void init() throws IOException {
+        loadFile(FILE_NAME);
     }
-  }
+
+    @Before
+    public void setup() {
+        StringBuilder data = new StringBuilder();
+        data.append(testFileString);
+        resolver = new ExcludeResolver();
+    }
+
+    @Test
+    public void getAllExcludesTest() {
+        SubRange expectedResults[] = {new IntegerSubRange(42, 60), new IntegerSubRange(62, 118),
+                new IntegerSubRange(329, 365),
+                new IntegerSubRange(375, 400), new IntegerSubRange(402, 411), new IntegerSubRange(420, 436),
+                new IntegerSubRange(449, 478)};
+
+        SourceResolverResults result = new SourceResolverResults(testFile.getAbsolutePath(), testFileString);
+        resolver.resolve(result);
+
+        List<SubRange> excludes = result.getFileExcludes().getRanges();
+        assertEquals(SUBRANGES_COUNT, excludes.size());
+
+        for (int i = 0; i < expectedResults.length; ++i) {
+            assertEquals(expectedResults[i], excludes.get(i));
+        }
+    }
 }

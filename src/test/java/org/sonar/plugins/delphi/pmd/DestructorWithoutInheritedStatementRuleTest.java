@@ -27,47 +27,47 @@ import static org.sonar.plugins.delphi.IssueMatchers.hasRuleLine;
 
 public class DestructorWithoutInheritedStatementRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void validRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void validRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TTestDestructor = class");
-    builder.appendDecl("  public");
-    builder.appendDecl("    destructor Destroy; override;");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TTestDestructor = class");
+        builder.appendDecl("  public");
+        builder.appendDecl("    destructor Destroy; override;");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("destructor TTestConstructor.Destroy;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  inherited;");
-    builder.appendImpl("  Writeln('do something');");
-    builder.appendImpl("end;");
+        builder.appendImpl("destructor TTestConstructor.Destroy;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  inherited;");
+        builder.appendImpl("  Writeln('do something');");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void destructorMissingInheritedShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void destructorMissingInheritedShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TTestDestructor = class");
-    builder.appendDecl("  public");
-    builder.appendDecl("    destructor Destroy; override;");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TTestDestructor = class");
+        builder.appendDecl("  public");
+        builder.appendDecl("    destructor Destroy; override;");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("destructor TTestConstructor.Destroy;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('do something');");
-    builder.appendImpl("end;");
+        builder.appendImpl("destructor TTestConstructor.Destroy;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('do something');");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, hasSize(1));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("DestructorWithoutInheritedStatementRule"),
-      hasRuleLine(builder.getOffSet() + 1))));
-  }
+        assertThat(toString(issues), issues, hasSize(1));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("DestructorWithoutInheritedStatementRule"),
+                hasRuleLine(builder.getOffSet() + 1))));
+    }
 
 }

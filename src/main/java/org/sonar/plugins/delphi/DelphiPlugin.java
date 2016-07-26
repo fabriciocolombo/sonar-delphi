@@ -44,69 +44,69 @@ import java.util.List;
  */
 
 @Properties({
-  @Property(key = DelphiPlugin.EXCLUDED_DIRECTORIES_KEY, defaultValue = "", name = "Excluded sources",
-    description = "List of excluded directories or files, that will not be parsed.", global = true, project = true),
-  @Property(key = DelphiPlugin.CC_EXCLUDED_KEY, defaultValue = "", name = "Code coverage excluded directories",
-    description = "Code coverage excluded directories list. Files in those directories will not be checked for code coverage.",
-    global = true, project = true),
-  @Property(key = DelphiPlugin.INCLUDED_DIRECTORIES_KEY, defaultValue = "", name = "Include directories",
-    description = "Include directories that will be looked for include files for preprocessor directive {$include}", global = true,
-    project = true),
-  @Property(key = DelphiPlugin.INCLUDE_EXTEND_KEY, defaultValue = "true", name = "Include extend option",
-    description = "Include extend options, can be: 'true' (include files will be processed) or 'false' (turn the feature off)",
-    global = true, project = true),
-  @Property(
-    key = DelphiPlugin.PROJECT_FILE_KEY,
-    defaultValue = "",
-    name = "Project file",
-    description = "Project file. If provided, will be parsed for include lookup path, project source files and preprocessor definitions.",
-    global = true, project = true),
-  @Property(key = DelphiPlugin.WORKGROUP_FILE_KEY, defaultValue = "", name = "Workgroup file",
-    description = "Workgroup file. If provided, will be parsed, then all *.dproj files found in workgroup file will be parsed.",
-    global = true, project = true),
-  @Property(key = DelphiPlugin.CODECOVERAGE_TOOL_KEY, defaultValue = "delphi code coverage", name = "Code coverage tool",
-    description = "Used code coverage tool (AQTime or Delphi Code Coverage)", global = false, project = true),
-  @Property(key = DelphiPlugin.CODECOVERAGE_REPORT_KEY, defaultValue = "delphi code coverage report", name = "Code coverage report file",
-    description = "Code coverage report to be parsed by Delphi Code Coverage", global = false, project = true),
+        @Property(key = DelphiPlugin.EXCLUDED_DIRECTORIES_KEY, defaultValue = "", name = "Excluded sources",
+                description = "List of excluded directories or files, that will not be parsed.", global = true, project = true),
+        @Property(key = DelphiPlugin.CC_EXCLUDED_KEY, defaultValue = "", name = "Code coverage excluded directories",
+                description = "Code coverage excluded directories list. Files in those directories will not be checked for code coverage.",
+                global = true, project = true),
+        @Property(key = DelphiPlugin.INCLUDED_DIRECTORIES_KEY, defaultValue = "", name = "Include directories",
+                description = "Include directories that will be looked for include files for preprocessor directive {$include}", global = true,
+                project = true),
+        @Property(key = DelphiPlugin.INCLUDE_EXTEND_KEY, defaultValue = "true", name = "Include extend option",
+                description = "Include extend options, can be: 'true' (include files will be processed) or 'false' (turn the feature off)",
+                global = true, project = true),
+        @Property(
+                key = DelphiPlugin.PROJECT_FILE_KEY,
+                defaultValue = "",
+                name = "Project file",
+                description = "Project file. If provided, will be parsed for include lookup path, project source files and preprocessor definitions.",
+                global = true, project = true),
+        @Property(key = DelphiPlugin.WORKGROUP_FILE_KEY, defaultValue = "", name = "Workgroup file",
+                description = "Workgroup file. If provided, will be parsed, then all *.dproj files found in workgroup file will be parsed.",
+                global = true, project = true),
+        @Property(key = DelphiPlugin.CODECOVERAGE_TOOL_KEY, defaultValue = "delphi code coverage", name = "Code coverage tool",
+                description = "Used code coverage tool (AQTime or Delphi Code Coverage)", global = false, project = true),
+        @Property(key = DelphiPlugin.CODECOVERAGE_REPORT_KEY, defaultValue = "delphi code coverage report", name = "Code coverage report file",
+                description = "Code coverage report to be parsed by Delphi Code Coverage", global = false, project = true),
 })
 public class DelphiPlugin extends SonarPlugin {
 
-  public static final String EXCLUDED_DIRECTORIES_KEY = "sonar.delphi.sources.excluded";
-  public static final String CC_EXCLUDED_KEY = "sonar.delphi.codecoverage.excluded";
-  public static final String INCLUDED_DIRECTORIES_KEY = "sonar.delphi.sources.include";
-  public static final String INCLUDE_EXTEND_KEY = "sonar.delphi.sources.include.extend";
-  public static final String PROJECT_FILE_KEY = "sonar.delphi.sources.project";
-  public static final String WORKGROUP_FILE_KEY = "sonar.delphi.sources.workgroup";
-  public static final String CODECOVERAGE_TOOL_KEY = "sonar.delphi.codecoverage.tool";
-  public static final String CODECOVERAGE_REPORT_KEY = "sonar.delphi.codecoverage.report";
+    public static final String EXCLUDED_DIRECTORIES_KEY = "sonar.delphi.sources.excluded";
+    public static final String CC_EXCLUDED_KEY = "sonar.delphi.codecoverage.excluded";
+    public static final String INCLUDED_DIRECTORIES_KEY = "sonar.delphi.sources.include";
+    public static final String INCLUDE_EXTEND_KEY = "sonar.delphi.sources.include.extend";
+    public static final String PROJECT_FILE_KEY = "sonar.delphi.sources.project";
+    public static final String WORKGROUP_FILE_KEY = "sonar.delphi.sources.workgroup";
+    public static final String CODECOVERAGE_TOOL_KEY = "sonar.delphi.codecoverage.tool";
+    public static final String CODECOVERAGE_REPORT_KEY = "sonar.delphi.codecoverage.report";
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  public List<Class> getExtensions() {
-    List<Class> list = new ArrayList<Class>();
+    @Override
+    public List<Class> getExtensions() {
+        List<Class> list = new ArrayList<Class>();
 
-    // Sensors
-    list.add(DelphiSensor.class);
-    // Core
-    list.add(DelphiLanguage.class);
-    list.add(DelphiCpdMapping.class);
-    // Core helpers
-    list.add(DelphiProjectHelper.class);
-    // Colorizer
-    list.add(DelphiColorizerFormat.class);
-    // Surefire
-    list.add(SurefireSensor.class);
-    // Pmd
-    list.add(DelphiPmdSensor.class);
-    list.add(DelphiPmdRuleDefinition.class);
-    list.add(DefaultDelphiProfile.class);
-    list.add(DelphiPmdProfileExporter.class);
-    list.add(DelphiPmdProfileImporter.class);
+        // Sensors
+        list.add(DelphiSensor.class);
+        // Core
+        list.add(DelphiLanguage.class);
+        list.add(DelphiCpdMapping.class);
+        // Core helpers
+        list.add(DelphiProjectHelper.class);
+        // Colorizer
+        list.add(DelphiColorizerFormat.class);
+        // Surefire
+        list.add(SurefireSensor.class);
+        // Pmd
+        list.add(DelphiPmdSensor.class);
+        list.add(DelphiPmdRuleDefinition.class);
+        list.add(DefaultDelphiProfile.class);
+        list.add(DelphiPmdProfileExporter.class);
+        list.add(DelphiPmdProfileImporter.class);
 
-    return list;
-  }
+        return list;
+    }
 
 }

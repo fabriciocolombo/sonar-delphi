@@ -44,43 +44,43 @@ import static org.junit.Assert.*;
 
 public class TypeAnalyzerTest {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
 
-  private TypeAnalyzer analyzer;
-  private ASTTree ast;
-  private CodeAnalysisResults results;
-  private CodeTree code;
-  private AdvanceToNodeOperation advanceToOp;
+    private TypeAnalyzer analyzer;
+    private ASTTree ast;
+    private CodeAnalysisResults results;
+    private CodeTree code;
+    private AdvanceToNodeOperation advanceToOp;
 
-  @Before
-  public void init() throws IOException, RecognitionException {
-    analyzer = new TypeAnalyzer();
-    results = new CodeAnalysisResults();
-    results.setActiveUnit(new DelphiUnit("test"));
+    @Before
+    public void init() throws IOException, RecognitionException {
+        analyzer = new TypeAnalyzer();
+        results = new CodeAnalysisResults();
+        results.setActiveUnit(new DelphiUnit("test"));
 
-    File file = DelphiUtils.getResource(FILE_NAME);
-    ast = new DelphiAST(file);
-    code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
-    advanceToOp = new AdvanceToNodeOperation(LexerMetrics.NEW_TYPE);
-  }
+        File file = DelphiUtils.getResource(FILE_NAME);
+        ast = new DelphiAST(file);
+        code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
+        advanceToOp = new AdvanceToNodeOperation(LexerMetrics.NEW_TYPE);
+    }
 
-  @Test
-  public void analyzeTest() {
-    assertNull(results.getActiveClass());
-    code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
-    analyzer.analyze(code, results);
+    @Test
+    public void analyzeTest() {
+        assertNull(results.getActiveClass());
+        code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
+        analyzer.analyze(code, results);
 
-    ClassInterface clazz = results.getActiveClass();
-    assertNotNull(clazz);
-    assertEquals("tdemo", clazz.getName());
-    assertEquals(LexerMetrics.PUBLIC.toMetrics(), clazz.getVisibility());
-  }
+        ClassInterface clazz = results.getActiveClass();
+        assertNotNull(clazz);
+        assertEquals("tdemo", clazz.getName());
+        assertEquals(LexerMetrics.PUBLIC.toMetrics(), clazz.getVisibility());
+    }
 
-  @Test
-  public void canAnalyzeTest() {
-    assertFalse(analyzer.canAnalyze(code));
-    code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
-    assertTrue(analyzer.canAnalyze(code));
-  }
+    @Test
+    public void canAnalyzeTest() {
+        assertFalse(analyzer.canAnalyze(code));
+        code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
+        assertTrue(analyzer.canAnalyze(code));
+    }
 
 }

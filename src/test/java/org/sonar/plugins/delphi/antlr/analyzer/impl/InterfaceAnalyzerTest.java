@@ -43,46 +43,46 @@ import static org.junit.Assert.*;
 
 public class InterfaceAnalyzerTest {
 
-  private ASTTree ast;
-  private InterfaceAnalyzer analyzer;
-  private CodeAnalysisResults results;
-  private CodeTree code;
-  private AdvanceNodeOperation advanceOp;
+    private ASTTree ast;
+    private InterfaceAnalyzer analyzer;
+    private CodeAnalysisResults results;
+    private CodeTree code;
+    private AdvanceNodeOperation advanceOp;
 
-  @Before
-  public void init() throws IOException, RecognitionException {
-    analyzer = new InterfaceAnalyzer();
-    results = new CodeAnalysisResults();
-    results.setActiveUnit(new DelphiUnit("test"));
+    @Before
+    public void init() throws IOException, RecognitionException {
+        analyzer = new InterfaceAnalyzer();
+        results = new CodeAnalysisResults();
+        results.setActiveUnit(new DelphiUnit("test"));
 
-    ast = new DelphiAST();
-    ast.addChild(new CommonTree(new CommonToken(LexerMetrics.INTERFACE.toMetrics(), "interface")));
-    ast.addChild(new CommonTree(new CommonToken(LexerMetrics.IDENT.toMetrics(), "ident")));
-    ast.addChild(new CommonTree(new CommonToken(LexerMetrics.IMPLEMENTATION.toMetrics(), "impl")));
+        ast = new DelphiAST();
+        ast.addChild(new CommonTree(new CommonToken(LexerMetrics.INTERFACE.toMetrics(), "interface")));
+        ast.addChild(new CommonTree(new CommonToken(LexerMetrics.IDENT.toMetrics(), "ident")));
+        ast.addChild(new CommonTree(new CommonToken(LexerMetrics.IMPLEMENTATION.toMetrics(), "impl")));
 
-    code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
-    advanceOp = new AdvanceNodeOperation();
-  }
+        code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
+        advanceOp = new AdvanceNodeOperation();
+    }
 
-  @Test
-  public void analyzeTest() {
-    LexerMetrics metrics[] = {LexerMetrics.PUBLIC, LexerMetrics.PUBLIC, LexerMetrics.PRIVATE};
-    int i = 0;
-    do {
-      analyzer.analyze(code, results);
-      LexerMetrics visibility = results.getParseVisibility();
-      assertEquals(metrics[i++], visibility);
-      code.setCurrentNode(advanceOp.execute(code.getCurrentCodeNode().getNode()));
-    } while (code.getCurrentCodeNode().isValid());
-  }
+    @Test
+    public void analyzeTest() {
+        LexerMetrics metrics[] = {LexerMetrics.PUBLIC, LexerMetrics.PUBLIC, LexerMetrics.PRIVATE};
+        int i = 0;
+        do {
+            analyzer.analyze(code, results);
+            LexerMetrics visibility = results.getParseVisibility();
+            assertEquals(metrics[i++], visibility);
+            code.setCurrentNode(advanceOp.execute(code.getCurrentCodeNode().getNode()));
+        } while (code.getCurrentCodeNode().isValid());
+    }
 
-  @Test
-  public void canAnalyzeTest() {
-    assertTrue(analyzer.canAnalyze(code));
-    code.setCurrentNode(advanceOp.execute(code.getCurrentCodeNode().getNode()));
-    assertFalse(analyzer.canAnalyze(code));
-    code.setCurrentNode(advanceOp.execute(code.getCurrentCodeNode().getNode()));
-    assertTrue(analyzer.canAnalyze(code));
-  }
+    @Test
+    public void canAnalyzeTest() {
+        assertTrue(analyzer.canAnalyze(code));
+        code.setCurrentNode(advanceOp.execute(code.getCurrentCodeNode().getNode()));
+        assertFalse(analyzer.canAnalyze(code));
+        code.setCurrentNode(advanceOp.execute(code.getCurrentCodeNode().getNode()));
+        assertTrue(analyzer.canAnalyze(code));
+    }
 
 }

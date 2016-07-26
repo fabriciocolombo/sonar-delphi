@@ -26,55 +26,55 @@ import static org.hamcrest.Matchers.*;
 
 public class MethodNameRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void interfaceMethodValidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  IMyInterface = interface");
-    builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
-    builder.appendDecl("    procedure Foo;");
-    builder.appendDecl("  end;");
+    @Test
+    public void interfaceMethodValidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  IMyInterface = interface");
+        builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
+        builder.appendDecl("    procedure Foo;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void interfaceMethodNameStartWithLowerCaseShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  IMyInterface = interface");
-    builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
-    builder.appendDecl("    procedure foo;");
-    builder.appendDecl("    function bar: integer;");
-    builder.appendDecl("  end;");
+    @Test
+    public void interfaceMethodNameStartWithLowerCaseShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  IMyInterface = interface");
+        builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
+        builder.appendDecl("    procedure foo;");
+        builder.appendDecl("    function bar: integer;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues.toString(), issues, hasSize(2));
+        assertThat(issues.toString(), issues, hasSize(2));
 
-    assertThat(issues, hasItem(allOf(
-      IssueMatchers.hasRuleKey("MethodNameRule"),
-      IssueMatchers.hasRuleLine(builder.getOffsetDecl() + 4)
-      )));
+        assertThat(issues, hasItem(allOf(
+                IssueMatchers.hasRuleKey("MethodNameRule"),
+                IssueMatchers.hasRuleLine(builder.getOffsetDecl() + 4)
+        )));
 
-    assertThat(issues, hasItem(allOf(
-      IssueMatchers.hasRuleKey("MethodNameRule"),
-      IssueMatchers.hasRuleLine(builder.getOffsetDecl() + 5)
-      )));
-  }
+        assertThat(issues, hasItem(allOf(
+                IssueMatchers.hasRuleKey("MethodNameRule"),
+                IssueMatchers.hasRuleLine(builder.getOffsetDecl() + 5)
+        )));
+    }
 
-  @Test
-  public void publishedMethodsShouldBeSkipped() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyForm = class(TForm)");
-    builder.appendDecl("    procedure buttonOnClick(Sender: TNotifyEvent);");
-    builder.appendDecl("  end;");
+    @Test
+    public void publishedMethodsShouldBeSkipped() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyForm = class(TForm)");
+        builder.appendDecl("    procedure buttonOnClick(Sender: TNotifyEvent);");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 }

@@ -30,12 +30,11 @@ import java.util.Set;
 
 /**
  * DelphiLanguage Language Footprint, used to recognize language
- * 
  */
 public class DelphiFootPrint implements LanguageFootprint {
 
-  @Override
-  public Set<Detector> getDetectors() {
-    return Collections.emptySet();
-  }
+    @Override
+    public Set<Detector> getDetectors() {
+        return Collections.emptySet();
+    }
 }

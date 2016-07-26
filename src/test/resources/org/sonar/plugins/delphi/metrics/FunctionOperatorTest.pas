@@ -3,13 +3,13 @@ unit FunctionOperatorTest;
 interface
 
 type
-  IGenericA<T> = interface
-  end;
+    IGenericA<T> = interface
+    end;
 
-  GenericA<T> = record
-  public
-    class operator Implicit(const value: GenericA<T>): IGenericA<T>;
-  end;
+    GenericA<T> = record
+    public
+        class operator Implicit(const value: GenericA<T>): IGenericA<T>;
+    end;
 
 implementation
 
@@ -17,7 +17,7 @@ implementation
 
 class operator GenericA<T>.Implicit(const value: GenericA<T>): IGenericA<T>;
 begin
-  Result := value;
+    Result := value;
 end;
 
 end.

@@ -33,27 +33,27 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
  */
 public class VariableCounter extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    // if function arguments node
-    if (node.getText().equals(getStringProperty(START))) {
-      int count = 0;
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        // if function arguments node
+        if (node.getText().equals(getStringProperty(START))) {
+            int count = 0;
 
-      // count num of arguments
-      for (int i = 0; i < node.getChildCount(); ++i) {
-        Tree child = node.getChild(i);
-        if (child.getType() == DelphiLexer.TkVariableIdents) {
-          count += child.getChildCount();
+            // count num of arguments
+            for (int i = 0; i < node.getChildCount(); ++i) {
+                Tree child = node.getChild(i);
+                if (child.getType() == DelphiLexer.TkVariableIdents) {
+                    count += child.getChildCount();
+                }
+            }
+
+            int limit = getIntProperty(LIMIT);
+            if (count > limit) {
+                String msg = "Too many " + getStringProperty(LOOK_FOR) + ": " + count + " (max "
+                        + limit + ")";
+                addViolation(ctx, node, msg);
+            }
         }
-      }
-
-      int limit = getIntProperty(LIMIT);
-      if (count > limit) {
-        String msg = "Too many " + getStringProperty(LOOK_FOR) + ": " + count + " (max "
-          + limit + ")";
-        addViolation(ctx, node, msg);
-      }
     }
-  }
 
 }

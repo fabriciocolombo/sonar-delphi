@@ -33,156 +33,156 @@ import static org.junit.Assert.assertThat;
 
 public class NoSemicolonRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("procedure NoSemicolonsAfterLastInstruction;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  x := 5");
-    builder.appendImpl("end;");
+    @Test
+    public void testRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("procedure NoSemicolonsAfterLastInstruction;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  x := 5");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, not(empty()));
-    List<Issue> matchIssues = new ArrayList<Issue>();
-    for (Issue issue : issues) {
-      if (issue.ruleKey().rule().equals("NoSemicolonRule")) {
-        matchIssues.add(issue);
-      }
+        assertThat(issues, not(empty()));
+        List<Issue> matchIssues = new ArrayList<Issue>();
+        for (Issue issue : issues) {
+            if (issue.ruleKey().rule().equals("NoSemicolonRule")) {
+                matchIssues.add(issue);
+            }
+        }
+        assertThat(matchIssues, hasSize(1));
+        assertThat(matchIssues.get(0).line(), is(builder.getOffSet() + 3));
     }
-    assertThat(matchIssues, hasSize(1));
-    assertThat(matchIssues.get(0).line(), is(builder.getOffSet() + 3));
-  }
 
-  @Test
-  public void testInsideWhile() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("procedure NoSemicolonsAfterLastInstruction;");
-    builder.appendImpl("var");
-    builder.appendImpl("  x: integer;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  while x <> 0 do");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    writeln('test')");
-    builder.appendImpl("  end;");
-    builder.appendImpl("end;");
+    @Test
+    public void testInsideWhile() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("procedure NoSemicolonsAfterLastInstruction;");
+        builder.appendImpl("var");
+        builder.appendImpl("  x: integer;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  while x <> 0 do");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    writeln('test')");
+        builder.appendImpl("  end;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, not(empty()));
-    List<Issue> matchIssues = new ArrayList<Issue>();
-    for (Issue issue : issues) {
-      if (issue.ruleKey().rule().equals("NoSemicolonRule")) {
-        matchIssues.add(issue);
-      }
+        assertThat(issues, not(empty()));
+        List<Issue> matchIssues = new ArrayList<Issue>();
+        for (Issue issue : issues) {
+            if (issue.ruleKey().rule().equals("NoSemicolonRule")) {
+                matchIssues.add(issue);
+            }
+        }
+        assertThat(matchIssues, hasSize(1));
+        assertThat(matchIssues.get(0).line(), is(builder.getOffSet() + 7));
     }
-    assertThat(matchIssues, hasSize(1));
-    assertThat(matchIssues.get(0).line(), is(builder.getOffSet() + 7));
-  }
 
-  @Test
-  public void testOnEndOfWhile() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("procedure NoSemicolonsAfterLastInstruction;");
-    builder.appendImpl("var");
-    builder.appendImpl("  x: integer;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  while x <> 0 do");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    writeln('test');");
-    builder.appendImpl("  end");
-    builder.appendImpl("end;");
+    @Test
+    public void testOnEndOfWhile() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("procedure NoSemicolonsAfterLastInstruction;");
+        builder.appendImpl("var");
+        builder.appendImpl("  x: integer;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  while x <> 0 do");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    writeln('test');");
+        builder.appendImpl("  end");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, not(empty()));
-    List<Issue> matchIssues = new ArrayList<Issue>();
-    for (Issue issue : issues) {
-      if (issue.ruleKey().rule().equals("NoSemicolonRule")) {
-        matchIssues.add(issue);
-      }
+        assertThat(issues, not(empty()));
+        List<Issue> matchIssues = new ArrayList<Issue>();
+        for (Issue issue : issues) {
+            if (issue.ruleKey().rule().equals("NoSemicolonRule")) {
+                matchIssues.add(issue);
+            }
+        }
+        assertThat(matchIssues, hasSize(1));
+        // TODO The correct line is 15
+        assertThat(matchIssues.get(0).line(), is(builder.getOffSet() + 9));
     }
-    assertThat(matchIssues, hasSize(1));
-    // TODO The correct line is 15
-    assertThat(matchIssues.get(0).line(), is(builder.getOffSet() + 9));
-  }
 
-  @Test
-  public void shouldSkipEndFollowedByElse() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("procedure NoSemicolonsAfterLastInstruction(val: Boolean);");
-    builder.appendImpl("begin");
-    builder.appendImpl("  if val then");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    writeln('test');");
-    builder.appendImpl("  end");
-    builder.appendImpl("  else");
-    builder.appendImpl("  begin");
-    builder.appendImpl("    writeln('test');");
-    builder.appendImpl("  end;");
-    builder.appendImpl("end;");
+    @Test
+    public void shouldSkipEndFollowedByElse() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("procedure NoSemicolonsAfterLastInstruction(val: Boolean);");
+        builder.appendImpl("begin");
+        builder.appendImpl("  if val then");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    writeln('test');");
+        builder.appendImpl("  end");
+        builder.appendImpl("  else");
+        builder.appendImpl("  begin");
+        builder.appendImpl("    writeln('test');");
+        builder.appendImpl("  end;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(sensor.getErrors(), empty());
-    assertThat(issues, empty());
-  }
+        assertThat(sensor.getErrors(), empty());
+        assertThat(issues, empty());
+    }
 
-  @Test
-  public void shouldSkipRecordDeclarationOnImplementationSection() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("type");
-    builder.appendImpl("  TDummyRec = record");
-    builder.appendImpl("    FData : Integer;");
-    builder.appendImpl("    constructor Create(aData : Integer);");
-    builder.appendImpl("  end;");
-    builder.appendImpl("  ");
-    builder.appendImpl("constructor TDummyRec.Create(aData : Integer);");
-    builder.appendImpl("begin");
-    builder.appendImpl("  inherited;");
-    builder.appendImpl("  FData := aData;");
-    builder.appendImpl("end;");
+    @Test
+    public void shouldSkipRecordDeclarationOnImplementationSection() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("type");
+        builder.appendImpl("  TDummyRec = record");
+        builder.appendImpl("    FData : Integer;");
+        builder.appendImpl("    constructor Create(aData : Integer);");
+        builder.appendImpl("  end;");
+        builder.appendImpl("  ");
+        builder.appendImpl("constructor TDummyRec.Create(aData : Integer);");
+        builder.appendImpl("begin");
+        builder.appendImpl("  inherited;");
+        builder.appendImpl("  FData := aData;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(sensor.getErrors(), empty());
-    assertThat(issues, empty());
-  }
+        assertThat(sensor.getErrors(), empty());
+        assertThat(issues, empty());
+    }
 
-  @Test
-  public void shouldSkipClassDeclarationOnImplementationSection() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("type");
-    builder.appendImpl("  TDummyClass = class");
-    builder.appendImpl("    FData : Integer;");
-    builder.appendImpl("    constructor Create(aData : Integer);");
-    builder.appendImpl("  end;");
-    builder.appendImpl("  ");
-    builder.appendImpl("constructor TDummyClass.Create(aData : Integer);");
-    builder.appendImpl("begin");
-    builder.appendImpl("  inherited;");
-    builder.appendImpl("  FData := aData;");
-    builder.appendImpl("end;");
+    @Test
+    public void shouldSkipClassDeclarationOnImplementationSection() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("type");
+        builder.appendImpl("  TDummyClass = class");
+        builder.appendImpl("    FData : Integer;");
+        builder.appendImpl("    constructor Create(aData : Integer);");
+        builder.appendImpl("  end;");
+        builder.appendImpl("  ");
+        builder.appendImpl("constructor TDummyClass.Create(aData : Integer);");
+        builder.appendImpl("begin");
+        builder.appendImpl("  inherited;");
+        builder.appendImpl("  FData := aData;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(sensor.getErrors(), empty());
-    assertThat(issues, empty());
-  }
+        assertThat(sensor.getErrors(), empty());
+        assertThat(issues, empty());
+    }
 
-  @Test
-  public void shouldSkipInterfaceDeclarationOnImplementationSection() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendImpl("type");
-    builder.appendImpl("  IDummyInterface = interface");
-    builder.appendImpl("  ['{FBDFC204-9986-48D5-BBBC-ED5A99834A9F}']");
-    builder.appendImpl("    procedure Dummy;");
-    builder.appendImpl("  end;");
+    @Test
+    public void shouldSkipInterfaceDeclarationOnImplementationSection() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendImpl("type");
+        builder.appendImpl("  IDummyInterface = interface");
+        builder.appendImpl("  ['{FBDFC204-9986-48D5-BBBC-ED5A99834A9F}']");
+        builder.appendImpl("    procedure Dummy;");
+        builder.appendImpl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(sensor.getErrors(), empty());
-    assertThat(issues, empty());
-  }
+        assertThat(sensor.getErrors(), empty());
+        assertThat(issues, empty());
+    }
 
 }
