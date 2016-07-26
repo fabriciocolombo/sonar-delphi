@@ -20,12 +20,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.delphi;
+package org.sonar.plugins.delphi.pmd;
 
+import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.issue.Issuable.IssueBuilder;
 import org.sonar.api.issue.Issue;
-import org.sonar.api.issue.internal.DefaultIssue;
 import org.sonar.api.rule.RuleKey;
+
+import javax.annotation.Nullable;
 
 public class StubIssueBuilder implements IssueBuilder {
 
@@ -40,15 +42,33 @@ public class StubIssueBuilder implements IssueBuilder {
   }
 
   @Override
-  public IssueBuilder line(Integer line) {
-    this.line = line;
-    return this;
+  public IssueBuilder line(@Nullable Integer integer) {
+    return null;
   }
 
   @Override
-  public IssueBuilder message(String message) {
-    this.message = message;
-    return this;
+  public IssueBuilder message(@Nullable String s) {
+    return null;
+  }
+
+  @Override
+  public NewIssueLocation newLocation() {
+    return null;
+  }
+
+  @Override
+  public IssueBuilder at(NewIssueLocation newIssueLocation) {
+    return null;
+  }
+
+  @Override
+  public IssueBuilder addLocation(NewIssueLocation newIssueLocation) {
+    return null;
+  }
+
+  @Override
+  public IssueBuilder addFlow(Iterable<NewIssueLocation> iterable) {
+    return null;
   }
 
   @Override
@@ -73,10 +93,8 @@ public class StubIssueBuilder implements IssueBuilder {
 
   @Override
   public Issue build() {
-    return new DefaultIssue()
-      .setRuleKey(ruleKey)
-      .setLine(line)
-      .setMessage(message);
-  }
-
+    //DefaultIssue defaultIssue = new DefaultIssue().forRule(ruleKey);
+    return new DelphiIssue(line, ruleKey, message)
+            .getIssue();
+    }//(Issue)defaultIssue;
 }
