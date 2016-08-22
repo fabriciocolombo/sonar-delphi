@@ -18,31 +18,30 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
-import net.sourceforge.pmd.RuleContext;
-
 public class UnitNameRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
 
-    if (node.getType() == DelphiLexer.UNIT) {
-      for (int i = 0; i < node.getChildCount(); i++) {
-        Tree child = node.getChild(i);
+        if (node.getType() == DelphiLexer.UNIT) {
+            for (int i = 0; i < node.getChildCount(); i++) {
+                Tree child = node.getChild(i);
 
-        if (child.getType() == DelphiLexer.DOT) {
-          continue;
+                if (child.getType() == DelphiLexer.DOT) {
+                    continue;
+                }
+
+                char firstChar = child.getText().charAt(0);
+                if (firstChar != Character.toUpperCase(firstChar)) {
+                    addViolation(ctx, node);
+                    break;
+                }
+            }
         }
-
-        char firstChar = child.getText().charAt(0);
-        if (firstChar != Character.toUpperCase(firstChar)) {
-          addViolation(ctx, node);
-          break;
-        }
-      }
     }
-  }
 }

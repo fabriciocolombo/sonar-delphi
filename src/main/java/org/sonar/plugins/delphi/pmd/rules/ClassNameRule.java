@@ -18,24 +18,23 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
-import net.sourceforge.pmd.RuleContext;
-
 public class ClassNameRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
 
-    if (node.getType() == DelphiLexer.TkClass) {
-      String name = node.getParent().getText();
+        if (node.getType() == DelphiLexer.TkClass) {
+            String name = node.getParent().getText();
 
-      char firstCharAfterPrefix = name.charAt(1);
+            char firstCharAfterPrefix = name.charAt(1);
 
-      if ((!name.startsWith("T") && !name.startsWith("E")) || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
-        addViolation(ctx, node);
-      }
+            if ((!name.startsWith("T") && !name.startsWith("E")) || firstCharAfterPrefix != Character.toUpperCase(firstCharAfterPrefix)) {
+                addViolation(ctx, node);
+            }
+        }
     }
-  }
 }

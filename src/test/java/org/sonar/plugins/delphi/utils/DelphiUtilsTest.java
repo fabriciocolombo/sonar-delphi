@@ -22,51 +22,52 @@
  */
 package org.sonar.plugins.delphi.utils;
 
-import java.io.File;
-import java.io.IOException;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import java.io.File;
+import java.io.IOException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 public class DelphiUtilsTest {
 
-  @Test
-  public void getAbsolutePathTest() throws IOException
-  {
-    File tempFile = File.createTempFile("testFile", "tmp");
-    tempFile.deleteOnExit();
+    @Test
+    public void getAbsolutePathTest() throws IOException {
+        File tempFile = File.createTempFile("testFile", "tmp");
+        tempFile.deleteOnExit();
 
-    String rootPath = tempFile.getParent();
+        String rootPath = tempFile.getParent();
 
-    String str1 = DelphiUtils.resolveAbsolutePath(rootPath, tempFile.getName()).getAbsolutePath();
-    String str2 = DelphiUtils.resolveAbsolutePath(rootPath, "tempDir").getAbsolutePath();
-    String str3 = DelphiUtils.resolveAbsolutePath(rootPath, rootPath).getAbsolutePath();
+        String str1 = DelphiUtils.resolveAbsolutePath(rootPath, tempFile.getName()).getAbsolutePath();
+        String str2 = DelphiUtils.resolveAbsolutePath(rootPath, "tempDir").getAbsolutePath();
+        String str3 = DelphiUtils.resolveAbsolutePath(rootPath, rootPath).getAbsolutePath();
 
-    assertEquals(rootPath + File.separatorChar + tempFile.getName(), str1);
-    assertEquals(rootPath + File.separatorChar + "tempDir", str2);
-    assertEquals(rootPath, str3);
-  }
+        assertEquals(rootPath + File.separatorChar + tempFile.getName(), str1);
+        assertEquals(rootPath + File.separatorChar + "tempDir", str2);
+        assertEquals(rootPath, str3);
+    }
 
-  @Test
-  public void checkRangeTest() {
-    assertEquals(75.00, DelphiUtils.checkRange(75.00, 75.00, 75.00), 0.0);
-    assertEquals(100.00, DelphiUtils.checkRange(75.00, 100.00, 150.00), 0.0);
-    assertEquals(50.00, DelphiUtils.checkRange(75.00, 00.00, 50.00), 0.0);
-  }
+    @Test
+    public void checkRangeTest() {
+        assertEquals(75.00, DelphiUtils.checkRange(75.00, 75.00, 75.00), 0.0);
+        assertEquals(100.00, DelphiUtils.checkRange(75.00, 100.00, 150.00), 0.0);
+        assertEquals(50.00, DelphiUtils.checkRange(75.00, 00.00, 50.00), 0.0);
+    }
 
-  @Test
-  public void acceptFile() {
-    assertThat(DelphiUtils.acceptFile("Unit.pas"), is(true));
-    assertThat(DelphiUtils.acceptFile("Project.dpr"), is(true));
-    assertThat(DelphiUtils.acceptFile("Package.dpk"), is(true));
-  }
+    @Test
+    public void acceptFile() {
+        assertThat(DelphiUtils.acceptFile("Unit.pas"), is(true));
+        assertThat(DelphiUtils.acceptFile("Project.dpr"), is(true));
+        assertThat(DelphiUtils.acceptFile("Package.dpk"), is(true));
+    }
 
-  @Test
-  public void acceptFileCaseInsensitive() {
-    assertThat(DelphiUtils.acceptFile("Unit.Pas"), is(true));
-    assertThat(DelphiUtils.acceptFile("Project.dPr"), is(true));
-    assertThat(DelphiUtils.acceptFile("Package.DPK"), is(true));
-  }
+    @Test
+    public void acceptFileCaseInsensitive() {
+        assertThat(DelphiUtils.acceptFile("Unit.Pas"), is(true));
+        assertThat(DelphiUtils.acceptFile("Project.dPr"), is(true));
+        assertThat(DelphiUtils.acceptFile("Package.DPK"), is(true));
+    }
 
 }

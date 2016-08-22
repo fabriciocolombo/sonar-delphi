@@ -18,36 +18,36 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
-import java.util.List;
+import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
-import net.sourceforge.pmd.RuleContext;
+import java.util.List;
 
 public class MethodNameRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
 
-    if (node.getType() == DelphiLexer.TkNewType) {
-      if (isInterface(node) || !isPublished()) {
-        List<Tree> methodNodes = node.findAllChildren(DelphiLexer.TkFunctionName);
+        if (node.getType() == DelphiLexer.TkNewType) {
+            if (isInterface(node) || !isPublished()) {
+                List<Tree> methodNodes = node.findAllChildren(DelphiLexer.TkFunctionName);
 
-        for (Tree method : methodNodes) {
-          String name = method.getChild(0).getText();
-          char firstChar = name.charAt(0);
+                for (Tree method : methodNodes) {
+                    String name = method.getChild(0).getText();
+                    char firstChar = name.charAt(0);
 
-          if (firstChar != Character.toUpperCase(firstChar)) {
-            addViolation(ctx, (DelphiPMDNode) method);
-          }
+                    if (firstChar != Character.toUpperCase(firstChar)) {
+                        addViolation(ctx, (DelphiPMDNode) method);
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
-  private boolean isInterface(DelphiPMDNode node) {
-    return node.getChild(0).getChild(0).getType() == DelphiLexer.TkInterface;
-  }
+    private boolean isInterface(DelphiPMDNode node) {
+        return node.getChild(0).getChild(0).getType() == DelphiLexer.TkInterface;
+    }
 
 }

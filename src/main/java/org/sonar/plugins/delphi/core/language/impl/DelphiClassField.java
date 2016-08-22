@@ -28,71 +28,71 @@ import org.sonar.plugins.delphi.core.language.ClassInterface;
 
 /**
  * DelphiLanguage language class field.
- * 
+ *
  * @see ClassFieldInterface
  */
 public class DelphiClassField extends DelphiArgument implements ClassFieldInterface {
 
-  private ClassInterface parent = null;
-  private int visibility = DelphiParser.PRIVATE;
+    private ClassInterface parent = null;
+    private int visibility = DelphiParser.PRIVATE;
 
-  /**
-   * ctor
-   */
-  public DelphiClassField() {
-  }
-
-  /**
-   * ctor
-   * 
-   * @param name field name
-   * @param type field type
-   * @param fieldVisibility field visibility
-   */
-  public DelphiClassField(String name, String type, int fieldVisibility) {
-    super(name, type);
-    visibility = fieldVisibility;
-  }
-
-  @Override
-  public void setParent(ClassInterface cl) {
-    parent = cl;
-  }
-
-  @Override
-  public ClassInterface getParent() {
-    return parent;
-  }
-
-  @Override
-  public int getVisibility() {
-    return visibility;
-  }
-
-  @Override
-  public void setVisibility(int value) {
-    visibility = value;
-  }
-
-  @Override
-  public String toString() {
-    if (parent == null) {
-      return name;
+    /**
+     * ctor
+     */
+    public DelphiClassField() {
     }
-    return parent.getName() + "." + name;
-  }
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null) {
-      return false;
+    /**
+     * ctor
+     *
+     * @param name            field name
+     * @param type            field type
+     * @param fieldVisibility field visibility
+     */
+    public DelphiClassField(String name, String type, int fieldVisibility) {
+        super(name, type);
+        visibility = fieldVisibility;
     }
-    return toString().equals(o.toString());
-  }
 
-  @Override
-  public int hashCode() {
-    return toString().hashCode();
-  }
+    @Override
+    public void setParent(ClassInterface cl) {
+        parent = cl;
+    }
+
+    @Override
+    public ClassInterface getParent() {
+        return parent;
+    }
+
+    @Override
+    public int getVisibility() {
+        return visibility;
+    }
+
+    @Override
+    public void setVisibility(int value) {
+        visibility = value;
+    }
+
+    @Override
+    public String toString() {
+        if (parent == null) {
+            return name;
+        }
+        return parent.getName() + "." + name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        return toString().equals(o.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
 
 }

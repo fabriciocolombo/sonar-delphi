@@ -30,48 +30,48 @@ import org.antlr.runtime.tree.CommonTree;
  */
 public class DelphiNode extends CommonTree {
 
-  protected ASTTree mainTree = null;
+    protected ASTTree mainTree = null;
 
-  /**
-   * Default C-tor as in CommonTree
-   * 
-   * @param payload Provided token
-   */
-  public DelphiNode(Token payload) {
-    super(payload);
-  }
-
-  /**
-   * C-tor with token and AST tree that has this node
-   * 
-   * @param payload Provided token
-   * @param tree AST Tree
-   */
-  public DelphiNode(Token payload, ASTTree tree) {
-    super(payload);
-    mainTree = tree;
-  }
-
-  /**
-   * Gets child type, or -1 if child does not exist
-   * 
-   * @param index Child index
-   * @return Child type, or -1 if child is non existant
-   */
-  public int getChildType(int index) {
-    if (index > -1 && index < getChildCount()) {
-      return getChild(index).getType();
+    /**
+     * Default C-tor as in CommonTree
+     *
+     * @param payload Provided token
+     */
+    public DelphiNode(Token payload) {
+        super(payload);
     }
-    return -1;
-  }
 
-  /**
-   * Gets the AST Tree associated with this node
-   * 
-   * @return AST Tree
-   */
-  public ASTTree getASTTree() {
-    return mainTree;
-  }
+    /**
+     * C-tor with token and AST tree that has this node
+     *
+     * @param payload Provided token
+     * @param tree    AST Tree
+     */
+    public DelphiNode(Token payload, ASTTree tree) {
+        super(payload);
+        mainTree = tree;
+    }
+
+    /**
+     * Gets child type, or -1 if child does not exist
+     *
+     * @param index Child index
+     * @return Child type, or -1 if child is non existant
+     */
+    public int getChildType(int index) {
+        if (index > -1 && index < getChildCount()) {
+            return getChild(index).getType();
+        }
+        return -1;
+    }
+
+    /**
+     * Gets the AST Tree associated with this node
+     *
+     * @return AST Tree
+     */
+    public ASTTree getASTTree() {
+        return mainTree;
+    }
 
 }

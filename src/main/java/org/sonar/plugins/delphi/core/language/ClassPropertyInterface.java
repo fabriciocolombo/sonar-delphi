@@ -30,49 +30,49 @@ package org.sonar.plugins.delphi.core.language;
  * <code>
  * type myClass = class(myAncestor)<br>
  * private<br>
- *  integer age;<br>
- *  function getAge: integer;<br>
- *  procedure setAge(value: integer);<br>
+ * integer age;<br>
+ * function getAge: integer;<br>
+ * procedure setAge(value: integer);<br>
  * published<br>
- *    property personAge : Boolean read getAge write setAge; * <br>
+ * property personAge : Boolean read getAge write setAge; * <br>
  * end;<br>
  * </code>
  */
 public interface ClassPropertyInterface extends ClassFieldInterface {
 
-  /**
-   * Gets the read function
-   * 
-   * @return Read function
-   */
-  FunctionInterface getReadFunction();
+    /**
+     * Gets the read function
+     *
+     * @return Read function
+     */
+    FunctionInterface getReadFunction();
 
-  /**
-   * Gets the write function
-   * 
-   * @return Write function
-   */
-  FunctionInterface getWriteFunction();
+    /**
+     * Gets the write function
+     *
+     * @return Write function
+     */
+    FunctionInterface getWriteFunction();
 
-  /**
-   * Sets the read function
-   * 
-   * @param newFunction new read function
-   */
-  void setReadFunction(FunctionInterface newFunction);
+    /**
+     * Sets the read function
+     *
+     * @param newFunction new read function
+     */
+    void setReadFunction(FunctionInterface newFunction);
 
-  /**
-   * Sets the write function
-   * 
-   * @param newFunction new write function
-   */
-  void setWriteFunction(FunctionInterface newFunction);
+    /**
+     * Sets the write function
+     *
+     * @param newFunction new write function
+     */
+    void setWriteFunction(FunctionInterface newFunction);
 
-  /**
-   * Checks if property has specified function
-   * 
-   * @param function Function to check
-   * @return True if so, false otherwise
-   */
-  boolean hasFunction(FunctionInterface function);
+    /**
+     * Checks if property has specified function
+     *
+     * @param function Function to check
+     * @return True if so, false otherwise
+     */
+    boolean hasFunction(FunctionInterface function);
 }

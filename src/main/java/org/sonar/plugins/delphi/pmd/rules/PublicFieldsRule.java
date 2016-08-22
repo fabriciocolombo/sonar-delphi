@@ -22,38 +22,37 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
-
-import net.sourceforge.pmd.RuleContext;
 
 /**
  * Class for checking if class fields are private or protected, not public
  */
 public class PublicFieldsRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (node.getType() == DelphiLexer.TkNewType) {
-      // encountering new type, checking for its fields
-      Tree parent = node.getChild(0);
-      boolean isPublic = false;
-      for (int i = 0; i < parent.getChildCount(); ++i) {
-        Tree child = parent.getChild(i);
-        if (child.getType() == DelphiLexer.PUBLIC) {
-          isPublic = true;
-        } else if (isNotPublic(child.getType())) {
-          isPublic = false;
-        } else if (child.getType() == DelphiLexer.TkClassField && isPublic) {
-          addViolation(ctx, (DelphiPMDNode) child);
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (node.getType() == DelphiLexer.TkNewType) {
+            // encountering new type, checking for its fields
+            Tree parent = node.getChild(0);
+            boolean isPublic = false;
+            for (int i = 0; i < parent.getChildCount(); ++i) {
+                Tree child = parent.getChild(i);
+                if (child.getType() == DelphiLexer.PUBLIC) {
+                    isPublic = true;
+                } else if (isNotPublic(child.getType())) {
+                    isPublic = false;
+                } else if (child.getType() == DelphiLexer.TkClassField && isPublic) {
+                    addViolation(ctx, (DelphiPMDNode) child);
+                }
+            }
         }
-      }
     }
-  }
 
-  private boolean isNotPublic(int type) {
-    return type == DelphiLexer.PRIVATE || type == DelphiLexer.PROTECTED || type == DelphiLexer.PROPERTY;
-  }
+    private boolean isNotPublic(int type) {
+        return type == DelphiLexer.PRIVATE || type == DelphiLexer.PROTECTED || type == DelphiLexer.PROPERTY;
+    }
 
 }

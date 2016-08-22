@@ -22,22 +22,23 @@
  */
 package org.sonar.plugins.delphi.pmd;
 
-import java.util.List;
 import net.sourceforge.pmd.Language;
 import net.sourceforge.pmd.RuleChain;
 import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.ast.CompilationUnit;
+
+import java.util.List;
 
 /**
  * Delphi pmd rule chain
  */
 public class DelphiRuleChain extends RuleChain {
 
-  private DelphiRuleChainVisitor visitor = new DelphiRuleChainVisitor();
+    private DelphiRuleChainVisitor visitor = new DelphiRuleChainVisitor();
 
-  @Override
-  public void apply(List<CompilationUnit> astCompilationUnits, RuleContext ctx, Language language) {
-    visitor.visitAll(astCompilationUnits, ctx);
-  }
+    @Override
+    public void apply(List<CompilationUnit> astCompilationUnits, RuleContext ctx, Language language) {
+        visitor.visitAll(astCompilationUnits, ctx);
+    }
 
 }

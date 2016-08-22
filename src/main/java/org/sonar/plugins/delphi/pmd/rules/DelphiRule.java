@@ -22,8 +22,6 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
-import java.util.Iterator;
-import java.util.List;
 import net.sourceforge.pmd.AbstractJavaRule;
 import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.RuleContext;
@@ -34,139 +32,142 @@ import org.sonar.plugins.delphi.antlr.ast.ASTTree;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 import org.sonar.plugins.delphi.pmd.DelphiRuleViolation;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Basic rule class, extend this class to make your own rules. Do NOT extend
  * from AbstractRule.
  */
 public class DelphiRule extends AbstractJavaRule {
 
-  protected int lastLineParsed;
+    protected int lastLineParsed;
 
-  private int currentVisibility;
+    private int currentVisibility;
 
-  private boolean inImplementationSection = false;
+    private boolean inImplementationSection = false;
 
-  public static final PropertyDescriptor LIMIT = new IntegerProperty("limit", "The max limit.", 1, 1.0f);
-  public static final PropertyDescriptor START = new StringProperty("start", "The AST node to start from", "", 1.0f);
-  public static final PropertyDescriptor END = new StringProperty("end", "The AST node to stop the search", "", 1.0f);
-  public static final PropertyDescriptor LOOK_FOR = new StringProperty("lookFor", "What nodes look for", "", 1.0f);
+    public static final PropertyDescriptor LIMIT = new IntegerProperty("limit", "The max limit.", 1, 1.0f);
+    public static final PropertyDescriptor START = new StringProperty("start", "The AST node to start from", "", 1.0f);
+    public static final PropertyDescriptor END = new StringProperty("end", "The AST node to stop the search", "", 1.0f);
+    public static final PropertyDescriptor LOOK_FOR = new StringProperty("lookFor", "What nodes look for", "", 1.0f);
 
-  public DelphiRule() {
-  }
-
-  /**
-   * overload this method in derived class
-   * @param node the current node
-   * @param ctx the ruleContext to store the violations
-   * 
-   */
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    // do nothing
-  }
-
-  /**
-   * Visits all nodes in a file
-   */
-
-  @Override
-  protected void visitAll(@SuppressWarnings("rawtypes") List acus, RuleContext ctx) {
-    lastLineParsed = -1;
-    currentVisibility = DelphiLexer.PUBLISHED;
-    inImplementationSection = false;
-    init();
-    for (Iterator<?> i = acus.iterator(); i.hasNext();) {
-      DelphiPMDNode node = (DelphiPMDNode) i.next();
-      ASTTree ast = node.getASTTree();
-      if (ast != null) {
-        String codeLine = node.getASTTree().getFileSourceLine(node.getLine());
-        // skip pmd analysis
-        if (codeLine.trim().endsWith("//NOSONAR") && node.getLine() + 1 > lastLineParsed) {
-          lastLineParsed = node.getLine() + 1;
-        }
-      }
-
-      // optimization and //NOSONAR line skip
-      if (node.getLine() >= lastLineParsed) {
-        updateVisibility(node);
-        if (!inImplementationSection) {
-          inImplementationSection = node.getType() == DelphiLexer.IMPLEMENTATION;
-        }
-        visit(node, ctx);
-        lastLineParsed = node.getLine();
-      }
+    public DelphiRule() {
     }
-  }
 
-  /**
-   * Overload this method in derived class to initialize your rule instance
-   * with default values
-   */
-  protected void init() {
-  }
-
-  /**
-   * Adds violation, get violation data from node
-   * 
-   * @param ctx RuleContext
-   * @param node Node
-   */
-  protected void addViolation(RuleContext ctx, DelphiPMDNode node) {
-    ctx.getReport().addRuleViolation(new DelphiRuleViolation(this, ctx, node));
-  }
-
-  /**
-   * Adds violation, get violation data from node
-   * 
-   * @param ctx RuleContext
-   * @param node Node
-   * @param msg Violation message
-   */
-  protected void addViolation(RuleContext ctx, DelphiPMDNode node, String msg) {
-    ctx.getReport().addRuleViolation(new DelphiRuleViolation(this, ctx, node, msg));
-  }
-
-  /**
-   * Adds violation, used in XPathRule
-   * 
-   * @param ctx RuleContext
-   * @param violation Violation
-   */
-  protected void addViolation(RuleContext ctx, DelphiRuleViolation violation) {
-    ctx.getReport().addRuleViolation(violation);
-  }
-
-  private void updateVisibility(DelphiPMDNode node) {
-    switch (node.getType()) {
-      case DelphiLexer.PRIVATE:
-      case DelphiLexer.PROTECTED:
-      case DelphiLexer.PUBLIC:
-      case DelphiLexer.PUBLISHED:
-        currentVisibility = node.getType();
+    /**
+     * overload this method in derived class
+     *
+     * @param node the current node
+     * @param ctx  the ruleContext to store the violations
+     */
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        // do nothing
     }
-  }
 
-  public int getLastLineParsed() {
-    return lastLineParsed;
-  }
+    /**
+     * Visits all nodes in a file
+     */
 
-  protected boolean isProtected() {
-    return currentVisibility == DelphiLexer.PROTECTED;
-  }
+    @Override
+    protected void visitAll(@SuppressWarnings("rawtypes") List acus, RuleContext ctx) {
+        lastLineParsed = -1;
+        currentVisibility = DelphiLexer.PUBLISHED;
+        inImplementationSection = false;
+        init();
+        for (Iterator<?> i = acus.iterator(); i.hasNext(); ) {
+            DelphiPMDNode node = (DelphiPMDNode) i.next();
+            ASTTree ast = node.getASTTree();
+            if (ast != null) {
+                String codeLine = node.getASTTree().getFileSourceLine(node.getLine());
+                // skip pmd analysis
+                if (codeLine.trim().endsWith("//NOSONAR") && node.getLine() + 1 > lastLineParsed) {
+                    lastLineParsed = node.getLine() + 1;
+                }
+            }
 
-  protected boolean isPrivate() {
-    return currentVisibility == DelphiLexer.PRIVATE;
-  }
+            // optimization and //NOSONAR line skip
+            if (node.getLine() >= lastLineParsed) {
+                updateVisibility(node);
+                if (!inImplementationSection) {
+                    inImplementationSection = node.getType() == DelphiLexer.IMPLEMENTATION;
+                }
+                visit(node, ctx);
+                lastLineParsed = node.getLine();
+            }
+        }
+    }
 
-  protected boolean isPublished() {
-    return currentVisibility == DelphiLexer.PUBLISHED;
-  }
+    /**
+     * Overload this method in derived class to initialize your rule instance
+     * with default values
+     */
+    protected void init() {
+    }
 
-  protected boolean isInterfaceSection() {
-    return !isImplementationSection();
-  }
+    /**
+     * Adds violation, get violation data from node
+     *
+     * @param ctx  RuleContext
+     * @param node Node
+     */
+    protected void addViolation(RuleContext ctx, DelphiPMDNode node) {
+        ctx.getReport().addRuleViolation(new DelphiRuleViolation(this, ctx, node));
+    }
 
-  public boolean isImplementationSection() {
-    return inImplementationSection;
-  }
+    /**
+     * Adds violation, get violation data from node
+     *
+     * @param ctx  RuleContext
+     * @param node Node
+     * @param msg  Violation message
+     */
+    protected void addViolation(RuleContext ctx, DelphiPMDNode node, String msg) {
+        ctx.getReport().addRuleViolation(new DelphiRuleViolation(this, ctx, node, msg));
+    }
+
+    /**
+     * Adds violation, used in XPathRule
+     *
+     * @param ctx       RuleContext
+     * @param violation Violation
+     */
+    protected void addViolation(RuleContext ctx, DelphiRuleViolation violation) {
+        ctx.getReport().addRuleViolation(violation);
+    }
+
+    private void updateVisibility(DelphiPMDNode node) {
+        switch (node.getType()) {
+            case DelphiLexer.PRIVATE:
+            case DelphiLexer.PROTECTED:
+            case DelphiLexer.PUBLIC:
+            case DelphiLexer.PUBLISHED:
+                currentVisibility = node.getType();
+        }
+    }
+
+    public int getLastLineParsed() {
+        return lastLineParsed;
+    }
+
+    protected boolean isProtected() {
+        return currentVisibility == DelphiLexer.PROTECTED;
+    }
+
+    protected boolean isPrivate() {
+        return currentVisibility == DelphiLexer.PRIVATE;
+    }
+
+    protected boolean isPublished() {
+        return currentVisibility == DelphiLexer.PUBLISHED;
+    }
+
+    protected boolean isInterfaceSection() {
+        return !isImplementationSection();
+    }
+
+    public boolean isImplementationSection() {
+        return inImplementationSection;
+    }
 
 }

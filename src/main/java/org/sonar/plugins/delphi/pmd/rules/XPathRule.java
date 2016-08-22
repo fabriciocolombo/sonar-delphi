@@ -22,7 +22,6 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
-import java.util.List;
 import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.properties.StringProperty;
 import org.apache.commons.lang.StringUtils;
@@ -37,85 +36,87 @@ import org.sonar.plugins.delphi.utils.DelphiUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import java.util.List;
+
 /**
  * DelphiLanguage rule for XPath, use it to parse XPath rules
  */
 public class XPathRule extends DelphiRule {
 
-  private static final StringProperty XPATH = new StringProperty("xpath", "The xpath expression", "", 1.0f);
+    private static final StringProperty XPATH = new StringProperty("xpath", "The xpath expression", "", 1.0f);
 
-  /**
-   * Last cached document.
-   */
-  private static Document cachedData = null;
-  /**
-   * Last cached file name.
-   */
-  private static String cachedFile = "";
+    /**
+     * Last cached document.
+     */
+    private static Document cachedData = null;
+    /**
+     * Last cached file name.
+     */
+    private static String cachedFile = "";
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    String xPathString = getStringProperty(XPATH);
-    if (StringUtils.isEmpty(xPathString)) {
-      return;
-    }
-    Document doc = getCachedDocument(node.getASTTree());
-    try {
-      XNodeSet result = (XNodeSet) XPathAPI.eval(doc, xPathString);
-
-      final DTMIterator iterator = result.iter();
-
-      while (iterator.nextNode() != DTM.NULL) {
-        final int nodeId = iterator.getCurrentNode();
-        Node resultNode = iterator.getDTM(nodeId).getNode(nodeId);
-        String className = resultNode.getAttributes().getNamedItem("class").getTextContent();
-        String methodName = resultNode.getAttributes().getNamedItem("method").getTextContent();
-        String packageName = resultNode.getAttributes().getNamedItem("package").getTextContent();
-        int line = Integer.valueOf(resultNode.getAttributes().getNamedItem("line").getTextContent());
-        String codeLine = node.getASTTree().getFileSourceLine(line);
-
-        if (codeLine.trim().endsWith("//NOSONAR")) {
-          continue;
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        String xPathString = getStringProperty(XPATH);
+        if (StringUtils.isEmpty(xPathString)) {
+            return;
         }
+        Document doc = getCachedDocument(node.getASTTree());
+        try {
+            XNodeSet result = (XNodeSet) XPathAPI.eval(doc, xPathString);
 
-        int column = Integer.valueOf(resultNode.getAttributes().getNamedItem("column").getTextContent());
-        String msg = this.getMessage().replaceAll("\\{\\}", resultNode.getTextContent());
-        DelphiRuleViolation violation = new DelphiRuleViolation(this, (RuleContext) ctx, className,
-          methodName, packageName, line, column,
-          msg);
-        addViolation(ctx, violation);
-      }
-    } catch (Exception e) {
-      DelphiUtils.LOG.debug("XPath error: '" + e.getMessage() + "' at rule " + getName());
-      e.printStackTrace();
+            final DTMIterator iterator = result.iter();
+
+            while (iterator.nextNode() != DTM.NULL) {
+                final int nodeId = iterator.getCurrentNode();
+                Node resultNode = iterator.getDTM(nodeId).getNode(nodeId);
+                String className = resultNode.getAttributes().getNamedItem("class").getTextContent();
+                String methodName = resultNode.getAttributes().getNamedItem("method").getTextContent();
+                String packageName = resultNode.getAttributes().getNamedItem("package").getTextContent();
+                int line = Integer.valueOf(resultNode.getAttributes().getNamedItem("line").getTextContent());
+                String codeLine = node.getASTTree().getFileSourceLine(line);
+
+                if (codeLine.trim().endsWith("//NOSONAR")) {
+                    continue;
+                }
+
+                int column = Integer.valueOf(resultNode.getAttributes().getNamedItem("column").getTextContent());
+                String msg = this.getMessage().replaceAll("\\{\\}", resultNode.getTextContent());
+                DelphiRuleViolation violation = new DelphiRuleViolation(this, ctx, className,
+                        methodName, packageName, line, column,
+                        msg);
+                addViolation(ctx, violation);
+            }
+        } catch (Exception e) {
+            DelphiUtils.LOG.debug("XPath error: '" + e.getMessage() + "' at rule " + getName());
+            e.printStackTrace();
+        }
     }
-  }
 
-  /**
-   * Preform only one visit per file, not per node cause we parse the whole
-   * file nodes at a time
-   */
+    /**
+     * Preform only one visit per file, not per node cause we parse the whole
+     * file nodes at a time
+     */
 
-  @Override
-  protected void visitAll(@SuppressWarnings("rawtypes") List acus, RuleContext ctx) {
-    init();
-    if (acus.iterator().hasNext()) {
-      visit((DelphiPMDNode) acus.iterator().next(), ctx);
+    @Override
+    protected void visitAll(@SuppressWarnings("rawtypes") List acus, RuleContext ctx) {
+        init();
+        if (acus.iterator().hasNext()) {
+            visit((DelphiPMDNode) acus.iterator().next(), ctx);
+        }
     }
-  }
 
-  /**
-   * Gets the cached AST document, create new if not found in cache
-   * 
-   * @param astTree AST tree
-   * @return AST tree document
-   */
-  private Document getCachedDocument(ASTTree astTree) {
-    if (!astTree.getFileName().equals(cachedFile)) {
-      cachedData = astTree.generateDocument();
-      cachedFile = astTree.getFileName();
+    /**
+     * Gets the cached AST document, create new if not found in cache
+     *
+     * @param astTree AST tree
+     * @return AST tree document
+     */
+    private Document getCachedDocument(ASTTree astTree) {
+        if (!astTree.getFileName().equals(cachedFile)) {
+            cachedData = astTree.generateDocument();
+            cachedFile = astTree.getFileName();
+        }
+        return cachedData;
     }
-    return cachedData;
-  }
 
 }

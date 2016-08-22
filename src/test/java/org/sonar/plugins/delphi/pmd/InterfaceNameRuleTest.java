@@ -21,73 +21,73 @@ package org.sonar.plugins.delphi.pmd;
 import org.junit.Test;
 import org.sonar.api.issue.Issue;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 public class InterfaceNameRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testValidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  IMyInterface = interface");
-    builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
-    builder.appendDecl("    procedure Foo;");
-    builder.appendDecl("  end;");
+    @Test
+    public void testValidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  IMyInterface = interface");
+        builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
+        builder.appendDecl("    procedure Foo;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void nameWithoutPrefixShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  MyInterface = interface");
-    builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
-    builder.appendDecl("    procedure Foo;");
-    builder.appendDecl("  end;");
+    @Test
+    public void nameWithoutPrefixShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  MyInterface = interface");
+        builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
+        builder.appendDecl("    procedure Foo;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("InterfaceNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("InterfaceNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void nameDoNotStartsWithCapitalLetterShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  ImyInterface = interface");
-    builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
-    builder.appendDecl("    procedure Foo;");
-    builder.appendDecl("  end;");
+    @Test
+    public void nameDoNotStartsWithCapitalLetterShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  ImyInterface = interface");
+        builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
+        builder.appendDecl("    procedure Foo;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("InterfaceNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("InterfaceNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void testAvoidFalsePositive() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  IntInterface = interface");
-    builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
-    builder.appendDecl("    procedure Foo;");
-    builder.appendDecl("  end;");
+    @Test
+    public void testAvoidFalsePositive() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  IntInterface = interface");
+        builder.appendDecl("    ['{ACCD0A8C-A60F-464A-8152-52DD36F86356}']");
+        builder.appendDecl("    procedure Foo;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("InterfaceNameRule"));
-    assertThat(issue.toString(), issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("InterfaceNameRule"));
+        assertThat(issue.toString(), issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 }

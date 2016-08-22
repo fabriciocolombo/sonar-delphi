@@ -20,85 +20,85 @@ package org.sonar.plugins.delphi.pmd;
 
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 import static org.sonar.plugins.delphi.IssueMatchers.*;
 
 public class ClassPerFileRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testValidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void testValidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void moreThanOneClassShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
-    builder.appendDecl("  TMyClass2 = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void moreThanOneClassShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
+        builder.appendDecl("  TMyClass2 = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    assertThat(issues, hasItem(hasRuleKey("OneClassPerFileRule")));
-    assertThat(issues, hasItem(hasRuleLine(builder.getOffsetDecl() + 4)));
-    assertThat(issues, hasItem(hasRuleMessage("File has too many classes, maximum number of classes is 1.")));
-  }
+        assertThat(issues, hasSize(1));
+        assertThat(issues, hasItem(hasRuleKey("OneClassPerFileRule")));
+        assertThat(issues, hasItem(hasRuleLine(builder.getOffsetDecl() + 4)));
+        assertThat(issues, hasItem(hasRuleMessage("File has too many classes, maximum number of classes is 1.")));
+    }
 
-  @Test
-  public void allClassesAfterFirstOneShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
-    builder.appendDecl("  TMyClass2 = class");
-    builder.appendDecl("  end;");
-    builder.appendDecl("  TMyClass3 = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void allClassesAfterFirstOneShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
+        builder.appendDecl("  TMyClass2 = class");
+        builder.appendDecl("  end;");
+        builder.appendDecl("  TMyClass3 = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(2));
-    assertThat(issues, hasItem(hasRuleKey("OneClassPerFileRule")));
-    assertThat(issues, hasItem(hasRuleLine(builder.getOffsetDecl() + 4)));
-    assertThat(issues, hasItem(hasRuleLine(builder.getOffsetDecl() + 6)));
-  }
+        assertThat(issues, hasSize(2));
+        assertThat(issues, hasItem(hasRuleKey("OneClassPerFileRule")));
+        assertThat(issues, hasItem(hasRuleLine(builder.getOffsetDecl() + 4)));
+        assertThat(issues, hasItem(hasRuleLine(builder.getOffsetDecl() + 6)));
+    }
 
-  @Test
-  public void falsePositiveMetaClass() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
-    builder.appendDecl("  TMetaClassClass = class of TMyClass;");
+    @Test
+    public void falsePositiveMetaClass() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
+        builder.appendDecl("  TMetaClassClass = class of TMyClass;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, is(empty()));
-  }
+        assertThat(toString(issues), issues, is(empty()));
+    }
 
-  @Test
-  public void falsePositiveClassMethods() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("    class procedure TestProcedure;");
-    builder.appendDecl("    class function TestFuncion: Boolean;");
-    builder.appendDecl("  end;");
+    @Test
+    public void falsePositiveClassMethods() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("    class procedure TestProcedure;");
+        builder.appendDecl("    class function TestFuncion: Boolean;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, is(empty()));
-  }
+        assertThat(toString(issues), issues, is(empty()));
+    }
 
 }

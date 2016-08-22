@@ -25,13 +25,13 @@ package org.sonar.plugins.delphi.utils;
 import org.junit.Test;
 import org.sonar.plugins.delphi.antlr.sanitizer.subranges.impl.StringSubRange;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StringSubRangeTest {
 
-  @Test
-  public void toStringTest() {
-    StringSubRange subRange = new StringSubRange(3, 6, "my sub range");
-    assertEquals("[3, 6] sub", subRange.toString());
-  }
+    @Test
+    public void toStringTest() {
+        StringSubRange subRange = new StringSubRange(3, 6, "my sub range");
+        assertEquals("[3, 6] sub", subRange.toString());
+    }
 }

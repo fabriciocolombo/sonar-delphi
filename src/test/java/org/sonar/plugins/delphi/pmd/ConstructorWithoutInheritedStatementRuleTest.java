@@ -21,72 +21,73 @@ package org.sonar.plugins.delphi.pmd;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.sonar.plugins.delphi.IssueMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.sonar.plugins.delphi.IssueMatchers.hasRuleKey;
+import static org.sonar.plugins.delphi.IssueMatchers.hasRuleLine;
 
 public class ConstructorWithoutInheritedStatementRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void validRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void validRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TTestConstructor = class");
-    builder.appendDecl("  public");
-    builder.appendDecl("    constructor Create;");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TTestConstructor = class");
+        builder.appendDecl("  public");
+        builder.appendDecl("    constructor Create;");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("constructor TTestConstructor.Create;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  inherited;");
-    builder.appendImpl("  Writeln('do something');");
-    builder.appendImpl("end;");
+        builder.appendImpl("constructor TTestConstructor.Create;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  inherited;");
+        builder.appendImpl("  Writeln('do something');");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void constructorMissingInheritedShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void constructorMissingInheritedShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TTestConstructor = class");
-    builder.appendDecl("  public");
-    builder.appendDecl("    constructor Create;");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TTestConstructor = class");
+        builder.appendDecl("  public");
+        builder.appendDecl("    constructor Create;");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("constructor TTestConstructor.Create;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('do something');");
-    builder.appendImpl("end;");
+        builder.appendImpl("constructor TTestConstructor.Create;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('do something');");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, hasSize(1));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("ConstructorWithoutInheritedStatementRule"),
-      hasRuleLine(builder.getOffSet() + 1))));
-  }
+        assertThat(toString(issues), issues, hasSize(1));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("ConstructorWithoutInheritedStatementRule"),
+                hasRuleLine(builder.getOffSet() + 1))));
+    }
 
-  @Test
-  public void recordConstructorShouldNotAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void recordConstructorShouldNotAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TTestRecord = record");
-    builder.appendDecl("    FData : Integer;");
-    builder.appendDecl("    constructor Create(aData : Integer);");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TTestRecord = record");
+        builder.appendDecl("    FData : Integer;");
+        builder.appendDecl("    constructor Create(aData : Integer);");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("constructor TTestRecord.Create(aData : Integer);");
-    builder.appendImpl("begin");
-    builder.appendImpl("  FData := aData;");
-    builder.appendImpl("end;");
+        builder.appendImpl("constructor TTestRecord.Create(aData : Integer);");
+        builder.appendImpl("begin");
+        builder.appendImpl("  FData := aData;");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
 }

@@ -29,29 +29,29 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
  */
 public class IfTrueRule extends BlockCounterRule {
 
-  private boolean wasEquals;
+    private boolean wasEquals;
 
-  @Override
-  protected void init() {
-    super.init();
-    wasEquals = false;
-    setStringToSearch("true");
-  }
-
-  @Override
-  protected boolean accept(DelphiPMDNode node) {
-    if (!wasEquals && "=".equals(node.getText())) {
-      wasEquals = true;
-    } else if (wasEquals && node.getText().equals(getStringToSearch())) {
-      // save this node as violation
-      firstNode = node;
-      return true;
-    } else {
-      // reset if 'true' is not directly after '='
-      wasEquals = false;
+    @Override
+    protected void init() {
+        super.init();
+        wasEquals = false;
+        setStringToSearch("true");
     }
 
-    return false;
-  }
+    @Override
+    protected boolean accept(DelphiPMDNode node) {
+        if (!wasEquals && "=".equals(node.getText())) {
+            wasEquals = true;
+        } else if (wasEquals && node.getText().equals(getStringToSearch())) {
+            // save this node as violation
+            firstNode = node;
+            return true;
+        } else {
+            // reset if 'true' is not directly after '='
+            wasEquals = false;
+        }
+
+        return false;
+    }
 
 }

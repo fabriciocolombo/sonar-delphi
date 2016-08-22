@@ -27,34 +27,34 @@ import java.util.Comparator;
 
 class RuleData {
 
-  private String name;
-  private int line;
+    private String name;
+    private int line;
 
-  public RuleData(String _name, int _line) {
-    name = _name;
-    line = _line;
-  }
+    public RuleData(String _name, int _line) {
+        name = _name;
+        line = _line;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public int getLine() {
-    return line;
-  }
+    public int getLine() {
+        return line;
+    }
 
-  @Override
-  public String toString() {
-    return "RuleData [name=" + name + ", line=" + line + "]";
-  }
+    @Override
+    public String toString() {
+        return "RuleData [name=" + name + ", line=" + line + "]";
+    }
 
-  public static Comparator<RuleData> getComparator() {
-    return new Comparator<RuleData>() {
+    public static Comparator<RuleData> getComparator() {
+        return new Comparator<RuleData>() {
 
-      @Override
-      public int compare(RuleData o1, RuleData o2) {
-        return o1.getLine() - o2.getLine();
-      }
-    };
-  }
+            @Override
+            public int compare(RuleData o1, RuleData o2) {
+                return o1.getLine() - o2.getLine();
+            }
+        };
+    }
 }

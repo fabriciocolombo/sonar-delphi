@@ -27,41 +27,41 @@ package org.sonar.plugins.delphi.antlr.directives;
  */
 public interface CompilerDirective {
 
-  /**
-   * example: <code>#include &lt;iostream&gt;</code> will return "include"
-   * 
-   * @return definition name
-   */
-  String getName();
+    /**
+     * example: <code>#include &lt;iostream&gt;</code> will return "include"
+     *
+     * @return definition name
+     */
+    String getName();
 
-  /**
-   * example: <code>#include &lt;iostream&gt;</code> will return "iostream"
-   * 
-   * @return definition item
-   */
-  String getItem();
+    /**
+     * example: <code>#include &lt;iostream&gt;</code> will return "iostream"
+     *
+     * @return definition item
+     */
+    String getItem();
 
-  /**
-   * @return first definition char position in whole file
-   */
-  int getFirstCharPosition();
+    /**
+     * @return first definition char position in whole file
+     */
+    int getFirstCharPosition();
 
-  /**
-   * @return last definition char position
-   */
-  int getLastCharPosition();
+    /**
+     * @return last definition char position
+     */
+    int getLastCharPosition();
 
-  /**
-   * @return preprocessor definition type
-   */
-  CompilerDirectiveType getType();
+    /**
+     * @return preprocessor definition type
+     */
+    CompilerDirectiveType getType();
 
-  /**
-   * Get length of the directive, that is: the span from first and last char
-   * position
-   * 
-   * @return directive length
-   */
-  int getLength();
+    /**
+     * Get length of the directive, that is: the span from first and last char
+     * position
+     *
+     * @return directive length
+     */
+    int getLength();
 
 }

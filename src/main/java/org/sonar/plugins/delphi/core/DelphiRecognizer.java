@@ -22,17 +22,18 @@
  */
 package org.sonar.plugins.delphi.core;
 
-import org.sonar.squid.recognizer.CodeRecognizer;
+import org.sonar.squidbridge.recognizer.CodeRecognizer;
+
 
 /**
  * Delphi source code recognizer
  */
 public class DelphiRecognizer extends CodeRecognizer {
 
-  /**
-   * ctor
-   */
-  public DelphiRecognizer() {
-    super(1.0, new DelphiFootPrint());
-  }
+    /**
+     * ctor
+     */
+    public DelphiRecognizer() {
+        super(1.0, new DelphiFootPrint());
+    }
 }

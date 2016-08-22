@@ -22,19 +22,19 @@
  */
 package org.sonar.plugins.delphi.core;
 
+import org.sonar.squidbridge.recognizer.Detector;
+import org.sonar.squidbridge.recognizer.LanguageFootprint;
+
 import java.util.Collections;
 import java.util.Set;
-import org.sonar.squid.recognizer.Detector;
-import org.sonar.squid.recognizer.LanguageFootprint;
 
 /**
  * DelphiLanguage Language Footprint, used to recognize language
- * 
  */
 public class DelphiFootPrint implements LanguageFootprint {
 
-  @Override
-  public Set<Detector> getDetectors() {
-    return Collections.emptySet();
-  }
+    @Override
+    public Set<Detector> getDetectors() {
+        return Collections.emptySet();
+    }
 }

@@ -22,56 +22,56 @@
  */
 package org.sonar.plugins.delphi.project;
 
-import java.io.File;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import org.sonar.plugins.delphi.utils.DelphiUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+
 /**
  * Parser for Delphi *.groupproj XML file
- * 
  */
 public class DelphiWorkgroupXmlParser extends DefaultHandler {
 
-  private File xml;
-  private DelphiWorkgroup workGroup;
-  private String currentDir;
+    private File xml;
+    private DelphiWorkgroup workGroup;
+    private String currentDir;
 
-  /**
-   * C-tor
-   * 
-   * @param xmlFile .groupproj XML file
-   * @param delphiWorkGroup Workgroup to modify
-   */
-  public DelphiWorkgroupXmlParser(File xmlFile, DelphiWorkgroup delphiWorkGroup) {
-    xml = xmlFile;
-    workGroup = delphiWorkGroup;
-    currentDir = DelphiUtils.normalizeFileName(xml.getAbsolutePath());
-    currentDir = currentDir.substring(0, currentDir.lastIndexOf('/'));
-  }
-
-  /**
-   * Parse provided .groupproj XML file
-   */
-  public void parse() {
-    try {
-      SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-      parser.parse(xml.getAbsolutePath(), this);
-    } catch (Exception ex) {
-      DelphiUtils.LOG.error(ex.getMessage());
+    /**
+     * C-tor
+     *
+     * @param xmlFile         .groupproj XML file
+     * @param delphiWorkGroup Workgroup to modify
+     */
+    public DelphiWorkgroupXmlParser(File xmlFile, DelphiWorkgroup delphiWorkGroup) {
+        xml = xmlFile;
+        workGroup = delphiWorkGroup;
+        currentDir = DelphiUtils.normalizeFileName(xml.getAbsolutePath());
+        currentDir = currentDir.substring(0, currentDir.lastIndexOf('/'));
     }
-  }
 
-  @Override
-  public void startElement(String uri, String localName, String rawName, Attributes attributes) throws SAXException {
-    if ("Projects".equals(rawName)) {
-      // new .dproj file
-      String projectPath = DelphiUtils.resolveBacktracePath(currentDir, attributes.getValue("Include"));
-      workGroup.addProject(new DelphiProject(new File(projectPath)));
+    /**
+     * Parse provided .groupproj XML file
+     */
+    public void parse() {
+        try {
+            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            parser.parse(xml.getAbsolutePath(), this);
+        } catch (Exception ex) {
+            DelphiUtils.LOG.error(ex.getMessage());
+        }
     }
-  }
+
+    @Override
+    public void startElement(String uri, String localName, String rawName, Attributes attributes) throws SAXException {
+        if ("Projects".equals(rawName)) {
+            // new .dproj file
+            String projectPath = DelphiUtils.resolveBacktracePath(currentDir, attributes.getValue("Include"));
+            workGroup.addProject(new DelphiProject(new File(projectPath)));
+        }
+    }
 
 }

@@ -21,95 +21,98 @@ package org.sonar.plugins.delphi.pmd;
 import org.junit.Test;
 import org.sonar.api.issue.Issue;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 public class ClassNameRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void testValidRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void testValidRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void classNameWithoutPrefixShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  MyClass = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void classNameWithoutPrefixShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  MyClass = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("ClassNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("ClassNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void classNameDoNotStartsWithCapitalLetterShouldAddIssue() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TmyClass = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void classNameDoNotStartsWithCapitalLetterShouldAddIssue() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TmyClass = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("ClassNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        System.out.println("HERE10:  RULEKEY:" + issues.get(0).ruleKey().rule());
+        System.out.println("HERE10:  LINE:" + issues.get(0).line());
+        System.out.println("HERE10:  CLASS:" + issues.get(0).getClass());
+        assertThat(issue.ruleKey().rule(), equalTo("ClassNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void testAvoidFalsePositive() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TestClass = class");
-    builder.appendDecl("  end;");
+    @Test
+    public void testAvoidFalsePositive() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TestClass = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, hasSize(1));
-    Issue issue = issues.get(0);
-    assertThat(issue.ruleKey().rule(), equalTo("ClassNameRule"));
-    assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
-  }
+        assertThat(issues, hasSize(1));
+        Issue issue = issues.get(0);
+        assertThat(issue.ruleKey().rule(), equalTo("ClassNameRule"));
+        assertThat(issue.line(), is(builder.getOffsetDecl() + 2));
+    }
 
-  @Test
-  public void testNestedType() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  TOuterClass = class");
-    builder.appendDecl("  strict private");
-    builder.appendDecl("    type");
-    builder.appendDecl("      TInnerClass1 = class");
-    builder.appendDecl("      end;");
-    builder.appendDecl("      TInnerClass2 = class");
-    builder.appendDecl("      end;");
-    builder.appendDecl("  end;");
+    @Test
+    public void testNestedType() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  TOuterClass = class");
+        builder.appendDecl("  strict private");
+        builder.appendDecl("    type");
+        builder.appendDecl("      TInnerClass1 = class");
+        builder.appendDecl("      end;");
+        builder.appendDecl("      TInnerClass2 = class");
+        builder.appendDecl("      end;");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, empty());
-  }
+        assertThat(toString(issues), issues, empty());
+    }
 
-  @Test
-  public void acceptCapitalLetterEforExceptionClasses() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
-    builder.appendDecl("type");
-    builder.appendDecl("  EMyCustomException = class(Exception)");
-    builder.appendDecl("  end;");
+    @Test
+    public void acceptCapitalLetterEforExceptionClasses() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+        builder.appendDecl("type");
+        builder.appendDecl("  EMyCustomException = class(Exception)");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 }

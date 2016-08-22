@@ -22,10 +22,6 @@
  */
 package org.sonar.plugins.delphi.pmd.profile;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import net.sourceforge.pmd.Language;
 import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.RuleSet;
@@ -33,32 +29,37 @@ import net.sourceforge.pmd.RuleSets;
 import net.sourceforge.pmd.ast.CompilationUnit;
 import org.sonar.plugins.delphi.pmd.DelphiRuleChain;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Class representing Delphi rule set
  */
 public class DelphiRuleSets extends RuleSets {
 
-  private DelphiRuleChain delphiRuleChain = new DelphiRuleChain();
-  private Collection<RuleSet> ruleSets = new ArrayList<RuleSet>();
+    private DelphiRuleChain delphiRuleChain = new DelphiRuleChain();
+    private Collection<RuleSet> ruleSets = new ArrayList<RuleSet>();
 
-  @Override
-  public void apply(List<CompilationUnit> acuList, RuleContext ctx, Language language) {
-    for (RuleSet ruleSet : ruleSets) {
-      if (applies(language, ruleSet.getLanguage()) && ruleSet.applies(ctx.getSourceCodeFile())) {
-        ruleSet.apply(acuList, ctx);
-      }
+    @Override
+    public void apply(List<CompilationUnit> acuList, RuleContext ctx, Language language) {
+        for (RuleSet ruleSet : ruleSets) {
+            if (applies(language, ruleSet.getLanguage()) && ruleSet.applies(ctx.getSourceCodeFile())) {
+                ruleSet.apply(acuList, ctx);
+            }
+        }
     }
-  }
 
-  @Override
-  public void addRuleSet(RuleSet ruleSet) {
-    ruleSets.add(ruleSet);
-    delphiRuleChain.add(ruleSet);
-  }
+    @Override
+    public void addRuleSet(RuleSet ruleSet) {
+        ruleSets.add(ruleSet);
+        delphiRuleChain.add(ruleSet);
+    }
 
-  @Override
-  public boolean applies(File file) {
-    return true;
-  }
+    @Override
+    public boolean applies(File file) {
+        return true;
+    }
 
 }

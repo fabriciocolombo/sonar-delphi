@@ -23,6 +23,7 @@
 package org.sonar.plugins.delphi.pmd;
 
 import com.google.common.io.LineReader;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,105 +31,105 @@ import java.io.StringReader;
 
 public class DelphiUnitBuilderTest {
 
-  private StringBuilder declaration = new StringBuilder();
-  private StringBuilder implementation = new StringBuilder();
+    private StringBuilder declaration = new StringBuilder();
+    private StringBuilder implementation = new StringBuilder();
 
-  private int offset;
-  private int offsetDecl;
-  private String unitName = "Unit1";
+    private int offset;
+    private int offsetDecl;
+    private String unitName = "Unit1";
 
-  public DelphiUnitBuilderTest appendDecl(String value) {
-    declaration.append(value + "\n");
-    offset++;
-    return this;
-  }
-
-  public DelphiUnitBuilderTest appendImpl(String value) {
-    implementation.append(value + "\n");
-    return this;
-  }
-
-  public String declaration() {
-    return declaration.toString();
-  }
-
-  public String implementation() {
-    return implementation.toString();
-  }
-
-  public DelphiUnitBuilderTest unitName(String unitName) {
-    this.unitName = unitName;
-    return this;
-  }
-
-  public File buildFile(File baseDir) {
-    StringBuilder source = getSourceCode();
-
-    try {
-      File file = File.createTempFile("unit", ".pas", baseDir);
-      file.deleteOnExit();
-
-      FileWriter fileWriter = new FileWriter(file);
-      try {
-        fileWriter.write(source.toString());
-        fileWriter.flush();
-      } finally {
-        fileWriter.close();
-      }
-      return file;
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    public DelphiUnitBuilderTest appendDecl(String value) {
+        declaration.append(value + "\n");
+        offset++;
+        return this;
     }
 
-  }
-
-  public StringBuilder getSourceCode() {
-    // fixed lines
-    offsetDecl = 4;
-    offset = offset + 6;
-
-    StringBuilder source = new StringBuilder();
-    source.append(String.format("unit %s;\n", this.unitName));
-    source.append("\n");
-    source.append("interface\n");
-    source.append("\n");
-
-    if (this.declaration.length() > 0) {
-      source.append(this.declaration() + "\n");
-      offset++;
+    public DelphiUnitBuilderTest appendImpl(String value) {
+        implementation.append(value + "\n");
+        return this;
     }
-    source.append("implementation\n");
-    source.append("\n");
 
-    if (this.implementation.length() > 0) {
-      source.append(this.implementation() + "\n");
+    public String declaration() {
+        return declaration.toString();
     }
-    source.append("end.\n");
 
-    printSourceCode(source);
-
-    return source;
-  }
-
-  private void printSourceCode(StringBuilder source) {
-    Readable reader = new StringReader(source.toString());
-    LineReader lineReader = new LineReader(reader);
-    String line = null;
-    int lineNumber = 0;
-    try {
-      while ((line = lineReader.readLine()) != null) {
-        System.out.println(String.format("%03d %s", ++lineNumber, line));
-      }
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to print source code.", e);
+    public String implementation() {
+        return implementation.toString();
     }
-  }
 
-  protected int getOffSet() {
-    return offset;
-  }
+    public DelphiUnitBuilderTest unitName(String unitName) {
+        this.unitName = unitName;
+        return this;
+    }
 
-  public int getOffsetDecl() {
-    return offsetDecl;
-  }
+    public File buildFile(File baseDir) {
+        StringBuilder source = getSourceCode();
+
+        try {
+            File file = File.createTempFile("unit", ".pas", baseDir);
+            file.deleteOnExit();
+
+            FileWriter fileWriter = new FileWriter(file);
+            try {
+                fileWriter.write(source.toString());
+                fileWriter.flush();
+            } finally {
+                fileWriter.close();
+            }
+            return file;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public StringBuilder getSourceCode() {
+        // fixed lines
+        offsetDecl = 4;
+        offset = offset + 6;
+
+        StringBuilder source = new StringBuilder();
+        source.append(String.format("unit %s;\n", this.unitName));
+        source.append("\n");
+        source.append("interface\n");
+        source.append("\n");
+
+        if (this.declaration.length() > 0) {
+            source.append(this.declaration() + "\n");
+            offset++;
+        }
+        source.append("implementation\n");
+        source.append("\n");
+
+        if (this.implementation.length() > 0) {
+            source.append(this.implementation() + "\n");
+        }
+        source.append("end.\n");
+
+        printSourceCode(source);
+
+        return source;
+    }
+
+    private void printSourceCode(StringBuilder source) {
+        Readable reader = new StringReader(source.toString());
+        LineReader lineReader = new LineReader(reader);
+        String line = null;
+        int lineNumber = 0;
+        try {
+            while ((line = lineReader.readLine()) != null) {
+                System.out.println(String.format("%03d %s", ++lineNumber, line));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to print source code.", e);
+        }
+    }
+
+    protected int getOffSet() {
+        return offset;
+    }
+
+    public int getOffsetDecl() {
+        return offsetDecl;
+    }
 }

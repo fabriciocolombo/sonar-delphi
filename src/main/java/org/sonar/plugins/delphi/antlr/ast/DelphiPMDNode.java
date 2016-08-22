@@ -22,8 +22,6 @@
  */
 package org.sonar.plugins.delphi.antlr.ast;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.sourceforge.pmd.ast.CompilationUnit;
 import net.sourceforge.pmd.ast.JavaNode;
 import net.sourceforge.pmd.ast.JavaParserVisitor;
@@ -33,124 +31,127 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.pmd.DelphiParserVisitor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * AST node extended with PMD interfaces for analysys PMD analysys
  */
 public class DelphiPMDNode extends DelphiNode implements JavaNode, CompilationUnit {
 
-  /**
-   * C-tor
-   * 
-   * @param payload Token
-   * @param tree AST Tree
-   */
-  public DelphiPMDNode(Token payload, ASTTree tree) {
-    super(payload, tree);
-  }
-
-  /**
-   * C-tor, used in DelphiPMD to safely cast from CommonTree to DelphiPMDNode
-   * 
-   * @param node CommonTree node
-   */
-  public DelphiPMDNode(CommonTree node) {
-    super(node.getToken());
-    this.children = node.getChildren();
-    this.parent = (CommonTree) node.getParent();
-    this.childIndex = node.getChildIndex();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public void jjtOpen() {
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public void jjtClose() {
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public void jjtSetParent(Node n) {
-
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public Node jjtGetParent() {
-    return null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public void jjtAddChild(Node n, int i) {
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public Node jjtGetChild(int i) {
-    return null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public int jjtGetNumChildren() {
-    return 0;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public Object jjtAccept(DelphiParserVisitor visitor, Object data) {
-    return visitor.visit(this, data);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public Object jjtAccept(JavaParserVisitor visitor, Object data) {
-    return jjtAccept((DelphiParserVisitor) visitor, data);
-  }
-
-  public List<Tree> findAllChildren(int type) {
-    return internalfindAllChildren(this, type);
-  }
-
-  public List<Tree> internalfindAllChildren(Tree node, int type) {
-    List<Tree> result = new ArrayList<Tree>();
-    for (int i = 0; i < node.getChildCount(); i++) {
-      Tree child = node.getChild(i);
-      if (child.getType() == type) {
-        result.add(child);
-      } else {
-        result.addAll(internalfindAllChildren(child, type));
-      }
+    /**
+     * C-tor
+     *
+     * @param payload Token
+     * @param tree    AST Tree
+     */
+    public DelphiPMDNode(Token payload, ASTTree tree) {
+        super(payload, tree);
     }
-    return result;
-  }
+
+    /**
+     * C-tor, used in DelphiPMD to safely cast from CommonTree to DelphiPMDNode
+     *
+     * @param node CommonTree node
+     */
+    public DelphiPMDNode(CommonTree node) {
+        super(node.getToken());
+        this.children = (java.util.List) node.getChildren();
+        this.parent = (CommonTree) node.getParent();
+        this.childIndex = node.getChildIndex();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public void jjtOpen() {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public void jjtClose() {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public void jjtSetParent(Node n) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public Node jjtGetParent() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public void jjtAddChild(Node n, int i) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public Node jjtGetChild(int i) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public int jjtGetNumChildren() {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object jjtAccept(DelphiParserVisitor visitor, Object data) {
+        return visitor.visit(this, data);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public Object jjtAccept(JavaParserVisitor visitor, Object data) {
+        return jjtAccept((DelphiParserVisitor) visitor, data);
+    }
+
+    public List<Tree> findAllChildren(int type) {
+        return internalfindAllChildren(this, type);
+    }
+
+    public List<Tree> internalfindAllChildren(Tree node, int type) {
+        List<Tree> result = new ArrayList<Tree>();
+        for (int i = 0; i < node.getChildCount(); i++) {
+            Tree child = node.getChild(i);
+            if (child.getType() == type) {
+                result.add(child);
+            } else {
+                result.addAll(internalfindAllChildren(child, type));
+            }
+        }
+        return result;
+    }
 
 }

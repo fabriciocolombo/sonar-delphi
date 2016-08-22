@@ -26,21 +26,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sonar.plugins.delphi.core.language.impl.DelphiUnit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CodeAnalisysResultsTest {
 
-  private CodeAnalysisResults result;
+    private CodeAnalysisResults result;
 
-  @Before
-  public void init() {
-    result = new CodeAnalysisResults();
-  }
+    @Before
+    public void init() {
+        result = new CodeAnalysisResults();
+    }
 
-  @Test
-  public void getActiveUnitTest() {
-    result.setActiveUnit(new DelphiUnit("test"));
-    assertEquals(new DelphiUnit("test"), result.getActiveUnit());
-  }
+    @Test
+    public void getActiveUnitTest() {
+        result.setActiveUnit(new DelphiUnit("test"));
+        assertEquals(new DelphiUnit("test"), result.getActiveUnit());
+    }
 
 }

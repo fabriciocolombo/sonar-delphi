@@ -22,36 +22,35 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.analyzer.LexerMetrics;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
-
-import net.sourceforge.pmd.RuleContext;
 
 /**
  * Checks, if we put 'begin' after 'do' statement
  */
 public class NoBeginAfterDoRule extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    if (shouldCheck(node)) {
-      Tree nextNode = node.getParent().getChild(node.getChildIndex() + 1);
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        if (shouldCheck(node)) {
+            Tree nextNode = node.getParent().getChild(node.getChildIndex() + 1);
 
-      if (isWrongNode(nextNode)) {
-        addViolation(ctx, node);
-      }
+            if (isWrongNode(nextNode)) {
+                addViolation(ctx, node);
+            }
 
+        }
     }
-  }
 
-  protected boolean isWrongNode(Tree node) {
-    return node == null
-      || (node.getType() != LexerMetrics.BEGIN.toMetrics() && node.getType() != LexerMetrics.WITH.toMetrics());
-  }
+    protected boolean isWrongNode(Tree node) {
+        return node == null
+                || (node.getType() != LexerMetrics.BEGIN.toMetrics() && node.getType() != LexerMetrics.WITH.toMetrics());
+    }
 
-  protected boolean shouldCheck(Tree node) {
-    return node != null && node.getType() == LexerMetrics.DO.toMetrics();
-  }
+    protected boolean shouldCheck(Tree node) {
+        return node != null && node.getType() == LexerMetrics.DO.toMetrics();
+    }
 
 }

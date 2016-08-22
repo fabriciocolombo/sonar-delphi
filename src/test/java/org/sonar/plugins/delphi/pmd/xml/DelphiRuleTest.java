@@ -22,84 +22,87 @@
  */
 package org.sonar.plugins.delphi.pmd.xml;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyArray;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 public class DelphiRuleTest {
 
-  private DelphiRule rule;
+    private DelphiRule rule;
 
-  @Before
-  public void init() {
-    rule = new DelphiRule("class", "critical");
-  }
+    @Before
+    public void init() {
+        rule = new DelphiRule("class", "critical");
+    }
 
-  @Test
-  public void nameTest() {
-    assertEquals(null, rule.getName());
-    rule.setName("test");
-    assertEquals("test", rule.getName());
-  }
+    @Test
+    public void nameTest() {
+        assertEquals(null, rule.getName());
+        rule.setName("test");
+        assertEquals("test", rule.getName());
+    }
 
-  @Test
-  public void clazzTest() {
-    assertEquals("class", rule.getClazz());
-  }
+    @Test
+    public void clazzTest() {
+        assertEquals("class", rule.getClazz());
+    }
 
-  @Test
-  public void propertiesTest() {
-    assertEquals(null, rule.getProperties());
+    @Test
+    public void propertiesTest() {
+        assertEquals(null, rule.getProperties());
 
-    List<Property> properties = new ArrayList<Property>();
-    properties.add(new Property("a", "b"));
-    rule.setProperties(properties);
+        List<Property> properties = new ArrayList<Property>();
+        properties.add(new Property("a", "b"));
+        rule.setProperties(properties);
 
-    assertEquals(properties, rule.getProperties());
-    assertEquals(1, rule.getProperties().size());
+        assertEquals(properties, rule.getProperties());
+        assertEquals(1, rule.getProperties().size());
 
-    rule.addProperty(new Property("c", "d"));
-    assertEquals(2, rule.getProperties().size());
+        rule.addProperty(new Property("c", "d"));
+        assertEquals(2, rule.getProperties().size());
 
-  }
+    }
 
-  @Test
-  public void compareToTest() {
-    assertEquals(11, rule.compareTo("notEqual"));
-    assertEquals(0, rule.compareTo("class"));
-  }
+    @Test
+    public void compareToTest() {
+        assertEquals(11, rule.compareTo("notEqual"));
+        assertEquals(0, rule.compareTo("class"));
+    }
 
-  @Test
-  public void priorityTest() {
-    assertEquals("critical", rule.getPriority());
-    assertEquals(null, new DelphiRule("class").getPriority());
-  }
+    @Test
+    public void priorityTest() {
+        assertEquals("critical", rule.getPriority());
+        assertEquals(null, new DelphiRule("class").getPriority());
+    }
 
-  @Test
-  public void messageTest() {
-    rule.setMessage("my message");
-    assertEquals("my message", rule.getMessage());
-  }
+    @Test
+    public void messageTest() {
+        rule.setMessage("my message");
+        assertEquals("my message", rule.getMessage());
+    }
 
-  @Test
-  public void descriptionTest() {
-    assertEquals("", rule.getDescription());
-  }
+    @Test
+    public void descriptionTest() {
+        assertEquals("", rule.getDescription());
+    }
 
-  @Test
-  public void categoryTest() {
-    rule.setTag("bug,size");
-    assertThat(rule.getTags(), Matchers.arrayContaining("bug", "size"));
-  }
+    @Test
+    public void categoryTest() {
+        rule.setTag("bug,size");
+        assertThat(rule.getTags(), Matchers.arrayContaining("bug", "size"));
+    }
 
-  @Test
-  public void emptyCategoryTest() {
-    assertThat(rule.getTags(), is(emptyArray()));
-  }
+    @Test
+    public void emptyCategoryTest() {
+        assertThat(rule.getTags(), is(emptyArray()));
+    }
 
 }

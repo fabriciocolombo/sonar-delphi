@@ -22,56 +22,55 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
-
-import net.sourceforge.pmd.RuleContext;
 
 /**
  * Rule class searching for procedures, functions and variables in a .dpr file
  */
 public class DprFunctionRule extends DelphiRule {
 
-  /**
-   *  Check for *.dpr.
-   */
-  private int check;
+    /**
+     * Check for *.dpr.
+     */
+    private int check;
 
-  @Override
-  public void init() {
-    // needs to check at new file
-    check = -1;
-  }
-
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    // checking if we are on .dpr/.dpk
-    if (check == -1) {
-      if (node.getASTTree().getFileName().endsWith(".dpr") || node.getASTTree().getFileName().endsWith(".dpk")) {
-        check = 1;
-      } else {
-        check = 0;
-      }
-    }
-    if (check != 1) {
-      // not a .dpr/.dpk file
-      return;
+    @Override
+    public void init() {
+        // needs to check at new file
+        check = -1;
     }
 
-    if (isViolationNode(node)) {
-      addViolation(ctx, node);
-    }
-  }
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        // checking if we are on .dpr/.dpk
+        if (check == -1) {
+            if (node.getASTTree().getFileName().endsWith(".dpr") || node.getASTTree().getFileName().endsWith(".dpk")) {
+                check = 1;
+            } else {
+                check = 0;
+            }
+        }
+        if (check != 1) {
+            // not a .dpr/.dpk file
+            return;
+        }
 
-  /**
-   * Check if node is a procedure/function node, or a variable node
-   * 
-   * @param node Node to check
-   * @return True if so, false otherwise
-   */
-  protected boolean isViolationNode(DelphiPMDNode node) {
-    int type = node.getType();
-    return type == DelphiLexer.PROCEDURE || type == DelphiLexer.FUNCTION;
-  }
+        if (isViolationNode(node)) {
+            addViolation(ctx, node);
+        }
+    }
+
+    /**
+     * Check if node is a procedure/function node, or a variable node
+     *
+     * @param node Node to check
+     * @return True if so, false otherwise
+     */
+    protected boolean isViolationNode(DelphiPMDNode node) {
+        int type = node.getType();
+        return type == DelphiLexer.PROCEDURE || type == DelphiLexer.FUNCTION;
+    }
 
 }

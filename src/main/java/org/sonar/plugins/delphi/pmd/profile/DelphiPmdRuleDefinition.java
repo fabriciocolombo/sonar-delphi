@@ -22,7 +22,6 @@
  */
 package org.sonar.plugins.delphi.pmd.profile;
 
-import java.util.List;
 import org.sonar.api.rules.RuleParam;
 import org.sonar.api.server.rule.RuleParamType;
 import org.sonar.api.server.rule.RulesDefinition;
@@ -31,39 +30,41 @@ import org.sonar.plugins.delphi.pmd.DelphiPmdConstants;
 import org.sonar.plugins.delphi.pmd.xml.DelphiRulesUtils;
 import org.sonar.squidbridge.rules.SqaleXmlLoader;
 
+import java.util.List;
+
 /**
  * Delphi rules definition
  */
 public class DelphiPmdRuleDefinition implements RulesDefinition {
 
-  @Override
-  public void define(Context context) {
-    NewRepository repository = context
-      .createRepository(DelphiPmdConstants.REPOSITORY_KEY, DelphiLanguage.KEY)
-      .setName(DelphiPmdConstants.REPOSITORY_NAME);
+    @Override
+    public void define(Context context) {
+        NewRepository repository = context
+                .createRepository(DelphiPmdConstants.REPOSITORY_KEY, DelphiLanguage.KEY)
+                .setName(DelphiPmdConstants.REPOSITORY_NAME);
 
-    List<org.sonar.api.rules.Rule> rules = DelphiRulesUtils.getInitialReferential();
+        List<org.sonar.api.rules.Rule> rules = DelphiRulesUtils.getInitialReferential();
 
-    // TODO Review
-    // https://github.com/SonarCommunity/sonar-pmd/blob/master/src/main/java/org/sonar/plugins/pmd/PmdRulesDefinition.java
-    for (org.sonar.api.rules.Rule rule : rules) {
-      NewRule newRule = repository.createRule(rule.getKey())
-        .setName(rule.getName())
-        .setHtmlDescription(rule.getDescription())
-        .setInternalKey(rule.getConfigKey())
-        .setSeverity(rule.getSeverity().name());
-      for (RuleParam param : rule.getParams()) {
-        newRule.createParam(param.getKey())
-          .setDefaultValue(param.getDefaultValue())
-          .setType(RuleParamType.parse(param.getType()))
-          .setDescription(param.getDescription());
-      }
+        // TODO Review
+        // https://github.com/SonarCommunity/sonar-pmd/blob/master/src/main/java/org/sonar/plugins/pmd/PmdRulesDefinition.java
+        for (org.sonar.api.rules.Rule rule : rules) {
+            NewRule newRule = repository.createRule(rule.getKey())
+                    .setName(rule.getName())
+                    .setHtmlDescription(rule.getDescription())
+                    .setInternalKey(rule.getConfigKey())
+                    .setSeverity(rule.getSeverity().name());
+            for (RuleParam param : rule.getParams()) {
+                newRule.createParam(param.getKey())
+                        .setDefaultValue(param.getDefaultValue())
+                        .setType(RuleParamType.parse(param.getType()))
+                        .setDescription(param.getDescription());
+            }
+        }
+
+        SqaleXmlLoader.load(repository, "/org/sonar/plugins/delphi/sqale/delphi-model.xml");
+
+        repository.done();
+
     }
-
-    SqaleXmlLoader.load(repository, "/org/sonar/plugins/delphi/sqale/delphi-model.xml");
-
-    repository.done();
-
-  }
 
 }

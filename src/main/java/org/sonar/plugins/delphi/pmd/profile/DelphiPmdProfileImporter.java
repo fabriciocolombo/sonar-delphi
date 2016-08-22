@@ -22,9 +22,6 @@
  */
 package org.sonar.plugins.delphi.pmd.profile;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.sonar.api.profiles.ProfileImporter;
 import org.sonar.api.profiles.RulesProfile;
@@ -34,29 +31,33 @@ import org.sonar.plugins.delphi.core.DelphiLanguage;
 import org.sonar.plugins.delphi.pmd.DelphiPmdConstants;
 import org.sonar.plugins.delphi.pmd.xml.DelphiRulesUtils;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
 /**
  * imports Delphi rules profile from Sonar
  */
 public class DelphiPmdProfileImporter extends ProfileImporter {
 
-  /**
-   * ctor
-   */
-  public DelphiPmdProfileImporter() {
-    super(DelphiPmdConstants.REPOSITORY_KEY, DelphiPmdConstants.REPOSITORY_NAME);
-    setSupportedLanguages(DelphiLanguage.KEY);
-  }
-
-  @Override
-  public RulesProfile importProfile(Reader reader, ValidationMessages messages) {
-    RulesProfile profile = RulesProfile.create();
-    try {
-      List<ActiveRule> activeRules = DelphiRulesUtils.importConfiguration(IOUtils.toString(reader),
-        DelphiRulesUtils.getInitialReferential());
-      profile.setActiveRules(activeRules);
-    } catch (IOException e) {
-      messages.addErrorText(e.getMessage());
+    /**
+     * ctor
+     */
+    public DelphiPmdProfileImporter() {
+        super(DelphiPmdConstants.REPOSITORY_KEY, DelphiPmdConstants.REPOSITORY_NAME);
+        setSupportedLanguages(DelphiLanguage.KEY);
     }
-    return profile;
-  }
+
+    @Override
+    public RulesProfile importProfile(Reader reader, ValidationMessages messages) {
+        RulesProfile profile = RulesProfile.create();
+        try {
+            List<ActiveRule> activeRules = DelphiRulesUtils.importConfiguration(IOUtils.toString(reader),
+                    DelphiRulesUtils.getInitialReferential());
+            profile.setActiveRules(activeRules);
+        } catch (IOException e) {
+            messages.addErrorText(e.getMessage());
+        }
+        return profile;
+    }
 }

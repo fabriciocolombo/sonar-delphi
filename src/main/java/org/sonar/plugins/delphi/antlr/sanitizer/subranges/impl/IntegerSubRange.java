@@ -30,108 +30,108 @@ import org.sonar.plugins.delphi.antlr.sanitizer.subranges.SubRange;
  */
 public class IntegerSubRange implements SubRange {
 
-  private int begin;
-  private int end;
+    private int begin;
+    private int end;
 
-  /**
-   * Constructor
-   * 
-   * @param rangeStart Range start
-   * @param rangeEnd Range end
-   */
-  public IntegerSubRange(int rangeStart, int rangeEnd) {
-    begin = rangeStart;
-    end = rangeEnd;
-    if (begin > end) {
-      throw new IllegalArgumentException("begin (" + begin + ") > end (" + end + ")");
+    /**
+     * Constructor
+     *
+     * @param rangeStart Range start
+     * @param rangeEnd   Range end
+     */
+    public IntegerSubRange(int rangeStart, int rangeEnd) {
+        begin = rangeStart;
+        end = rangeEnd;
+        if (begin > end) {
+            throw new IllegalArgumentException("begin (" + begin + ") > end (" + end + ")");
+        }
     }
-  }
 
-  /**
-   * Checks if value is in range
-   * 
-   * @param value Value to check
-   * @return True if value &gt;= begin &nbsp;&nbsp; value &lt;= end, false otherwise
-   */
+    /**
+     * Checks if value is in range
+     *
+     * @param value Value to check
+     * @return True if value &gt;= begin &nbsp;&nbsp; value &lt;= end, false otherwise
+     */
 
-  @Override
-  public boolean inRange(int value) {
-    return value >= begin && value <= end;
-  }
-
-  /**
-   * Checks if range is in scope of current range
-   * 
-   * @param range Range to check
-   * @return True if range includes itself in current range, false otherwise
-   */
-
-  @Override
-  public boolean inRange(SubRange range) {
-    return range.getBegin() >= begin && range.getEnd() <= end;
-  }
-
-  /**
-   * Get beginning of the range
-   * 
-   * @return Beggining of the range
-   */
-
-  @Override
-  public int getBegin() {
-    return begin;
-  }
-
-  /**
-   * Get the end of the range
-   * 
-   * @return End of the range
-   */
-
-  @Override
-  public int getEnd() {
-    return end;
-  }
-
-  @Override
-  public String toString() {
-    return "[" + begin + ", " + end + "]";
-  }
-
-  @Override
-  public void setEnd(int value) {
-    if (value < begin) {
-      throw new IllegalArgumentException("Cannot set range end value less than begin value.");
+    @Override
+    public boolean inRange(int value) {
+        return value >= begin && value <= end;
     }
-    end = value;
-  }
 
-  @Override
-  public void setBegin(int value) {
-    if (value > end) {
-      throw new IllegalArgumentException("Cannot set range begin value grater than end value");
-    }
-    begin = value;
-  }
+    /**
+     * Checks if range is in scope of current range
+     *
+     * @param range Range to check
+     * @return True if range includes itself in current range, false otherwise
+     */
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
+    @Override
+    public boolean inRange(SubRange range) {
+        return range.getBegin() >= begin && range.getEnd() <= end;
     }
-    if (this == obj) {
-      return true;
-    }
-    if (obj instanceof SubRange) {
-      SubRange range = (SubRange) obj;
-      return range.getBegin() == this.begin && range.getEnd() == this.end;
-    }
-    return false;
-  }
 
-  @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
+    /**
+     * Get beginning of the range
+     *
+     * @return Beggining of the range
+     */
+
+    @Override
+    public int getBegin() {
+        return begin;
+    }
+
+    /**
+     * Get the end of the range
+     *
+     * @return End of the range
+     */
+
+    @Override
+    public int getEnd() {
+        return end;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + begin + ", " + end + "]";
+    }
+
+    @Override
+    public void setEnd(int value) {
+        if (value < begin) {
+            throw new IllegalArgumentException("Cannot set range end value less than begin value.");
+        }
+        end = value;
+    }
+
+    @Override
+    public void setBegin(int value) {
+        if (value > end) {
+            throw new IllegalArgumentException("Cannot set range begin value grater than end value");
+        }
+        begin = value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof SubRange) {
+            SubRange range = (SubRange) obj;
+            return range.getBegin() == this.begin && range.getEnd() == this.end;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
 }

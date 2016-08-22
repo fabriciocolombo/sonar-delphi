@@ -22,11 +22,10 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
-
-import net.sourceforge.pmd.RuleContext;
 
 /**
  * Rule that is checking how many arguments a function has - if too many, it
@@ -34,27 +33,27 @@ import net.sourceforge.pmd.RuleContext;
  */
 public class VariableCounter extends DelphiRule {
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    // if function arguments node
-    if (node.getText().equals(getStringProperty(START))) {
-      int count = 0;
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        // if function arguments node
+        if (node.getText().equals(getStringProperty(START))) {
+            int count = 0;
 
-      // count num of arguments
-      for (int i = 0; i < node.getChildCount(); ++i) {
-        Tree child = node.getChild(i);
-        if (child.getType() == DelphiLexer.TkVariableIdents) {
-          count += child.getChildCount();
+            // count num of arguments
+            for (int i = 0; i < node.getChildCount(); ++i) {
+                Tree child = node.getChild(i);
+                if (child.getType() == DelphiLexer.TkVariableIdents) {
+                    count += child.getChildCount();
+                }
+            }
+
+            int limit = getIntProperty(LIMIT);
+            if (count > limit) {
+                String msg = "Too many " + getStringProperty(LOOK_FOR) + ": " + count + " (max "
+                        + limit + ")";
+                addViolation(ctx, node, msg);
+            }
         }
-      }
-
-      int limit = getIntProperty(LIMIT);
-      if (count > limit) {
-        String msg = "Too many " + getStringProperty(LOOK_FOR) + ": " + count + " (max "
-          + limit + ")";
-        addViolation(ctx, node, msg);
-      }
     }
-  }
 
 }

@@ -20,88 +20,89 @@ package org.sonar.plugins.delphi.pmd;
 
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.sonar.plugins.delphi.IssueMatchers.*;
+import static org.sonar.plugins.delphi.IssueMatchers.hasRuleKey;
+import static org.sonar.plugins.delphi.IssueMatchers.hasRuleLine;
 
 public class TypeAliasRuleTest extends BasePmdRuleTest {
 
-  @Test
-  public void setsArentTypeAlias() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void setsArentTypeAlias() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TMySetOfChar = set of Char;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TMySetOfChar = set of Char;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void typeAliasShouldAddViolation() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void typeAliasShouldAddViolation() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyChar = Char;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyChar = Char;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, hasSize(1));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("TypeAliasRule"), hasRuleLine(builder.getOffsetDecl() + 2))));
-  }
+        assertThat(toString(issues), issues, hasSize(1));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("TypeAliasRule"), hasRuleLine(builder.getOffsetDecl() + 2))));
+    }
 
-  @Test
-  public void typeAliasNewTypeShouldAddViolation() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void typeAliasNewTypeShouldAddViolation() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyChar = type Char;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyChar = type Char;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, hasSize(1));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("TypeAliasRule"), hasRuleLine(builder.getOffsetDecl() + 2))));
-  }
+        assertThat(toString(issues), issues, hasSize(1));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("TypeAliasRule"), hasRuleLine(builder.getOffsetDecl() + 2))));
+    }
 
-  @Test
-  public void falsePositiveMetaClassIsNotTypeAlias() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void falsePositiveMetaClassIsNotTypeAlias() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
-    builder.appendDecl("  TMetaClass = class of TMyClass;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
+        builder.appendDecl("  TMetaClass = class of TMyClass;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void falsePositiveEmptyRecordIsNotTypeAlias() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void falsePositiveEmptyRecordIsNotTypeAlias() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyRecord = record");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyRecord = record");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void falsePositiveEmptyClassIsNotTypeAlias() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void falsePositiveEmptyClassIsNotTypeAlias() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TMyClass = class");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TMyClass = class");
+        builder.appendDecl("  end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
 }

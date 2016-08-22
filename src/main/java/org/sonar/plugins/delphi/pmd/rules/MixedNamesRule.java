@@ -22,13 +22,14 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.DelphiLexer;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rule that checks if you are using function/variables names correctly, that is
@@ -38,132 +39,131 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
  * xyz := 1;	//OK
  * xYZ := 2;	//BAD
  * end;</code>
- * 
+ *
  * @author SG0214809
- * 
  */
 public class MixedNamesRule extends DelphiRule {
 
-  private List<String> functionNames = new ArrayList<String>();
-  private List<String> variableNames = new ArrayList<String>();
-  private boolean onInterface = true;
-  private String typeName = "";
+    private List<String> functionNames = new ArrayList<String>();
+    private List<String> variableNames = new ArrayList<String>();
+    private boolean onInterface = true;
+    private String typeName = "";
 
-  @Override
-  public void init() {
-    functionNames.clear();
-    variableNames.clear();
-    onInterface = true;
-  }
+    @Override
+    public void init() {
+        functionNames.clear();
+        variableNames.clear();
+        onInterface = true;
+    }
 
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    int type = node.getType();
-    switch (type) {
-      case DelphiLexer.IMPLEMENTATION:
-        onInterface = false;
-        typeName = "";
-        break;
-      case DelphiLexer.TkNewType:
-        typeName = node.getChild(0).getText() + ".";
-        break;
-      case DelphiLexer.TkFunctionName:
-        if (onInterface) {
-          functionNames.addAll(buildNames(node, false));
-        } else {
-          checkFunctionNames(node, ctx);
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        int type = node.getType();
+        switch (type) {
+            case DelphiLexer.IMPLEMENTATION:
+                onInterface = false;
+                typeName = "";
+                break;
+            case DelphiLexer.TkNewType:
+                typeName = node.getChild(0).getText() + ".";
+                break;
+            case DelphiLexer.TkFunctionName:
+                if (onInterface) {
+                    functionNames.addAll(buildNames(node, false));
+                } else {
+                    checkFunctionNames(node, ctx);
+                }
+                break;
+            case DelphiLexer.VAR:
+                if (!onInterface) {
+                    variableNames.addAll(buildNames(node.getChild(0), true));
+                }
+                break;
+            case DelphiLexer.BEGIN:
+                if (!onInterface) {
+                    checkVariableNames(node, ctx, true);
+                }
+                break;
         }
-        break;
-      case DelphiLexer.VAR:
-        if (!onInterface) {
-          variableNames.addAll(buildNames(node.getChild(0), true));
+    }
+
+    /**
+     * Check variable names between begin...end statements
+     */
+    private void checkVariableNames(DelphiPMDNode node, RuleContext ctx, boolean clear) {
+        for (int i = 0; i < node.getChildCount(); ++i) {
+
+            // Cast exception was thrown, so we use c-tor instead of casting to DelphiPMDNode
+            DelphiPMDNode child = new DelphiPMDNode((CommonTree) node.getChild(i));
+            if (child.getLine() > lastLineParsed) {
+                lastLineParsed = child.getLine();
+            }
+            if (child.getType() == DelphiLexer.BEGIN) {
+                checkVariableNames(child, ctx, false);
+            } else {
+                for (String globalName : variableNames) {
+                    if (child.getText().equalsIgnoreCase(globalName.toLowerCase())
+                            && !child.getText().equals(globalName)) {
+                        addViolation(ctx, child, "Avoid mixing variable names (found: '" + child.getText()
+                                + "' expected: '" + globalName + "').");
+                    }
+                }
+            }
         }
-        break;
-      case DelphiLexer.BEGIN:
-        if (!onInterface) {
-          checkVariableNames(node, ctx, true);
+
+        if (clear) {
+            variableNames.clear();
         }
-        break;
     }
-  }
 
-  /**
-   * Check variable names between begin...end statements
-   */
-  private void checkVariableNames(DelphiPMDNode node, RuleContext ctx, boolean clear) {
-    for (int i = 0; i < node.getChildCount(); ++i) {
-
-      // Cast exception was thrown, so we use c-tor instead of casting to DelphiPMDNode
-      DelphiPMDNode child = new DelphiPMDNode((CommonTree) node.getChild(i));
-      if (child.getLine() > lastLineParsed) {
-        lastLineParsed = child.getLine();
-      }
-      if (child.getType() == DelphiLexer.BEGIN) {
-        checkVariableNames(child, ctx, false);
-      } else {
-        for (String globalName : variableNames) {
-          if (child.getText().equalsIgnoreCase(globalName.toLowerCase())
-            && !child.getText().equals(globalName)) {
-            addViolation(ctx, child, "Avoid mixing variable names (found: '" + child.getText()
-              + "' expected: '" + globalName + "').");
-          }
+    /**
+     * Check function names
+     */
+    private void checkFunctionNames(DelphiPMDNode node, RuleContext ctx) {
+        List<String> currentNames = buildNames(node, false);
+        for (String name : currentNames) {
+            for (String globalName : functionNames) {
+                if (name.equalsIgnoreCase(globalName.toLowerCase()) && !name.equals(globalName)) {
+                    addViolation(ctx, node, "Avoid mixing function names (found: '" + name + "' expected: '"
+                            + globalName + "').");
+                }
+            }
         }
-      }
     }
 
-    if (clear) {
-      variableNames.clear();
-    }
-  }
+    /**
+     * Build names from current node (TkVariableIdents of TkFunctionName node)
+     *
+     * @param node     Node from which to build names
+     * @param multiply If true, each node child will be treated as a new name
+     * @return List of names
+     */
+    private List<String> buildNames(Tree node, boolean multiply) {
+        List<String> result = new ArrayList<String>();
 
-  /**
-   * Check function names
-   */
-  private void checkFunctionNames(DelphiPMDNode node, RuleContext ctx) {
-    List<String> currentNames = buildNames(node, false);
-    for (String name : currentNames) {
-      for (String globalName : functionNames) {
-        if (name.equalsIgnoreCase(globalName.toLowerCase()) && !name.equals(globalName)) {
-          addViolation(ctx, node, "Avoid mixing function names (found: '" + name + "' expected: '"
-            + globalName + "').");
+        if (node == null) {
+            return result;
         }
-      }
-    }
-  }
+        // if function name from new type declared
+        if (node.getChildCount() == 1 && !multiply) {
+            result.add(typeName + node.getChild(0).getText());
+            return result;
+        }
 
-  /**
-   * Build names from current node (TkVariableIdents of TkFunctionName node)
-   * 
-   * @param node Node from which to build names
-   * @param multiply If true, each node child will be treated as a new name
-   * @return List of names
-   */
-  private List<String> buildNames(Tree node, boolean multiply) {
-    List<String> result = new ArrayList<String>();
-
-    if (node == null) {
-      return result;
+        StringBuilder name = new StringBuilder();
+        for (int i = 0; i < node.getChildCount(); ++i) {
+            if (multiply) {
+                // variable names
+                result.add(node.getChild(i).getText());
+            } else {
+                // function name from implementation section
+                name.append(node.getChild(i).getText());
+            }
+        }
+        if (!multiply) {
+            result.add(name.toString());
+        }
+        return result;
     }
-    // if function name from new type declared
-    if (node.getChildCount() == 1 && !multiply) {
-      result.add(typeName + node.getChild(0).getText());
-      return result;
-    }
-
-    StringBuilder name = new StringBuilder();
-    for (int i = 0; i < node.getChildCount(); ++i) {
-      if (multiply) {
-        // variable names
-        result.add(node.getChild(i).getText());
-      } else {
-        // function name from implementation section
-        name.append(node.getChild(i).getText());
-      }
-    }
-    if (!multiply) {
-      result.add(name.toString());
-    }
-    return result;
-  }
 
 }

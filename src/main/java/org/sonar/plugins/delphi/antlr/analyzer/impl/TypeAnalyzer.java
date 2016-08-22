@@ -38,66 +38,66 @@ import org.sonar.plugins.delphi.core.language.impl.DelphiClass;
  */
 public class TypeAnalyzer extends CodeAnalyzer {
 
-  @Override
-  public boolean canAnalyze(CodeTree codeTree) {
-    Tree currentNode = codeTree.getCurrentCodeNode().getNode();
-    if (currentNode.getType() != DelphiParser.TkNewType || (!hasGrandChild(currentNode))) {
-      return false;
+    @Override
+    public boolean canAnalyze(CodeTree codeTree) {
+        Tree currentNode = codeTree.getCurrentCodeNode().getNode();
+        if (currentNode.getType() != DelphiParser.TkNewType || (!hasGrandChild(currentNode))) {
+            return false;
+        }
+
+        int type = getGrandChild(currentNode).getType();
+        return type == DelphiLexer.TkClass || type == DelphiLexer.TkRecord || type == DelphiLexer.TkInterface;
     }
 
-    int type = getGrandChild(currentNode).getType();
-    return type == DelphiLexer.TkClass || type == DelphiLexer.TkRecord || type == DelphiLexer.TkInterface;
-  }
+    @Override
+    protected void doAnalyze(CodeTree codeTree, CodeAnalysisResults results) {
+        if (results.getActiveUnit() == null) {
+            throw new IllegalStateException("AbstractAnalyser::parseClass() - Cannot create class outside unit.");
+        }
 
-  @Override
-  protected void doAnalyze(CodeTree codeTree, CodeAnalysisResults results) {
-    if (results.getActiveUnit() == null) {
-      throw new IllegalStateException("AbstractAnalyser::parseClass() - Cannot create class outside unit.");
+        CommonTree nameNode = getClassNameNode(codeTree.getCurrentCodeNode().getNode());
+        if (nameNode == null) {
+            throw new IllegalStateException("AbstractAnalyser::parseClass() - Cannot get class name.");
+        }
+
+        final String fileName = codeTree.getRootCodeNode().getNode().getFileName().toLowerCase();
+
+        ClassInterface searchClass = new DelphiClass(nameNode.getText().toLowerCase());
+        searchClass.setFileName(fileName);
+
+        ClassInterface active = results.getCachedClass(searchClass);
+        if (active == null) {
+            active = new DelphiClass(nameNode.getText().toLowerCase());
+            active.setFileName(fileName);
+            results.cacheClass(active);
+            results.getActiveUnit().addClass(active);
+        }
+
+        if (results.getParseStatus() == LexerMetrics.IMPLEMENTATION) {
+            active.setVisibility(LexerMetrics.PRIVATE.toMetrics());
+        } else {
+            active.setVisibility(LexerMetrics.PUBLIC.toMetrics());
+        }
+
+        results.setParseVisibility(LexerMetrics.PUBLISHED);
+        results.getClasses().add(active);
+        results.setActiveClass(active);
     }
 
-    CommonTree nameNode = getClassNameNode(codeTree.getCurrentCodeNode().getNode());
-    if (nameNode == null) {
-      throw new IllegalStateException("AbstractAnalyser::parseClass() - Cannot get class name.");
+    private boolean hasGrandChild(Tree node) {
+        return getGrandChild(node) != null;
     }
 
-    final String fileName = codeTree.getRootCodeNode().getNode().getFileName().toLowerCase();
-
-    ClassInterface searchClass = new DelphiClass(nameNode.getText().toLowerCase());
-    searchClass.setFileName(fileName);
-
-    ClassInterface active = results.getCachedClass(searchClass);
-    if (active == null) {
-      active = new DelphiClass(nameNode.getText().toLowerCase());
-      active.setFileName(fileName);
-      results.cacheClass(active);
-      results.getActiveUnit().addClass(active);
+    private Tree getGrandChild(Tree node) {
+        Tree child = node.getChild(0);
+        if (child != null) {
+            return child.getChild(0);
+        }
+        return null;
     }
 
-    if (results.getParseStatus() == LexerMetrics.IMPLEMENTATION) {
-      active.setVisibility(LexerMetrics.PRIVATE.toMetrics());
-    } else {
-      active.setVisibility(LexerMetrics.PUBLIC.toMetrics());
+    private CommonTree getClassNameNode(Tree node) {
+        return (CommonTree) node.getChild(0);
     }
-
-    results.setParseVisibility(LexerMetrics.PUBLISHED);
-    results.getClasses().add(active);
-    results.setActiveClass(active);
-  }
-
-  private boolean hasGrandChild(Tree node) {
-    return getGrandChild(node) != null;
-  }
-
-  private Tree getGrandChild(Tree node) {
-    Tree child = node.getChild(0);
-    if (child != null) {
-      return child.getChild(0);
-    }
-    return null;
-  }
-
-  private CommonTree getClassNameNode(Tree node) {
-    return (CommonTree) node.getChild(0);
-  }
 
 }

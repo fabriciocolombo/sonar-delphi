@@ -32,49 +32,49 @@ import java.util.List;
  */
 public class DelphiWorkgroup {
 
-  private List<DelphiProject> projects = new ArrayList<DelphiProject>();
+    private List<DelphiProject> projects = new ArrayList<DelphiProject>();
 
-  /**
-   * Default, empty C-tor
-   */
-  public DelphiWorkgroup() {
-  }
-
-  /**
-   * C-tor, gets project list from xml file
-   * 
-   * @param xmlFile .groupproj XML file
-   * @throws IOException If XML file not found
-   */
-  public DelphiWorkgroup(File xmlFile) throws IOException {
-    if (xmlFile == null) {
-      throw new IllegalArgumentException("No .groupproje file provided.");
-    } else if (!xmlFile.exists()) {
-      throw new IOException(".grupproj XML not found:" + xmlFile.getAbsolutePath());
+    /**
+     * Default, empty C-tor
+     */
+    public DelphiWorkgroup() {
     }
 
-    parseFile(xmlFile);
-  }
+    /**
+     * C-tor, gets project list from xml file
+     *
+     * @param xmlFile .groupproj XML file
+     * @throws IOException If XML file not found
+     */
+    public DelphiWorkgroup(File xmlFile) throws IOException {
+        if (xmlFile == null) {
+            throw new IllegalArgumentException("No .groupproje file provided.");
+        } else if (!xmlFile.exists()) {
+            throw new IOException(".grupproj XML not found:" + xmlFile.getAbsolutePath());
+        }
 
-  private void parseFile(File xmlFile) {
-    DelphiWorkgroupXmlParser parser = new DelphiWorkgroupXmlParser(xmlFile, this);
-    parser.parse();
-  }
+        parseFile(xmlFile);
+    }
 
-  /**
-   * @return list of projects
-   */
-  public List<DelphiProject> getProjects() {
-    return projects;
-  }
+    private void parseFile(File xmlFile) {
+        DelphiWorkgroupXmlParser parser = new DelphiWorkgroupXmlParser(xmlFile, this);
+        parser.parse();
+    }
 
-  /**
-   * Adds a project to the workgroup project list
-   * 
-   * @param newProject Project to add
-   */
-  public void addProject(DelphiProject newProject) {
-    projects.add(newProject);
-  }
+    /**
+     * @return list of projects
+     */
+    public List<DelphiProject> getProjects() {
+        return projects;
+    }
+
+    /**
+     * Adds a project to the workgroup project list
+     *
+     * @param newProject Project to add
+     */
+    public void addProject(DelphiProject newProject) {
+        projects.add(newProject);
+    }
 
 }

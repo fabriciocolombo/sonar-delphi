@@ -24,15 +24,15 @@ package org.sonar.plugins.delphi.pmd.xml;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PropertyTest {
 
-  @Test
-  public void propertyTest() {
-    Property p = new Property("name", "value");
-    assertEquals("name", p.getName());
-    assertEquals("value", p.getValue());
-  }
+    @Test
+    public void propertyTest() {
+        Property p = new Property("name", "value");
+        assertEquals("name", p.getName());
+        assertEquals("value", p.getValue());
+    }
 
 }

@@ -21,87 +21,88 @@ package org.sonar.plugins.delphi.pmd;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.sonar.plugins.delphi.IssueMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.sonar.plugins.delphi.IssueMatchers.hasRuleKey;
+import static org.sonar.plugins.delphi.IssueMatchers.hasRuleLine;
 
 public class EmptyBeginStatementTest extends BasePmdRuleTest {
 
-  @Test
-  public void validRule() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void validRule() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TEmptyProcs = class");
-    builder.appendDecl("  public");
-    builder.appendDecl("    procedure One;");
-    builder.appendDecl("    procedure Two;");
-    builder.appendDecl("    procedure Three;");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TEmptyProcs = class");
+        builder.appendDecl("  public");
+        builder.appendDecl("    procedure One;");
+        builder.appendDecl("    procedure Two;");
+        builder.appendDecl("    procedure Three;");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("procedure TEmptyProcs.One;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('OK');");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure TEmptyProcs.Two;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('OK');");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure TEmptyProcs.Three;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('OK');");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure GlobalProcedureFour;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('OK');");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure GlobalProcedureFive;");
-    builder.appendImpl("begin");
-    builder.appendImpl("  Writeln('OK');");
-    builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.One;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('OK');");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.Two;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('OK');");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.Three;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('OK');");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure GlobalProcedureFour;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('OK');");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure GlobalProcedureFive;");
+        builder.appendImpl("begin");
+        builder.appendImpl("  Writeln('OK');");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(issues, is(empty()));
-  }
+        assertThat(issues, is(empty()));
+    }
 
-  @Test
-  public void testBeginEndStatement() {
-    DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
+    @Test
+    public void testBeginEndStatement() {
+        DelphiUnitBuilderTest builder = new DelphiUnitBuilderTest();
 
-    builder.appendDecl("type");
-    builder.appendDecl("  TEmptyProcs = class");
-    builder.appendDecl("  public");
-    builder.appendDecl("    procedure One;");
-    builder.appendDecl("    procedure Two;");
-    builder.appendDecl("    procedure Three;");
-    builder.appendDecl("    procedure Four;");
-    builder.appendDecl("    procedure Five;");
-    builder.appendDecl("  end;");
+        builder.appendDecl("type");
+        builder.appendDecl("  TEmptyProcs = class");
+        builder.appendDecl("  public");
+        builder.appendDecl("    procedure One;");
+        builder.appendDecl("    procedure Two;");
+        builder.appendDecl("    procedure Three;");
+        builder.appendDecl("    procedure Four;");
+        builder.appendDecl("    procedure Five;");
+        builder.appendDecl("  end;");
 
-    builder.appendImpl("procedure TEmptyProcs.One;");
-    builder.appendImpl("begin");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure TEmptyProcs.Two;");
-    builder.appendImpl("begin");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure TEmptyProcs.Three;");
-    builder.appendImpl("begin");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure TEmptyProcs.Four;");
-    builder.appendImpl("begin");
-    builder.appendImpl("end;");
-    builder.appendImpl("procedure TEmptyProcs.Five;");
-    builder.appendImpl("begin");
-    builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.One;");
+        builder.appendImpl("begin");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.Two;");
+        builder.appendImpl("begin");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.Three;");
+        builder.appendImpl("begin");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.Four;");
+        builder.appendImpl("begin");
+        builder.appendImpl("end;");
+        builder.appendImpl("procedure TEmptyProcs.Five;");
+        builder.appendImpl("begin");
+        builder.appendImpl("end;");
 
-    analyse(builder);
+        analyse(builder);
 
-    assertThat(toString(issues), issues, hasSize(5));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 2))));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 5))));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 8))));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 11))));
-    assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 14))));
-  }
+        assertThat(toString(issues), issues, hasSize(5));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 2))));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 5))));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 8))));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 11))));
+        assertThat(toString(issues), issues, hasItem(allOf(hasRuleKey("EmptyBeginStatementRule"), hasRuleLine(builder.getOffSet() + 14))));
+    }
 
 }

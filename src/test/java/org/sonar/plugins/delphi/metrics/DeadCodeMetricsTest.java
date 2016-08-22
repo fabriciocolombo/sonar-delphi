@@ -22,11 +22,6 @@
  */
 package org.sonar.plugins.delphi.metrics;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -42,7 +37,6 @@ import org.sonar.api.component.ResourcePerspectives;
 import org.sonar.api.issue.Issuable;
 import org.sonar.api.issue.Issue;
 import org.sonar.plugins.delphi.DelphiTestUtils;
-import org.sonar.plugins.delphi.StubIssueBuilder;
 import org.sonar.plugins.delphi.antlr.analyzer.ASTAnalyzer;
 import org.sonar.plugins.delphi.antlr.analyzer.CodeAnalysisResults;
 import org.sonar.plugins.delphi.antlr.analyzer.DelphiASTAnalyzer;
@@ -56,133 +50,141 @@ import org.sonar.plugins.delphi.core.language.impl.DelphiClassProperty;
 import org.sonar.plugins.delphi.core.language.impl.DelphiFunction;
 import org.sonar.plugins.delphi.core.language.impl.DelphiUnit;
 import org.sonar.plugins.delphi.debug.DebugSensorContext;
+import org.sonar.plugins.delphi.pmd.StubIssueBuilder;
 import org.sonar.plugins.delphi.utils.DelphiUtils;
 
-import static org.hamcrest.Matchers.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @Ignore("Unused functions it's not working. There are many false positives.")
 public class DeadCodeMetricsTest {
 
-  private static final String TEST_FILE = "/org/sonar/plugins/delphi/metrics/DeadCodeMetricsTest.pas";
-  private static final String DEAD_FILE = "/org/sonar/plugins/delphi/metrics/DeadCodeUnit.pas";
+    private static final String TEST_FILE = "/org/sonar/plugins/delphi/metrics/DeadCodeMetricsTest.pas";
+    private static final String DEAD_FILE = "/org/sonar/plugins/delphi/metrics/DeadCodeUnit.pas";
 
-  private DeadCodeMetrics metrics;
-  private Set<UnitInterface> units;
-  private List<ClassInterface> classes;
-  private List<FunctionInterface> functions;
-  private ResourcePerspectives perspectives;
-  private Issuable issuable;
-  private final List<Issue> issues = new ArrayList<Issue>();
-  private ActiveRules activeRules;
+    private DeadCodeMetrics metrics;
+    private Set<UnitInterface> units;
+    private List<ClassInterface> classes;
+    private List<FunctionInterface> functions;
+    private ResourcePerspectives perspectives;
+    private Issuable issuable;
+    private final List<Issue> issues = new ArrayList<Issue>();
+    private ActiveRules activeRules;
 
-  @Before
-  public void init() {
-    functions = new ArrayList<>();
-    classes = new ArrayList<>();
-    units = new HashSet<>();
+    @Before
+    public void init() {
+        functions = new ArrayList<>();
+        classes = new ArrayList<>();
+        units = new HashSet<>();
 
-    FunctionInterface f1 = new DelphiFunction("function1");
-    FunctionInterface f2 = new DelphiFunction("function2");
-    FunctionInterface f3 = new DelphiFunction("function3");
-    f1.addCalledFunction(f2);
-    f2.addCalledFunction(f1);
-    f3.setLine(321);
+        FunctionInterface f1 = new DelphiFunction("function1");
+        FunctionInterface f2 = new DelphiFunction("function2");
+        FunctionInterface f3 = new DelphiFunction("function3");
+        f1.addCalledFunction(f2);
+        f2.addCalledFunction(f1);
+        f3.setLine(321);
 
-    ClassPropertyInterface p1 = new DelphiClassProperty();
-    p1.setReadFunction(f1);
-    p1.setWriteFunction(f2);
+        ClassPropertyInterface p1 = new DelphiClassProperty();
+        p1.setReadFunction(f1);
+        p1.setWriteFunction(f2);
 
-    ClassInterface c1 = new DelphiClass("class1");
-    ClassInterface c2 = new DelphiClass("class2");
-    c1.addFunction(f1);
-    c2.addFunction(f2);
-    c2.addFunction(f3);
-    c2.addProperty(p1);
+        ClassInterface c1 = new DelphiClass("class1");
+        ClassInterface c2 = new DelphiClass("class2");
+        c1.addFunction(f1);
+        c2.addFunction(f2);
+        c2.addFunction(f3);
+        c2.addProperty(p1);
 
-    UnitInterface u1 = new DelphiUnit("unit1");
-    UnitInterface u2 = new DelphiUnit("unit2");
-    UnitInterface u3 = new DelphiUnit("unit3");
-    u1.setPath("unit1.dpr");
-    u2.setPath("unit2.pas");
-    u3.setPath("unit3.pas");
+        UnitInterface u1 = new DelphiUnit("unit1");
+        UnitInterface u2 = new DelphiUnit("unit2");
+        UnitInterface u3 = new DelphiUnit("unit3");
+        u1.setPath("unit1.dpr");
+        u2.setPath("unit2.pas");
+        u3.setPath("unit3.pas");
 
-    u1.addIncludes("unit2");
-    u2.addIncludes("unit1");
-    u3.setLine(123);
-    u1.addClass(c1);
-    u2.addClass(c2);
+        u1.addIncludes("unit2");
+        u2.addIncludes("unit1");
+        u3.setLine(123);
+        u1.addClass(c1);
+        u2.addClass(c2);
 
-    units.add(u1);
-    units.add(u2);
-    units.add(u3);
+        units.add(u1);
+        units.add(u2);
+        units.add(u3);
 
-    perspectives = mock(ResourcePerspectives.class);
+        perspectives = mock(ResourcePerspectives.class);
 
-    issuable = mock(Issuable.class);
+        issuable = mock(Issuable.class);
 
-    when(perspectives.as(Matchers.eq(Issuable.class), Matchers.isA(InputFile.class))).thenReturn(issuable);
+        when(perspectives.as(Matchers.eq(Issuable.class), Matchers.isA(InputFile.class))).thenReturn(issuable);
 
-    when(issuable.newIssueBuilder()).thenReturn(new StubIssueBuilder());
+        when(issuable.newIssueBuilder()).thenReturn(new StubIssueBuilder());
 
-    when(issuable.addIssue(Matchers.any(Issue.class))).then(new Answer<Boolean>() {
-      @Override
-      public Boolean answer(InvocationOnMock invocation) throws Throwable {
-        Issue issue = (Issue) invocation.getArguments()[0];
-        issues.add(issue);
-        return Boolean.TRUE;
-      }
-    });
+        when(issuable.addIssue(Matchers.any(Issue.class))).then(new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocation) throws Throwable {
+                Issue issue = (Issue) invocation.getArguments()[0];
+                issues.add(issue);
+                return Boolean.TRUE;
+            }
+        });
 
-    ActiveRule activeRuleUnusedFunction = mock(ActiveRule.class);
-    ActiveRule activeRuleUnusedUnit = mock(ActiveRule.class);
+        ActiveRule activeRuleUnusedFunction = mock(ActiveRule.class);
+        ActiveRule activeRuleUnusedUnit = mock(ActiveRule.class);
 
-    when(activeRuleUnusedFunction.ruleKey()).thenReturn(DeadCodeMetrics.RULE_KEY_UNUSED_FUNCTION);
-    when(activeRuleUnusedUnit.ruleKey()).thenReturn(DeadCodeMetrics.RULE_KEY_UNUSED_UNIT);
+        when(activeRuleUnusedFunction.ruleKey()).thenReturn(DeadCodeMetrics.RULE_KEY_UNUSED_FUNCTION);
+        when(activeRuleUnusedUnit.ruleKey()).thenReturn(DeadCodeMetrics.RULE_KEY_UNUSED_UNIT);
 
-    activeRules = mock(ActiveRules.class);
-    when(activeRules.find(DeadCodeMetrics.RULE_KEY_UNUSED_FUNCTION)).thenReturn(activeRuleUnusedUnit);
-    when(activeRules.find(DeadCodeMetrics.RULE_KEY_UNUSED_UNIT)).thenReturn(activeRuleUnusedUnit);
+        activeRules = mock(ActiveRules.class);
+        when(activeRules.find(DeadCodeMetrics.RULE_KEY_UNUSED_FUNCTION)).thenReturn(activeRuleUnusedUnit);
+        when(activeRules.find(DeadCodeMetrics.RULE_KEY_UNUSED_UNIT)).thenReturn(activeRuleUnusedUnit);
 
-    metrics = new DeadCodeMetrics(activeRules, perspectives);
-  }
-
-  @Test
-  public void analyseTest() {
-    DebugSensorContext context = new DebugSensorContext();
-    metrics.analyse(null, context, classes, functions, units);
-    metrics.save(new DefaultInputFile("unit3").setAbsolutePath(pathTo("unit3.pas")), context);
-    metrics.save(new DefaultInputFile("unit2").setAbsolutePath(pathTo("unit2.pas")), context);
-
-    assertThat(issues, hasSize(2));
-    int lines[] = {123, 321};
-    for (int i = 0; i < issues.size(); ++i) {
-      assertEquals("Invalid unit line", lines[i], issues.get(i).line().intValue());
+        metrics = new DeadCodeMetrics(activeRules, perspectives);
     }
 
-  }
+    @Test
+    public void analyseTest() {
+        DebugSensorContext context = new DebugSensorContext();
+        metrics.analyse(null, context, classes, functions, units);
+        metrics.save(new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", pathTo("unit3")), context);
+        metrics.save(new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", pathTo("unit2")), context);
 
-  private String pathTo(String file) {
-    return "/org/sonar/plugins/delphi/metrics/" + file;
-  }
+        assertThat(issues, hasSize(2));
+        int lines[] = {123, 321};
+        for (int i = 0; i < issues.size(); ++i) {
+            assertEquals("Invalid unit line", lines[i], issues.get(i).line().intValue());
+        }
 
-  @Test
-  public void analyseFileTest() throws IllegalStateException, IOException, RecognitionException {
-    DebugSensorContext context = new DebugSensorContext();
-    DelphiAST ast = new DelphiAST(DelphiUtils.getResource(TEST_FILE));
-    ASTAnalyzer analyser = new DelphiASTAnalyzer(DelphiTestUtils.mockProjectHelper());
-    assertFalse("Grammar error", ast.isError());
-    CodeAnalysisResults results = analyser.analyze(ast);
-    metrics.analyse(null, context, results.getClasses(), results.getFunctions(), results.getCachedUnitsAsList());
-
-    metrics.save(new DefaultInputFile("DeadCodeUnit").setAbsolutePath(DEAD_FILE), context);
-
-    for (Issue issue : issues) {
-      System.out.println("issue: " + issue.key() + " line: " + issue.line() + " message: " + issue.message());
     }
 
-    assertThat(issues, hasSize(2));
-  }
+    private String pathTo(String file) {
+        return "/org/sonar/plugins/delphi/metrics/" + file;
+    }
+
+    @Test
+    public void analyseFileTest() throws IllegalStateException, IOException, RecognitionException {
+        DebugSensorContext context = new DebugSensorContext();
+        DelphiAST ast = new DelphiAST(DelphiUtils.getResource(TEST_FILE));
+        ASTAnalyzer analyser = new DelphiASTAnalyzer(DelphiTestUtils.mockProjectHelper());
+        assertFalse("Grammar error", ast.isError());
+        CodeAnalysisResults results = analyser.analyze(ast);
+        metrics.analyse(null, context, results.getClasses(), results.getFunctions(), results.getCachedUnitsAsList());
+
+        metrics.save(new DefaultInputFile("ROOT_KEY_CHANGE_AT_SONARAPI_5", DEAD_FILE), context);
+
+        for (Issue issue : issues) {
+            System.out.println("issue: " + issue.key() + " line: " + issue.line() + " message: " + issue.message());
+        }
+
+        assertThat(issues, hasSize(2));
+    }
 
 }

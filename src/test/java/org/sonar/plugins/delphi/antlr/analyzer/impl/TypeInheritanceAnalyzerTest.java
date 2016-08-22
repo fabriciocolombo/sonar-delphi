@@ -22,8 +22,6 @@
  */
 package org.sonar.plugins.delphi.antlr.analyzer.impl;
 
-import java.io.File;
-import java.io.IOException;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 import org.junit.Before;
@@ -40,50 +38,53 @@ import org.sonar.plugins.delphi.core.language.impl.DelphiClass;
 import org.sonar.plugins.delphi.core.language.impl.DelphiUnit;
 import org.sonar.plugins.delphi.utils.DelphiUtils;
 
+import java.io.File;
+import java.io.IOException;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class TypeInheritanceAnalyzerTest {
 
-  private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
+    private static final String FILE_NAME = "/org/sonar/plugins/delphi/metrics/FunctionMetricsTest.pas";
 
-  private TypeInheritanceAnalyzer analyzer;
-  private ASTTree ast;
-  private CodeAnalysisResults results;
-  private CodeTree code;
-  private AdvanceToNodeOperation advanceToOp;
+    private TypeInheritanceAnalyzer analyzer;
+    private ASTTree ast;
+    private CodeAnalysisResults results;
+    private CodeTree code;
+    private AdvanceToNodeOperation advanceToOp;
 
-  @Before
-  public void init() throws IOException, RecognitionException {
-    analyzer = new TypeInheritanceAnalyzer();
-    results = new CodeAnalysisResults();
-    results.setActiveUnit(new DelphiUnit("test"));
+    @Before
+    public void init() throws IOException, RecognitionException {
+        analyzer = new TypeInheritanceAnalyzer();
+        results = new CodeAnalysisResults();
+        results.setActiveUnit(new DelphiUnit("test"));
 
-    File file = DelphiUtils.getResource(FILE_NAME);
-    ast = new DelphiAST(file);
-    code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
-    advanceToOp = new AdvanceToNodeOperation(LexerMetrics.CLASS_PARENTS);
-  }
+        File file = DelphiUtils.getResource(FILE_NAME);
+        ast = new DelphiAST(file);
+        code = new CodeTree(new CodeNode<ASTTree>(ast), new CodeNode<Tree>(ast.getChild(0)));
+        advanceToOp = new AdvanceToNodeOperation(LexerMetrics.CLASS_PARENTS);
+    }
 
-  @Test
-  public void analyzeTest() {
-    code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
+    @Test
+    public void analyzeTest() {
+        code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
 
-    ClassInterface clazz = new DelphiClass("test");
-    results.setActiveClass(clazz);
-    analyzer.analyze(code, results);
+        ClassInterface clazz = new DelphiClass("test");
+        results.setActiveClass(clazz);
+        analyzer.analyze(code, results);
 
-    ClassInterface parents[] = clazz.getParents();
-    assertThat(parents, arrayWithSize(3));
-    assertThat(parents, hasItemInArray(hasProperty("name", equalToIgnoringCase("TMyAncestor"))));
-    assertThat(parents, hasItemInArray(hasProperty("name", equalToIgnoringCase("TMyClass"))));
-    assertThat(parents, hasItemInArray(hasProperty("name", equalToIgnoringCase("TMyElder"))));
-  }
+        ClassInterface parents[] = clazz.getParents();
+        assertThat(parents, arrayWithSize(3));
+        assertThat(parents, hasItemInArray(hasProperty("name", equalToIgnoringCase("TMyAncestor"))));
+        assertThat(parents, hasItemInArray(hasProperty("name", equalToIgnoringCase("TMyClass"))));
+        assertThat(parents, hasItemInArray(hasProperty("name", equalToIgnoringCase("TMyElder"))));
+    }
 
-  @Test
-  public void canAnalyzeTest() {
-    assertFalse(analyzer.canAnalyze(code));
-    code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
-    assertTrue(analyzer.canAnalyze(code));
-  }
+    @Test
+    public void canAnalyzeTest() {
+        assertFalse(analyzer.canAnalyze(code));
+        code.setCurrentNode(advanceToOp.execute(code.getCurrentCodeNode().getNode()));
+        assertTrue(analyzer.canAnalyze(code));
+    }
 }

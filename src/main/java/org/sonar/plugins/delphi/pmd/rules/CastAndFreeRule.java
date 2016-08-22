@@ -22,11 +22,10 @@
  */
 package org.sonar.plugins.delphi.pmd.rules;
 
+import net.sourceforge.pmd.RuleContext;
 import org.antlr.runtime.tree.Tree;
 import org.sonar.plugins.delphi.antlr.analyzer.LexerMetrics;
 import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
-
-import net.sourceforge.pmd.RuleContext;
 
 /**
  * Cast And Free rule - don't cast, just to free something, example:
@@ -34,47 +33,45 @@ import net.sourceforge.pmd.RuleContext;
  */
 public class CastAndFreeRule extends DelphiRule {
 
-  private int sequenceHardCastIndex = 0;
-  private int sequenceSoftCastIndex = 0;
-  private LexerMetrics hardCastSequence[] = {LexerMetrics.IDENT, LexerMetrics.LPAREN, LexerMetrics.IDENT,
-    LexerMetrics.RPAREN,
-    LexerMetrics.DOT, LexerMetrics.IDENT};
-  private LexerMetrics softCastSequence[] = {LexerMetrics.LPAREN, LexerMetrics.IDENT, LexerMetrics.AS,
-    LexerMetrics.IDENT,
-    LexerMetrics.RPAREN, LexerMetrics.DOT, LexerMetrics.IDENT};
+    private int sequenceHardCastIndex = 0;
+    private int sequenceSoftCastIndex = 0;
+    private LexerMetrics hardCastSequence[] = {LexerMetrics.IDENT, LexerMetrics.LPAREN, LexerMetrics.IDENT,
+            LexerMetrics.RPAREN,
+            LexerMetrics.DOT, LexerMetrics.IDENT};
+    private LexerMetrics softCastSequence[] = {LexerMetrics.LPAREN, LexerMetrics.IDENT, LexerMetrics.AS,
+            LexerMetrics.IDENT,
+            LexerMetrics.RPAREN, LexerMetrics.DOT, LexerMetrics.IDENT};
 
-  @Override
-  public void init() {
-    sequenceHardCastIndex = 0;
-    sequenceSoftCastIndex = 0;
-  }
-
-  @Override
-  public void visit(DelphiPMDNode node, RuleContext ctx) {
-    sequenceHardCastIndex = processSequence(hardCastSequence, sequenceHardCastIndex, node, ctx);
-    sequenceSoftCastIndex = processSequence(softCastSequence, sequenceSoftCastIndex, node, ctx);
-  }
-
-  private int processSequence(LexerMetrics sequence[], int sequenceIndex, DelphiPMDNode node, RuleContext ctx) {
-    int resultIndex = sequenceIndex;
-    if (resultIndex >= sequence.length) {
-      resultIndex = 0;
-    }
-    else if (sequence[resultIndex].toMetrics() == node.getType()) {
-      ++resultIndex;
-      if (isCorrectSequence(sequence, resultIndex, node)) {
-        resultIndex = 0;
-        addViolation(ctx, node);
-      }
-    }
-    else {
-      resultIndex = 0;
+    @Override
+    public void init() {
+        sequenceHardCastIndex = 0;
+        sequenceSoftCastIndex = 0;
     }
 
-    return resultIndex;
-  }
+    @Override
+    public void visit(DelphiPMDNode node, RuleContext ctx) {
+        sequenceHardCastIndex = processSequence(hardCastSequence, sequenceHardCastIndex, node, ctx);
+        sequenceSoftCastIndex = processSequence(softCastSequence, sequenceSoftCastIndex, node, ctx);
+    }
 
-  private boolean isCorrectSequence(LexerMetrics sequence[], int index, Tree lastNode) {
-    return index >= sequence.length && "free".equalsIgnoreCase(lastNode.getText());
-  }
+    private int processSequence(LexerMetrics sequence[], int sequenceIndex, DelphiPMDNode node, RuleContext ctx) {
+        int resultIndex = sequenceIndex;
+        if (resultIndex >= sequence.length) {
+            resultIndex = 0;
+        } else if (sequence[resultIndex].toMetrics() == node.getType()) {
+            ++resultIndex;
+            if (isCorrectSequence(sequence, resultIndex, node)) {
+                resultIndex = 0;
+                addViolation(ctx, node);
+            }
+        } else {
+            resultIndex = 0;
+        }
+
+        return resultIndex;
+    }
+
+    private boolean isCorrectSequence(LexerMetrics sequence[], int index, Tree lastNode) {
+        return index >= sequence.length && "free".equalsIgnoreCase(lastNode.getText());
+    }
 }

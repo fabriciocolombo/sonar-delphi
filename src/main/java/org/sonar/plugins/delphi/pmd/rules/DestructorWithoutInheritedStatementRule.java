@@ -19,10 +19,10 @@
 package org.sonar.plugins.delphi.pmd.rules;
 
 public class DestructorWithoutInheritedStatementRule extends NoInheritedStatementRule {
-  @Override
-  protected void init() {
-    super.init();
-    setLookFor("destructor");
-  }
+    @Override
+    protected void init() {
+        super.init();
+        setLookFor("destructor");
+    }
 
 }

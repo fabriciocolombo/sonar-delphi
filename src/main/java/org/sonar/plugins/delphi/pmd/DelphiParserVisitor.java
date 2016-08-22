@@ -27,17 +27,16 @@ import org.sonar.plugins.delphi.antlr.ast.DelphiPMDNode;
 
 /**
  * visits delphi pmd node
- * 
  */
 public interface DelphiParserVisitor extends JavaParserVisitor {
 
-  /**
-   * preform visit to a specific node with given data
-   * 
-   * @param node node to visit
-   * @param data data
-   * @return node data
-   */
-  Object visit(DelphiPMDNode node, Object data);
+    /**
+     * preform visit to a specific node with given data
+     *
+     * @param node node to visit
+     * @param data data
+     * @return node data
+     */
+    Object visit(DelphiPMDNode node, Object data);
 
 }

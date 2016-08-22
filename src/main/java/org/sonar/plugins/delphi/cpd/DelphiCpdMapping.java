@@ -22,9 +22,6 @@
  */
 package org.sonar.plugins.delphi.cpd;
 
-import java.io.File;
-import java.lang.annotation.Inherited;
-import java.util.List;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.CpdMapping;
 import org.sonar.api.resources.Language;
@@ -32,39 +29,43 @@ import org.sonar.api.resources.Resource;
 import org.sonar.plugins.delphi.core.DelphiLanguage;
 import org.sonar.plugins.delphi.core.helpers.DelphiProjectHelper;
 
+import java.io.File;
+import java.lang.annotation.Inherited;
+import java.util.List;
+
 /**
  * Mapping for DelphiLanguage language tokens used in CPD analysis
  */
 public class DelphiCpdMapping implements CpdMapping {
 
-  private final DelphiProjectHelper delphiProjectHelper;
+    private final DelphiProjectHelper delphiProjectHelper;
 
-  public DelphiCpdMapping(DelphiProjectHelper delphiProjectHelper) {
-    this.delphiProjectHelper = delphiProjectHelper;
-  }
+    public DelphiCpdMapping(DelphiProjectHelper delphiProjectHelper) {
+        this.delphiProjectHelper = delphiProjectHelper;
+    }
 
-  /**
-   * @return The language tokenizer
-   */
-  @Override
-  public Tokenizer getTokenizer() {
-    return new DelphiCpdTokenizer(delphiProjectHelper);
-  }
+    /**
+     * @return The language tokenizer
+     */
+    @Override
+    public Tokenizer getTokenizer() {
+        return new DelphiCpdTokenizer(delphiProjectHelper);
+    }
 
-  /**
-   * {@link Inherited}
-   */
-  @Override
-  public Resource createResource(File file, List<File> sourceDirs) {
-    throw new UnsupportedOperationException();
-  }
+    /**
+     * {@link Inherited}
+     */
+    @Override
+    public Resource createResource(File file, List<File> sourceDirs) {
+        throw new UnsupportedOperationException();
+    }
 
-  /**
-   * @return Delphi language instance
-   */
-  @Override
-  public Language getLanguage() {
-    return DelphiLanguage.instance;
-  }
+    /**
+     * @return Delphi language instance
+     */
+    @Override
+    public Language getLanguage() {
+        return DelphiLanguage.instance;
+    }
 
 }

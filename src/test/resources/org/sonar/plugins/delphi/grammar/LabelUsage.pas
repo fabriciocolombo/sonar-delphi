@@ -6,15 +6,15 @@ implementation
 
 function ParseBuffer: Integer;
 label
-  redo;
+redo;
 begin
-  repeat
-	  redo : Inc(Result);
+    repeat
+        redo : Inc(Result);
 
-	  goto redo;
-  until true;
+        goto redo;
+    until true;
 
-  redo: Inc(Result);
+    redo: Inc(Result);
 end;
 
 

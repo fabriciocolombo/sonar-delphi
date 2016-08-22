@@ -22,149 +22,150 @@
  */
 package org.sonar.plugins.delphi.antlr.analyzer;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.plugins.delphi.core.language.ClassInterface;
 import org.sonar.plugins.delphi.core.language.FunctionInterface;
 import org.sonar.plugins.delphi.core.language.UnitInterface;
 import org.sonar.plugins.delphi.core.language.impl.UnresolvedFunctionCall;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Holds cached results in static variables
  */
 public class CodeAnalysisCacheResults {
 
-  protected static final Set<UnitInterface> allUnits = new HashSet<>();
-  protected static final Map<String, Map<String, ClassInterface>> allClasses = new HashMap<>();
-  protected static final Map<String, FunctionInterface> allFunctions = new HashMap<>();
-  protected static final Map<String, UnresolvedFunctionCall> unresolvedCalls = new HashMap<>();
+    protected static final Set<UnitInterface> allUnits = new HashSet<>();
+    protected static final Map<String, Map<String, ClassInterface>> allClasses = new HashMap<>();
+    protected static final Map<String, FunctionInterface> allFunctions = new HashMap<>();
+    protected static final Map<String, UnresolvedFunctionCall> unresolvedCalls = new HashMap<>();
 
-  /**
-   * resets results chache
-   */
-  public static void resetCache() {
-    allClasses.clear();
-    allFunctions.clear();
-    allUnits.clear();
-    unresolvedCalls.clear();
-  }
-
-  /**
-   * @return map of unresolved function calls
-   */
-  public Map<String, UnresolvedFunctionCall> getUnresolvedCalls() {
-    return unresolvedCalls;
-  }
-
-  /**
-   * Adds a unresolved function call
-   * 
-   * @param name unresolved function name
-   * @param call the unresolved call
-   */
-  public void addUnresolvedCall(String name, UnresolvedFunctionCall call) {
-    unresolvedCalls.put(name, call);
-  }
-
-  /**
-   * @param classInterface class for search by exampe
-   * @return cached class if found, null otherwise
-   */
-  public ClassInterface getCachedClass(ClassInterface classInterface) {
-    Map<String, ClassInterface> unitClasses = allClasses.get(classInterface.getFileName());
-    if (unitClasses != null) {
-      return unitClasses.get(classInterface.getName());
+    /**
+     * resets results chache
+     */
+    public static void resetCache() {
+        allClasses.clear();
+        allFunctions.clear();
+        allUnits.clear();
+        unresolvedCalls.clear();
     }
-    return null;
-  }
 
-  /**
-   * @param unitName unit where the class is declared
-   * @param classInterface class for search by exampe
-   * @return cached class if found, null otherwise
-   */
-  public ClassInterface getCachedClass(String unitName, ClassInterface classInterface) {
-    final String fileToSearch = File.pathSeparator + unitName + ".pas";
-    Map<String, ClassInterface> unitClasses = null;
-    for (String fileName : allClasses.keySet()) {
-      if (StringUtils.containsIgnoreCase(fileName, fileToSearch)) {
-        unitClasses = allClasses.get(fileName);
-        break;
-      }
+    /**
+     * @return map of unresolved function calls
+     */
+    public Map<String, UnresolvedFunctionCall> getUnresolvedCalls() {
+        return unresolvedCalls;
     }
-    if (unitClasses != null) {
-      return unitClasses.get(classInterface.getName());
+
+    /**
+     * Adds a unresolved function call
+     *
+     * @param name unresolved function name
+     * @param call the unresolved call
+     */
+    public void addUnresolvedCall(String name, UnresolvedFunctionCall call) {
+        unresolvedCalls.put(name, call);
     }
-    return null;
-  }
 
-  /**
-   * @param funcName function name
-   * @return cached function if found, null otherwise
-   */
-  public FunctionInterface getCachedFunction(String funcName) {
-    return allFunctions.get(funcName);
-  }
-
-  /**
-   * @param unit unit
-   * @return true if unit was cached
-   */
-  public boolean hasCachedUnit(UnitInterface unit) {
-    return allUnits.contains(unit);
-  }
-
-  /**
-   * @return set of cached units
-   */
-  public Set<UnitInterface> getCachedUnits() {
-    return allUnits;
-  }
-
-  /**
-   * @return list of cached units
-   */
-  public Set<UnitInterface> getCachedUnitsAsList() {
-    Set<UnitInterface> result = new HashSet<>();
-    result.addAll(allUnits);
-    return result;
-  }
-
-  /**
-   * add new unit to cache
-   * 
-   * @param unit unit to add
-   */
-  public void cacheUnit(UnitInterface unit) {
-    allUnits.add(unit);
-  }
-
-  /**
-   * add new class to cache
-   * 
-   * @param clazz class
-   */
-  public void cacheClass(ClassInterface clazz) {
-    Map<String, ClassInterface> unitClasses = allClasses.get(clazz.getFileName());
-    if (unitClasses == null) {
-      unitClasses = new HashMap<>();
-      allClasses.put(clazz.getFileName(), unitClasses);
+    /**
+     * @param classInterface class for search by exampe
+     * @return cached class if found, null otherwise
+     */
+    public ClassInterface getCachedClass(ClassInterface classInterface) {
+        Map<String, ClassInterface> unitClasses = allClasses.get(classInterface.getFileName());
+        if (unitClasses != null) {
+            return unitClasses.get(classInterface.getName());
+        }
+        return null;
     }
-    unitClasses.put(clazz.getName(), clazz);
-  }
 
-  /**
-   * add new function to cache
-   * 
-   * @param funcName function name
-   * @param function function
-   */
-  public void cacheFunction(String funcName, FunctionInterface function) {
-    allFunctions.put(funcName, function);
-  }
+    /**
+     * @param unitName       unit where the class is declared
+     * @param classInterface class for search by exampe
+     * @return cached class if found, null otherwise
+     */
+    public ClassInterface getCachedClass(String unitName, ClassInterface classInterface) {
+        final String fileToSearch = File.pathSeparator + unitName + ".pas";
+        Map<String, ClassInterface> unitClasses = null;
+        for (String fileName : allClasses.keySet()) {
+            if (StringUtils.containsIgnoreCase(fileName, fileToSearch)) {
+                unitClasses = allClasses.get(fileName);
+                break;
+            }
+        }
+        if (unitClasses != null) {
+            return unitClasses.get(classInterface.getName());
+        }
+        return null;
+    }
+
+    /**
+     * @param funcName function name
+     * @return cached function if found, null otherwise
+     */
+    public FunctionInterface getCachedFunction(String funcName) {
+        return allFunctions.get(funcName);
+    }
+
+    /**
+     * @param unit unit
+     * @return true if unit was cached
+     */
+    public boolean hasCachedUnit(UnitInterface unit) {
+        return allUnits.contains(unit);
+    }
+
+    /**
+     * @return set of cached units
+     */
+    public Set<UnitInterface> getCachedUnits() {
+        return allUnits;
+    }
+
+    /**
+     * @return list of cached units
+     */
+    public Set<UnitInterface> getCachedUnitsAsList() {
+        Set<UnitInterface> result = new HashSet<>();
+        result.addAll(allUnits);
+        return result;
+    }
+
+    /**
+     * add new unit to cache
+     *
+     * @param unit unit to add
+     */
+    public void cacheUnit(UnitInterface unit) {
+        allUnits.add(unit);
+    }
+
+    /**
+     * add new class to cache
+     *
+     * @param clazz class
+     */
+    public void cacheClass(ClassInterface clazz) {
+        Map<String, ClassInterface> unitClasses = allClasses.get(clazz.getFileName());
+        if (unitClasses == null) {
+            unitClasses = new HashMap<>();
+            allClasses.put(clazz.getFileName(), unitClasses);
+        }
+        unitClasses.put(clazz.getName(), clazz);
+    }
+
+    /**
+     * add new function to cache
+     *
+     * @param funcName function name
+     * @param function function
+     */
+    public void cacheFunction(String funcName, FunctionInterface function) {
+        allFunctions.put(funcName, function);
+    }
 
 }

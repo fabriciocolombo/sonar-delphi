@@ -22,25 +22,32 @@
  */
 package org.sonar.plugins.delphi.debug;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.sonar.api.batch.Event;
+import org.sonar.api.batch.AnalysisMode;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.InputModule;
 import org.sonar.api.batch.fs.InputPath;
+import org.sonar.api.batch.rule.ActiveRules;
+import org.sonar.api.batch.sensor.coverage.NewCoverage;
+import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
+import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
+import org.sonar.api.batch.sensor.issue.NewIssue;
+import org.sonar.api.batch.sensor.measure.NewMeasure;
+import org.sonar.api.batch.sensor.symbol.NewSymbolTable;
+import org.sonar.api.config.Settings;
 import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.MeasuresFilter;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.resources.ProjectLink;
 import org.sonar.api.resources.Resource;
-import org.sonar.api.rules.Violation;
+import org.sonar.api.utils.Version;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Debug class used in DelphiSensorTest. It proviedes some overriden functions,
@@ -50,332 +57,311 @@ import org.sonar.api.rules.Violation;
 @SuppressWarnings("rawtypes")
 public class DebugSensorContext implements SensorContext {
 
-  private Map<String, Double> data = new HashMap<String, Double>();
-  private Map<String, String> sdata = new HashMap<String, String>();
-  private List<Violation> violations = new ArrayList<Violation>();
+    private Map<String, Double> data = new HashMap<String, Double>();
+    private Map<String, String> sdata = new HashMap<String, String>();
+    /**
+     * Gets the violation by its index
+     *
+     * @return violation
+     */
 
-  /**
-   * {@inheritDoc}
-   */
+    /**
+     * Gets violation count
+     *
+     * @return Violation count
+     */
 
-  @Override
-  public void saveViolation(Violation violation) {
-    violations.add(violation);
-  }
-
-  /**
-   * Gets the violation by its index
-   * 
-   * @return violation
-   */
-  public Violation getViolation(int index) {
-    return violations.get(index);
-  }
-
-  /**
-   * Gets violation count
-   * 
-   * @return Violation count
-   */
-  public int getViolationsCount() {
-    return violations.size();
-  }
-
-  @Override
-  public <G extends Serializable> Measure<G> getMeasure(Metric<G> metric) {
-    return null;
-  }
-
-  public <G extends Serializable> Measure<G> getMeasure(String key) {
-    if (!data.containsKey(key)) {
-      if (!sdata.containsKey(key)) {
-        throw new IllegalStateException("No key (" + key + ") for sensor context.");
-      }
-      Measure<G> m = new Measure<G>();
-      m.setData(sdata.get(key));
-      return m;
+    @Override
+    public <G extends Serializable> Measure<G> getMeasure(Metric<G> metric) {
+        return null;
     }
-    Measure<G> m = new Measure<G>();
-    m.setValue(data.get(key));
-    m.setData(key);
-    return m;
-  }
 
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public <M> M getMeasures(MeasuresFilter<M> filter) {
-    return null;
-  }
-
-  /**
-   * Get measure keys
-   * 
-   * @return Keys
-   */
-  public Set<String> getMeasuresKeys() {
-    return data.keySet();
-  }
-
-  @Override
-  public Measure<?> saveMeasure(Resource resource, Metric metric, Double value) {
-    data.put(resource.getName() + ":" + metric.getKey(), value);
-    return null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-
-  @Override
-  public Measure saveMeasure(Resource resource, Measure measure) {
-    if (resource == null || measure == null) {
-      return null;
+    public <G extends Serializable> Measure<G> getMeasure(String key) {
+        if (!data.containsKey(key)) {
+            if (!sdata.containsKey(key)) {
+                throw new IllegalStateException("No key (" + key + ") for sensor context.");
+            }
+            Measure<G> m = new Measure<G>();
+            m.setData(sdata.get(key));
+            return m;
+        }
+        Measure<G> m = new Measure<G>();
+        m.setValue(data.get(key));
+        m.setData(key);
+        return m;
     }
-    if (measure.getValue() != null) {
-      data.put(resource.getKey() + ":" + measure.getMetric().getKey(), measure.getValue());
-    } else {
-      sdata.put(resource.getKey() + ":" + measure.getMetric().getKey(), measure.getData());
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public <M> M getMeasures(MeasuresFilter<M> filter) {
+        return null;
     }
-    return null;
-  }
 
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Measure saveMeasure(Measure measure) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Measure saveMeasure(Metric metric, Double value) {
-    return null;
-  }
-
-  @Override
-  public <G extends Serializable> Measure<G> getMeasure(Resource resource, Metric<G> metric) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public String saveResource(Resource resource) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public <M> M getMeasures(Resource resource, MeasuresFilter<M> filter) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public void saveViolations(Collection<Violation> violations) {
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Dependency saveDependency(Dependency dependency) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Set<Dependency> getDependencies() {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Collection<Dependency> getIncomingDependencies(Resource to) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Collection<Dependency> getOutgoingDependencies(Resource from) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public void saveSource(Resource resource, String source) {
-
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public void saveLink(ProjectLink link) {
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public void deleteLink(String key) {
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public List<Event> getEvents(Resource resource) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Event createEvent(Resource resource, String name, String description, String category, Date date) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public void deleteEvent(Event event) {
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public boolean index(Resource resource) {
-    return false;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public boolean index(Resource resource, Resource parentReference) {
-    return false;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public boolean isExcluded(Resource reference) {
-    return false;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public boolean isIndexed(Resource reference, boolean acceptExcluded) {
-    return false;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public <R extends Resource> R getResource(R reference) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-  @Override
-  public Resource getResource(InputPath inputPath) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Resource getParent(Resource reference) {
-    return null;
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public Collection<Resource> getChildren(Resource reference) {
-    return null;
-  }
-
-  /**
-   * Save forced violation
-   */
-
-  @Override
-  public void saveViolation(Violation violation, boolean force) {
-    saveViolation(violation);
-  }
-
-  @Override
-  public Measure saveMeasure(InputFile inputFile, Metric metric, Double value) {
-    data.put(inputFile.file().getName() + ":" + metric.getKey(), value);
-    return null;
-  }
-
-  @Override
-  public Measure saveMeasure(InputFile inputFile, Measure measure) {
-    if (inputFile == null || measure == null) {
-      return null;
+    /**
+     * Get measure keys
+     *
+     * @return Keys
+     */
+    public Set<String> getMeasuresKeys() {
+        return data.keySet();
     }
-    if (measure.getValue() != null) {
-      data.put(inputFile.file().getName() + ":" + measure.getMetric().getKey(), measure.getValue());
-    } else {
-      sdata.put(inputFile.file().getName() + ":" + measure.getMetric().getKey(), measure.getData());
+
+    @Override
+    public Measure<?> saveMeasure(Resource resource, Metric metric, Double value) {
+        data.put(resource.getName() + ":" + metric.getKey(), value);
+        return null;
     }
-    return null;
-  }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    @Override
+    public Measure saveMeasure(Resource resource, Measure measure) {
+        if (resource == null || measure == null) {
+            return null;
+        }
+        if (measure.getValue() != null) {
+            data.put(resource.getKey() + ":" + measure.getMetric().getKey(), measure.getValue());
+        } else {
+            sdata.put(resource.getKey() + ":" + measure.getMetric().getKey(), measure.getData());
+        }
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public Measure saveMeasure(Measure measure) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public Measure saveMeasure(Metric metric, Double value) {
+        return null;
+    }
+
+    @Override
+    public <G extends Serializable> Measure<G> getMeasure(Resource resource, Metric<G> metric) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public String saveResource(Resource resource) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public <M> M getMeasures(Resource resource, MeasuresFilter<M> filter) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public Dependency saveDependency(Dependency dependency) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public void saveSource(Resource resource, String source) {
+
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public boolean index(Resource resource) {
+        return false;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public boolean index(Resource resource, Resource parentReference) {
+        return false;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public boolean isExcluded(Resource reference) {
+        return false;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public boolean isIndexed(Resource reference, boolean acceptExcluded) {
+        return false;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public <R extends Resource> R getResource(R reference) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+    @Override
+    public Resource getResource(InputPath inputPath) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public Resource getParent(Resource reference) {
+        return null;
+    }
+
+    /**
+     * Unused, not implemented
+     */
+
+    @Override
+    public Collection<Resource> getChildren(Resource reference) {
+        return null;
+    }
+
+    @Override
+    public Measure saveMeasure(InputFile inputFile, Metric metric, Double value) {
+        data.put(inputFile.file().getName() + ":" + metric.getKey(), value);
+        return null;
+    }
+
+    @Override
+    public Measure saveMeasure(InputFile inputFile, Measure measure) {
+        if (inputFile == null || measure == null) {
+            return null;
+        }
+        if (measure.getValue() != null) {
+            data.put(inputFile.file().getName() + ":" + measure.getMetric().getKey(), measure.getValue());
+        } else {
+            sdata.put(inputFile.file().getName() + ":" + measure.getMetric().getKey(), measure.getData());
+        }
+        return null;
+    }
+
+    @Override
+    public Settings settings() {
+        return null;
+    }
+
+    @Override
+    public FileSystem fileSystem() {
+        return null;
+    }
+
+    @Override
+    public ActiveRules activeRules() {
+        return null;
+    }
+
+    /**
+     * @since 5.5
+     */
+    @Override
+    public InputModule module() {
+        return null;
+    }
+
+    /**
+     * @since 5.5
+     */
+    @Override
+    public Version getSonarQubeVersion() {
+        return null;
+    }
+
+    /**
+     * Get analysis mode.
+     */
+
+    public AnalysisMode analysisMode() {
+        return null;
+    }
+
+
+    @Override
+    public <G extends Serializable> NewMeasure<G> newMeasure() {
+        return null;
+    }
+
+    @Override
+    public NewIssue newIssue() {
+        return null;
+    }
+
+    @Override
+    public NewHighlighting newHighlighting() {
+        return null;
+    }
+
+    /**
+     * Builder to define symbol table of a file. Don't forget to call {@link NewSymbolTable#save()} once all symbols are provided.
+     *
+     * @since 5.6
+     */
+    @Override
+    public NewSymbolTable newSymbolTable() {
+        return null;
+    }
+
+
+    @Override
+    public NewCoverage newCoverage() {
+        return null;
+    }
+
+    /**
+     * Builder to define CPD tokens in a file.
+     * Don't forget to call {@link NewCpdTokens#save()}.
+     *
+     * @since 5.5
+     */
+    @Override
+    public NewCpdTokens newCpdTokens() {
+        return null;
+    }
 
 }
